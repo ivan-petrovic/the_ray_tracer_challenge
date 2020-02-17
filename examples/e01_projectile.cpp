@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Vector4.h"
-#include "Color.h"
-#include "Canvas.h"
+#include "../Vector4.h"
+#include "../Color.h"
+#include "../Canvas.h"
 
 class Projectile {
 public:

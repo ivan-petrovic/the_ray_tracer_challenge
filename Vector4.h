@@ -7,8 +7,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#ifndef __Vector4_H_INCLUDED__
-#define __Vector4_H_INCLUDED__
+#ifndef __VECTOR4_H_INCLUDED__
+#define __VECTOR4_H_INCLUDED__
 
 #include <math.h>
 
@@ -200,13 +200,13 @@ inline float distanceSquared(const Vector4 &a, const Vector4 &b) {
 // We provide a global zero vector constant
 
 // extern const Vector4 kZeroVector;
-Vector4 make_point(float nx, float ny, float nz) {
+inline Vector4 make_point(float nx, float ny, float nz) {
     return Vector4(nx, ny, nz, 1.0f);
 }
 
-Vector4 make_vector(float nx, float ny, float nz) {
+inline Vector4 make_vector(float nx, float ny, float nz) {
     return Vector4(nx, ny, nz, 0.0f);
 }
 
 /////////////////////////////////////////////////////////////////////////////
-#endif // #ifndef __Vector4_H_INCLUDED__
+#endif // #ifndef __VECTOR4_H_INCLUDED__
