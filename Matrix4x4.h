@@ -3,6 +3,7 @@
 
 // #include "Vector4.h"
 class Vector4;
+class Matrix3x3;
 
 class Matrix4x4 {
 public:
@@ -48,9 +49,16 @@ Vector4 &operator*=(const Matrix4x4 &m, Vector4 &p);
 Matrix4x4 transpose(const Matrix4x4 &m);
 
 // Compute the determinant of the 4x4 portion of the matrix
-
 float determinant(const Matrix4x4 &m);
 
+Matrix3x3 submatrix(const Matrix4x4 &m, int row, int col);
 
+float cofactor(const Matrix4x4 &m, int row, int col);
+
+Matrix4x4 inverse(const Matrix4x4 &m);
+
+Matrix4x4 translation(float dx, float dy, float dz);
+
+Matrix4x4 scaling(float sx, float sy, float sz);
 
 #endif // __MATRIX4X4_INCLUDED__

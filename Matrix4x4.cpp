@@ -1,4 +1,5 @@
 #include "Matrix4x4.h"
+#include "Matrix3x3.h"
 #include "Vector4.h"
 
 void Matrix4x4::set_row_by_row(
@@ -13,11 +14,20 @@ void Matrix4x4::set_row_by_row(
     m30 = m30_; m31 = m31_; m32 = m32_; m33 = m33_;
 }
 
+// bool Matrix4x4::operator ==(const Matrix4x4 &a) const {
+//     return m00 == a.m00 && m01 == a.m01 && m02 == a.m02 && m03 == a.m03 &&
+//            m10 == a.m10 && m11 == a.m11 && m12 == a.m12 && m13 == a.m13 &&
+//            m20 == a.m20 && m21 == a.m21 && m22 == a.m22 && m23 == a.m23 &&
+//            m30 == a.m30 && m31 == a.m31 && m32 == a.m32 && m33 == a.m33;
+// }
+
 bool Matrix4x4::operator ==(const Matrix4x4 &a) const {
-    return m00 == a.m00 && m01 == a.m01 && m02 == a.m02 && m03 == a.m03 &&
-           m10 == a.m10 && m11 == a.m11 && m12 == a.m12 && m13 == a.m13 &&
-           m20 == a.m20 && m21 == a.m21 && m22 == a.m22 && m23 == a.m23 &&
-           m30 == a.m30 && m31 == a.m31 && m32 == a.m32 && m33 == a.m33;
+    const float EPSILON = 0.0001f;
+
+    return abs(m00 - a.m00) < EPSILON && abs(m01 - a.m01) < EPSILON && abs(m02 - a.m02) < EPSILON && abs(m03 - a.m03) < EPSILON &&
+           abs(m10 - a.m10) < EPSILON && abs(m11 - a.m11) < EPSILON && abs(m12 - a.m12) < EPSILON && abs(m13 - a.m13) < EPSILON &&
+           abs(m20 - a.m20) < EPSILON && abs(m21 - a.m21) < EPSILON && abs(m22 - a.m22) < EPSILON && abs(m23 - a.m23) < EPSILON &&
+           abs(m30 - a.m30) < EPSILON && abs(m31 - a.m31) < EPSILON && abs(m32 - a.m32) < EPSILON && abs(m33 - a.m33) < EPSILON;
 }
 
 bool Matrix4x4::operator !=(const Matrix4x4 &a) const {
@@ -96,6 +106,152 @@ Matrix4x4 transpose(const Matrix4x4 &m) {
 
 // Compute the determinant of the 4x4 portion of the matrix
 float determinant(const Matrix4x4 &m) {
-    return 0;
+    return
+        m.m00 * cofactor(m,0,0) +
+        m.m01 * cofactor(m,0,1) +
+        m.m02 * cofactor(m,0,2) +
+        m.m03 * cofactor(m,0,3);
 }
 
+Matrix3x3 submatrix(const Matrix4x4 &m, int row, int col) {
+    Matrix3x3 r;
+
+    if(row == 0) {
+        if(col == 0) {
+            r.m00 = m.m11; r.m01 = m.m12; r.m02 = m.m13;
+            r.m10 = m.m21; r.m11 = m.m22; r.m12 = m.m23;
+            r.m20 = m.m31; r.m21 = m.m32; r.m22 = m.m33;
+        }
+        if(col == 1) {
+            r.m00 = m.m10; r.m01 = m.m12; r.m02 = m.m13;
+            r.m10 = m.m20; r.m11 = m.m22; r.m12 = m.m23;
+            r.m20 = m.m30; r.m21 = m.m32; r.m22 = m.m33;
+        }
+        if(col == 2) {
+            r.m00 = m.m10; r.m01 = m.m11; r.m02 = m.m13;
+            r.m10 = m.m20; r.m11 = m.m21; r.m12 = m.m23;
+            r.m20 = m.m30; r.m21 = m.m31; r.m22 = m.m33;
+        }
+        if(col == 3) {
+            r.m00 = m.m10; r.m01 = m.m11; r.m02 = m.m12;
+            r.m10 = m.m20; r.m11 = m.m21; r.m12 = m.m22;
+            r.m20 = m.m30; r.m21 = m.m31; r.m22 = m.m32;
+        }
+    }
+
+    if(row == 1) {
+        if(col == 0) {
+            r.m00 = m.m01; r.m01 = m.m02; r.m02 = m.m03;
+            r.m10 = m.m21; r.m11 = m.m22; r.m12 = m.m23;
+            r.m20 = m.m31; r.m21 = m.m32; r.m22 = m.m33;
+        }
+        if(col == 1) {
+            r.m00 = m.m00; r.m01 = m.m02; r.m02 = m.m03;
+            r.m10 = m.m20; r.m11 = m.m22; r.m12 = m.m23;
+            r.m20 = m.m30; r.m21 = m.m32; r.m22 = m.m33;
+        }
+        if(col == 2) {
+            r.m00 = m.m00; r.m01 = m.m01; r.m02 = m.m03;
+            r.m10 = m.m20; r.m11 = m.m21; r.m12 = m.m23;
+            r.m20 = m.m30; r.m21 = m.m31; r.m22 = m.m33;
+        }
+        if(col == 3) {
+            r.m00 = m.m00; r.m01 = m.m01; r.m02 = m.m02;
+            r.m10 = m.m20; r.m11 = m.m21; r.m12 = m.m22;
+            r.m20 = m.m30; r.m21 = m.m31; r.m22 = m.m32;
+        }
+    }
+
+    if(row == 2) {
+        if(col == 0) {
+            r.m00 = m.m01; r.m01 = m.m02; r.m02 = m.m03;
+            r.m10 = m.m11; r.m11 = m.m12; r.m12 = m.m13;
+            r.m20 = m.m31; r.m21 = m.m32; r.m22 = m.m33;
+        }
+        if(col == 1) {
+            r.m00 = m.m00; r.m01 = m.m02; r.m02 = m.m03;
+            r.m10 = m.m10; r.m11 = m.m12; r.m12 = m.m13;
+            r.m20 = m.m30; r.m21 = m.m32; r.m22 = m.m33;
+        }
+        if(col == 2) {
+            r.m00 = m.m00; r.m01 = m.m01; r.m02 = m.m03;
+            r.m10 = m.m10; r.m11 = m.m11; r.m12 = m.m13;
+            r.m20 = m.m30; r.m21 = m.m31; r.m22 = m.m33;
+        }
+        if(col == 3) {
+            r.m00 = m.m00; r.m01 = m.m01; r.m02 = m.m02;
+            r.m10 = m.m10; r.m11 = m.m11; r.m12 = m.m12;
+            r.m20 = m.m30; r.m21 = m.m31; r.m22 = m.m32;
+        }
+    }
+
+    if(row == 3) {
+        if(col == 0) {
+            r.m00 = m.m01; r.m01 = m.m02; r.m02 = m.m03;
+            r.m10 = m.m11; r.m11 = m.m12; r.m12 = m.m13;
+            r.m20 = m.m21; r.m21 = m.m22; r.m22 = m.m23;
+        }
+        if(col == 1) {
+            r.m00 = m.m00; r.m01 = m.m02; r.m02 = m.m03;
+            r.m10 = m.m10; r.m11 = m.m12; r.m12 = m.m13;
+            r.m20 = m.m20; r.m21 = m.m22; r.m22 = m.m23;
+        }
+        if(col == 2) {
+            r.m00 = m.m00; r.m01 = m.m01; r.m02 = m.m03;
+            r.m10 = m.m10; r.m11 = m.m11; r.m12 = m.m13;
+            r.m20 = m.m20; r.m21 = m.m21; r.m22 = m.m23;
+        }
+        if(col == 3) {
+            r.m00 = m.m00; r.m01 = m.m01; r.m02 = m.m02;
+            r.m10 = m.m10; r.m11 = m.m11; r.m12 = m.m12;
+            r.m20 = m.m20; r.m21 = m.m21; r.m22 = m.m22;
+        }
+    }
+
+    return r;
+}
+
+float cofactor(const Matrix4x4 &m, int row, int col) {
+    float cofactor_sign = ((row + col) % 2 == 0) ? 1 : -1;
+    return cofactor_sign * determinant(submatrix(m, row, col));
+}
+
+Matrix4x4 inverse(const Matrix4x4 &m) {
+    Matrix4x4 r;
+    float det = determinant(m);
+
+    // r.m00 = cofactor(m,0,0)/det; r.m01 = cofactor(m,0,1)/det; r.m02 = cofactor(m,0,2)/det; r.m03 = cofactor(m,0,3)/det;
+    // r.m10 = cofactor(m,1,0)/det; r.m11 = cofactor(m,1,1)/det; r.m12 = cofactor(m,1,2)/det; r.m13 = cofactor(m,1,3)/det;
+    // r.m20 = cofactor(m,2,0)/det; r.m21 = cofactor(m,2,1)/det; r.m22 = cofactor(m,2,2)/det; r.m23 = cofactor(m,2,3)/det;
+    // r.m30 = cofactor(m,3,0)/det; r.m31 = cofactor(m,3,1)/det; r.m32 = cofactor(m,3,2)/det; r.m33 = cofactor(m,3,3)/det;
+
+    // return transpose(r);
+
+    // transpose while calculating
+    r.m00 = cofactor(m,0,0)/det; r.m10 = cofactor(m,0,1)/det; r.m20 = cofactor(m,0,2)/det; r.m30 = cofactor(m,0,3)/det;
+    r.m01 = cofactor(m,1,0)/det; r.m11 = cofactor(m,1,1)/det; r.m21 = cofactor(m,1,2)/det; r.m31 = cofactor(m,1,3)/det;
+    r.m02 = cofactor(m,2,0)/det; r.m12 = cofactor(m,2,1)/det; r.m22 = cofactor(m,2,2)/det; r.m32 = cofactor(m,2,3)/det;
+    r.m03 = cofactor(m,3,0)/det; r.m13 = cofactor(m,3,1)/det; r.m23 = cofactor(m,3,2)/det; r.m33 = cofactor(m,3,3)/det;
+
+    return r;
+}
+
+Matrix4x4 translation(float dx, float dy, float dz) {
+    Matrix4x4 r;
+    r.identity();
+    r.m03 = dx;
+    r.m13 = dy;
+    r.m23 = dz;
+
+    return r;
+}
+
+Matrix4x4 scaling(float sx, float sy, float sz) {
+    Matrix4x4 r;
+    r.identity();
+    r.m00 = sx;
+    r.m11 = sy;
+    r.m22 = sz;
+
+    return r;
+}
