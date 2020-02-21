@@ -1,5 +1,6 @@
+// g++ test_color.cpp
 #include <iostream>
-#include "Color.h"
+#include "../Color.h"
 
 bool color_creation();
 bool adding_colors();

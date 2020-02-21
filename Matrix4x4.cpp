@@ -255,3 +255,41 @@ Matrix4x4 scaling(float sx, float sy, float sz) {
 
     return r;
 }
+
+float radians(float deg) {
+    const float PI = 3.14159f;
+    return deg * PI / 180.0f;
+}
+
+Matrix4x4 rotation_x(float rad) {
+    Matrix4x4 r;
+    r.identity();
+    float s = sin(rad);
+    float c = cos(rad);
+    r.m11 = c; r.m12 = -s;
+    r.m21 = s; r.m22 = c;
+
+    return r;
+}
+
+Matrix4x4 rotation_y(float rad) {
+    Matrix4x4 r;
+    r.identity();
+    float s = sin(rad);
+    float c = cos(rad);
+    r.m00 = c; r.m02 = s;
+    r.m20 = -s; r.m22 = c;
+
+    return r;
+}
+
+Matrix4x4 rotation_z(float rad) {
+    Matrix4x4 r;
+    r.identity();
+    float s = sin(rad);
+    float c = cos(rad);
+    r.m00 = c; r.m01 = -s;
+    r.m10 = s; r.m11 = c;
+
+    return r;
+}

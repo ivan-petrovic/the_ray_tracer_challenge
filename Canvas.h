@@ -1,5 +1,5 @@
-#ifndef __Canvas_H_INCLUDED__
-#define __Canvas_H_INCLUDED__
+#ifndef __CANVAS_H_INCLUDED__
+#define __CANVAS_H_INCLUDED__
 
 #include <iostream>
 #include <fstream>
@@ -50,12 +50,11 @@ std::vector<std::string> canvas_to_ppm(const Canvas & canvas) {
 
     // PPM file header
     std::stringstream header;
-    // header << "P3\n" << canvas.width << ' ' << canvas.height << '\n' << "255\n";
     header << canvas.width << ' ' << canvas.height << '\n';
+
     result.push_back("P3\n");
     result.push_back(header.str());
     result.push_back("255\n");
-    // result.push_back(header.str());
 
     // PPM file data
     std::string current_line;
@@ -66,15 +65,9 @@ std::vector<std::string> canvas_to_ppm(const Canvas & canvas) {
             Color c = canvas.pixel_at(col, row);
             std::stringstream ss;
 
-            // std::cout << c.r << " " << c.g << " " << c.b << "\n";
-
-            // std::cout << convert_to_0_255_range(c.r) << " "
-            //     << convert_to_0_255_range(c.g) << " "
-            //     << convert_to_0_255_range(c.b) << "\n";
-
             ss << convert_to_0_255_range(c.r) << " "
                 << convert_to_0_255_range(c.g) << " "
-                << convert_to_0_255_range(c.b); // << (col == canvas.width - 1 ? "" : " ");
+                << convert_to_0_255_range(c.b);
             
             current_line += ss.str();
 
@@ -97,7 +90,9 @@ std::vector<std::string> canvas_to_ppm(const Canvas & canvas) {
     return result;
 }
 
-bool save_ppm_file(std::vector<std::string> data, std::string fname) {
+bool save_to_ppm_file(const Canvas & canvas, std::string fname) {
+    std::vector<std::string> data = canvas_to_ppm(canvas);
+
     std::ofstream output_file(fname);
     
     if (output_file.is_open()) {
@@ -106,11 +101,10 @@ bool save_ppm_file(std::vector<std::string> data, std::string fname) {
         }
         output_file.close();
     } else {
-        // std::cout << "Unable to open file";
         return false;
     } 
     
     return true;
 }
 
-#endif // __Canvas_H_INCLUDED__
+#endif // __CANVAS_H_INCLUDED__

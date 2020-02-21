@@ -1,5 +1,6 @@
+// g++ test_vector.cpp
 #include <iostream>
-#include "Vector4.h"
+#include "../Vector4.h"
 
 bool check_vector4_point_creation();
 bool check_point_creation();

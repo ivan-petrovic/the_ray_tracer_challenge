@@ -1,8 +1,9 @@
+// g++ test_canvas.cpp
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Canvas.h"
-#include "Color.h"
+#include "../Canvas.h"
+#include "../Color.h"
 
 bool canvas_creation();
 bool writing_pixels_to_canvas();

@@ -52,12 +52,22 @@ public:
 
 	// Check for equality
 
+	// bool operator ==(const Vector4 &a) const {
+	// 	return x==a.x && y==a.y && z==a.z;
+	// }
+
 	bool operator ==(const Vector4 &a) const {
-		return x==a.x && y==a.y && z==a.z;
+		const float EPSILON = 0.0001f;
+    	return (abs(x - a.x) < EPSILON) && (abs(y - a.y) < EPSILON) && (abs(z - a.z) < EPSILON);
 	}
 
+	// bool operator !=(const Vector4 &a) const {
+	// 	return x!=a.x || y!=a.y || z!=a.z;
+	// }
+
 	bool operator !=(const Vector4 &a) const {
-		return x!=a.x || y!=a.y || z!=a.z;
+		const float EPSILON = 0.0001f;
+    	return (abs(x - a.x) > EPSILON) || (abs(y - a.y) > EPSILON) || (abs(z - a.z) > EPSILON);
 	}
 
 // Vector operations

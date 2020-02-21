@@ -61,4 +61,10 @@ Matrix4x4 translation(float dx, float dy, float dz);
 
 Matrix4x4 scaling(float sx, float sy, float sz);
 
+float radians(float deg);
+
+Matrix4x4 rotation_x(float rad);
+Matrix4x4 rotation_y(float rad);
+Matrix4x4 rotation_z(float rad);
+
 #endif // __MATRIX4X4_INCLUDED__
