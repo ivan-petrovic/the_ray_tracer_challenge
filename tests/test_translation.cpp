@@ -13,7 +13,7 @@ int main() {
     int cnt_failed = 0;
     int cnt_passed = 0;
 
-    std::cout << "Test Matrix2x2 class\n";
+    std::cout << "Test translation\n";
     std::cout << "--------------------\n";
 
     if(!test_multiplying_by_a_translation_matrix()) {

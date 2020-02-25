@@ -14,7 +14,7 @@ int main() {
     int cnt_failed = 0;
     int cnt_passed = 0;
 
-    std::cout << "Test Matrix2x2 class\n";
+    std::cout << "Test scaling\n";
     std::cout << "--------------------\n";
 
     if(!test_scaling_applied_to_a_point()) {

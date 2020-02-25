@@ -293,3 +293,14 @@ Matrix4x4 rotation_z(float rad) {
 
     return r;
 }
+
+Matrix4x4 shearing(float xy, float xz, float yx, float yz, float zx, float zy) {
+    Matrix4x4 r;
+    r.identity();
+    
+    r.m01 = xy; r.m02 = xz;
+    r.m10 = yx; r.m12 = yz;
+    r.m20 = zx; r.m21 = zy;
+
+    return r;
+}

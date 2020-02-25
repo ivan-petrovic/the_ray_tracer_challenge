@@ -67,4 +67,6 @@ Matrix4x4 rotation_x(float rad);
 Matrix4x4 rotation_y(float rad);
 Matrix4x4 rotation_z(float rad);
 
+Matrix4x4 shearing(float xy, float xz, float yx, float yz, float zx, float zy);
+
 #endif // __MATRIX4X4_INCLUDED__

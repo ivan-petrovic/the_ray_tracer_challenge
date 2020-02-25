@@ -1,3 +1,4 @@
+// g++ e01_projectile.cpp
 #include <iostream>
 #include "../Vector4.h"
 #include "../Color.h"
@@ -45,7 +46,7 @@ int main() {
         tick(env, proj);
     }
 
-    save_ppm_file(canvas_to_ppm(canvas), "temp.ppm");
+    save_to_ppm_file(canvas, "temp.ppm");
 
     return 0;
 }

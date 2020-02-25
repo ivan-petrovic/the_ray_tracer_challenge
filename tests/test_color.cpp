@@ -6,6 +6,7 @@ bool color_creation();
 bool adding_colors();
 bool subtracting_colors();
 bool multiplying_color_by_a_scalar();
+bool dividing_color_by_a_scalar();
 bool multiplying_colors();
 
 int main() {
@@ -25,7 +26,10 @@ int main() {
     
     if(!multiplying_color_by_a_scalar()) { cnt_failed += 1; std::cout << "multiplying_color_by_a_scalar() failed\n"; }
     else { cnt_passed += 1; }
-    
+
+    if(!dividing_color_by_a_scalar()) { cnt_failed += 1; std::cout << "dividing_color_by_a_scalar() failed\n"; }
+    else { cnt_passed += 1; }
+
     if(!multiplying_colors()) { cnt_failed += 1; std::cout << "multiplying_colors() failed\n"; }
     else { cnt_passed += 1; }
 
@@ -85,6 +89,21 @@ bool multiplying_color_by_a_scalar() {
     Color expected_result(0.4f, 0.6f, 0.8f);
     
     Color actual_result = c * 2.0f;
+
+    if (abs(expected_result.r - actual_result.r) > EPSILON) return false;
+    if (abs(expected_result.g - actual_result.g) > EPSILON) return false;
+    if (abs(expected_result.b - actual_result.b) > EPSILON) return false;
+
+    return true; 
+}
+
+bool dividing_color_by_a_scalar() {
+    const float EPSILON = 0.0001f;
+
+    Color c(0.2f, 0.3f, 0.4f);
+    Color expected_result(0.1f, 0.15f, 0.2f);
+    
+    Color actual_result = c / 2.0f;
 
     if (abs(expected_result.r - actual_result.r) > EPSILON) return false;
     if (abs(expected_result.g - actual_result.g) > EPSILON) return false;

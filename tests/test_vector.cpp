@@ -24,6 +24,9 @@ int main() {
     int cnt_failed = 0;
     int cnt_passed = 0;
 
+    std::cout << "Test vector class\n";
+    std::cout << "--------------------\n";
+
     if(!check_vector4_point_creation()) { cnt_failed += 1; std::cout << "check_vector4_point_creation() failed\n"; }
     else { cnt_passed += 1; }
 
