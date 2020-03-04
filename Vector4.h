@@ -165,6 +165,13 @@ inline float vectorMag(const Vector4 &a) {
 	return sqrt(a.x*a.x + a.y*a.y + a.z*a.z);
 }
 
+// Compute normalized vector, but don't change the original vector
+inline Vector4 normalize(const Vector4 &a) {
+	Vector4 r = a;
+	r.normalize();
+	return r;
+}
+
 // Compute the cross product of two vectors (lefhand)
 
 inline Vector4 crossProduct(const Vector4 &a, const Vector4 &b) {
