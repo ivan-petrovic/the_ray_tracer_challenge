@@ -11,6 +11,8 @@ bool normal_on_a_sphere_at_a_point_on_the_z_axis();
 bool the_normal_is_a_normalized_vector();
 bool computing_the_normal_on_a_translated_sphere();
 bool computing_the_normal_on_a_transformad_sphere();
+bool sphere_has_a_default_material();
+bool sphere_can_be_assigned_a_material();
 
 
 int main() {
@@ -57,6 +59,16 @@ int main() {
     if(!computing_the_normal_on_a_transformad_sphere()) {
         cnt_failed += 1;
         std::cout << "computing_the_normal_on_a_transformad_sphere failed\n";
+    } else { cnt_passed += 1; }
+
+    if(!sphere_has_a_default_material()) {
+        cnt_failed += 1;
+        std::cout << "sphere_has_a_default_material failed\n";
+    } else { cnt_passed += 1; }
+
+    if(!sphere_can_be_assigned_a_material()) {
+        cnt_failed += 1;
+        std::cout << "sphere_can_be_assigned_a_material failed\n";
     } else { cnt_passed += 1; }
 
     std::cout << "\nTotal:  " << cnt_passed + cnt_failed << " tests.\n";
@@ -160,6 +172,35 @@ bool computing_the_normal_on_a_transformad_sphere() {
     Vector4 n = sphere.normal_at(point_on_surface);
     
     if (n != make_vector(0.0f, 0.97014f, -0.24254f)) return false;
+
+    return true; 
+}
+
+bool sphere_has_a_default_material() {
+    Sphere sphere;
+    Material m;
+
+    if (sphere.material.color != m.color) return false;
+    if (sphere.material.ambient != m.ambient) return false;
+    if (sphere.material.diffuse != m.diffuse) return false;
+    if (sphere.material.specular != m.specular) return false;
+    if (sphere.material.shininess != m.shininess) return false;
+
+    return true; 
+}
+
+bool sphere_can_be_assigned_a_material() {
+    Sphere sphere;
+    Material m;
+    m.ambient = 1.0f;
+
+    sphere.material = m;
+
+    if (sphere.material.color != m.color) return false;
+    if (sphere.material.ambient != m.ambient) return false;
+    if (sphere.material.diffuse != m.diffuse) return false;
+    if (sphere.material.specular != m.specular) return false;
+    if (sphere.material.shininess != m.shininess) return false;
 
     return true; 
 }

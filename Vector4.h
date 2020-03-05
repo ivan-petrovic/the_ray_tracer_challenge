@@ -208,6 +208,14 @@ inline float distanceSquared(const Vector4 &a, const Vector4 &b) {
 	return dx*dx + dy*dy + dz*dz;
 }
 
+// Compute the reflection vector
+
+inline Vector4 reflect(const Vector4 &in, const Vector4 &normal) {
+	return in - 2.0f * (in * normal) * normal;
+	//                  ^^^^^^^^^^^
+	//                  dot product
+}
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Global variables
