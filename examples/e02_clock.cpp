@@ -1,9 +1,9 @@
 // g++ e02_clock.cpp ../Matrix4x4.cpp ../Matrix3x3.cpp ../Matrix2x2.cpp
 #include <iostream>
-#include "../Vector4.h"
-#include "../Matrix4x4.h"
-#include "../Color.h"
-#include "../Canvas.h"
+#include "../first_version/Vector4.h"
+#include "../first_version/Matrix4x4.h"
+#include "../first_version/Color.h"
+#include "../first_version/Canvas.h"
 
 
 int main() {

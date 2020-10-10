@@ -1,12 +1,12 @@
 // g++ e05_sphere_silhouette.cpp ../Matrix4x4.cpp ../Matrix3x3.cpp ../Matrix2x2.cpp ../Intersection.cpp
 #include <iostream>
-#include "../Vector4.h"
-#include "../Matrix4x4.h"
-#include "../Ray.h"
-#include "../Sphere.h"
-#include "../Intersection.h"
-#include "../Color.h"
-#include "../Canvas.h"
+#include "../first_version/Vector4.h"
+#include "../first_version/Matrix4x4.h"
+#include "../first_version/Ray.h"
+#include "../first_version/Sphere.h"
+#include "../first_version/Intersection.h"
+#include "../first_version/Color.h"
+#include "../first_version/Canvas.h"
 
 
 int main() {

@@ -1,8 +1,8 @@
 // g++ e01_projectile.cpp
 #include <iostream>
-#include "../Vector4.h"
-#include "../Color.h"
-#include "../Canvas.h"
+#include "../first_version/Vector4.h"
+#include "../first_version/Color.h"
+#include "../first_version/Canvas.h"
 
 class Projectile {
 public:
