@@ -125,6 +125,11 @@ namespace mn {
     inline Tuple hadamard(const Tuple &a, const Tuple &b) {
         return a * b;
     }
+
+    typedef Tuple Point;
+    typedef Tuple Vector;
+    typedef Tuple Color;
+
 }
 
 #endif //THE_RAY_TRACER_CHALLENGE_TUPLE_H
