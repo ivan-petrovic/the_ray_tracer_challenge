@@ -3,7 +3,6 @@
 //
 #include "Canvas.h"
 #include "Tuple.h"
-#include "rtc.h"
 
 // Colors are red, green, blue tuples
 int main() {

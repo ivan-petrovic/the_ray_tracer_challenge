@@ -2,7 +2,6 @@
 // Created by ivan on 8.10.2020..
 //
 #include "Tuple.h"
-#include "rtc.h"
 
 int main() {
     mn::Tuple a = mn::vector(1.0f, 2.0f, 3.0f);

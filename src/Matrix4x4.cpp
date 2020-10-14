@@ -1,0 +1,214 @@
+//
+// Created by ivan on 12.10.2020..
+//
+#include "Matrix4x4.h"
+
+namespace mn {
+
+    void Matrix4x4::set_row_by_row(
+            double m00_, double m01_, double m02_, double m03_,
+            double m10_, double m11_, double m12_, double m13_,
+            double m20_, double m21_, double m22_, double m23_,
+            double m30_, double m31_, double m32_, double m33_
+    ) {
+        m00 = m00_;
+        m01 = m01_;
+        m02 = m02_;
+        m03 = m03_;
+        m10 = m10_;
+        m11 = m11_;
+        m12 = m12_;
+        m13 = m13_;
+        m20 = m20_;
+        m21 = m21_;
+        m22 = m22_;
+        m23 = m23_;
+        m30 = m30_;
+        m31 = m31_;
+        m32 = m32_;
+        m33 = m33_;
+    }
+
+// Check equality
+    bool Matrix4x4::operator==(const Matrix4x4 &a) const {
+        return m00 == a.m00 && m01 == a.m01 && m02 == a.m02 && m03 == a.m03 &&
+               m10 == a.m10 && m11 == a.m11 && m12 == a.m12 && m13 == a.m13 &&
+               m20 == a.m20 && m21 == a.m21 && m22 == a.m22 && m23 == a.m23 &&
+               m30 == a.m30 && m31 == a.m31 && m32 == a.m32 && m33 == a.m33;
+    }
+
+    bool Matrix4x4::operator!=(const Matrix4x4 &a) const {
+        return m00 != a.m00 || m01 != a.m01 || m02 != a.m02 || m03 != a.m03 ||
+               m10 != a.m10 || m11 != a.m11 || m12 != a.m12 || m13 != a.m13 ||
+               m20 != a.m20 || m21 != a.m21 || m22 != a.m22 || m23 != a.m23 ||
+               m30 != a.m30 || m31 != a.m31 || m32 != a.m32 || m33 != a.m33;
+    }
+
+    void Matrix4x4::identity() {
+        m00 = 1.0;
+        m01 = 0.0;
+        m02 = 0.0;
+        m03 = 0.0;
+
+        m10 = 0.0;
+        m11 = 1.0;
+        m12 = 0.0;
+        m13 = 0.0;
+
+        m20 = 0.0;
+        m21 = 0.0;
+        m22 = 1.0;
+        m23 = 0.0;
+
+        m30 = 0.0;
+        m31 = 0.0;
+        m32 = 0.0;
+        m33 = 1.0;
+    }
+
+    // a b c | a b
+    // d e f | d e
+    // g h i | g h
+    // on the "to right" diagonals multiply and add
+    // on the "to left" diagonals multiply and subtract
+    double Matrix4x4::minor(
+            double a, double b, double c,
+            double d, double e, double f,
+            double g, double h, double i
+    ) {
+        return a * e * i + b * f * g + c * d * h - b * d * i - a * f * h - c * e * g;
+    }
+
+    double Matrix4x4::determinant() const {
+        return
+                m00 * minor(m11,m12,m13,m21,m22,m23,m31,m32,m33) -
+                m01 * minor(m10,m12,m13,m20,m22,m23,m30,m32,m33) +
+                m02 * minor(m10,m11,m13,m20,m21,m23,m30,m31,m33) -
+                m03 * minor(m10,m11,m12,m20,m21,m22,m30,m31,m32);
+    }
+
+    Matrix4x4 operator*(const Matrix4x4 &a, const Matrix4x4 &b) {
+        Matrix4x4 r{};
+
+        r.m00 = a.m00 * b.m00 + a.m01 * b.m10 + a.m02 * b.m20 + a.m03 * b.m30;
+        r.m01 = a.m00 * b.m01 + a.m01 * b.m11 + a.m02 * b.m21 + a.m03 * b.m31;
+        r.m02 = a.m00 * b.m02 + a.m01 * b.m12 + a.m02 * b.m22 + a.m03 * b.m32;
+        r.m03 = a.m00 * b.m03 + a.m01 * b.m13 + a.m02 * b.m23 + a.m03 * b.m33;
+
+        r.m10 = a.m10 * b.m00 + a.m11 * b.m10 + a.m12 * b.m20 + a.m13 * b.m30;
+        r.m11 = a.m10 * b.m01 + a.m11 * b.m11 + a.m12 * b.m21 + a.m13 * b.m31;
+        r.m12 = a.m10 * b.m02 + a.m11 * b.m12 + a.m12 * b.m22 + a.m13 * b.m32;
+        r.m13 = a.m10 * b.m03 + a.m11 * b.m13 + a.m12 * b.m23 + a.m13 * b.m33;
+
+        r.m20 = a.m20 * b.m00 + a.m21 * b.m10 + a.m22 * b.m20 + a.m23 * b.m30;
+        r.m21 = a.m20 * b.m01 + a.m21 * b.m11 + a.m22 * b.m21 + a.m23 * b.m31;
+        r.m22 = a.m20 * b.m02 + a.m21 * b.m12 + a.m22 * b.m22 + a.m23 * b.m32;
+        r.m23 = a.m20 * b.m03 + a.m21 * b.m13 + a.m22 * b.m23 + a.m23 * b.m33;
+
+        r.m30 = a.m30 * b.m00 + a.m31 * b.m10 + a.m32 * b.m20 + a.m33 * b.m30;
+        r.m31 = a.m30 * b.m01 + a.m31 * b.m11 + a.m32 * b.m21 + a.m33 * b.m31;
+        r.m32 = a.m30 * b.m02 + a.m31 * b.m12 + a.m32 * b.m22 + a.m33 * b.m32;
+        r.m33 = a.m30 * b.m03 + a.m31 * b.m13 + a.m32 * b.m23 + a.m33 * b.m33;
+
+        return r;
+    }
+
+    Tuple operator*(const Matrix4x4 &m, const Tuple &p) {
+        return Tuple(
+                m.m00 * p.x + m.m01 * p.y + m.m02 * p.z + m.m03 * p.w,
+                m.m10 * p.x + m.m11 * p.y + m.m12 * p.z + m.m13 * p.w,
+                m.m20 * p.x + m.m21 * p.y + m.m22 * p.z + m.m23 * p.w,
+                m.m30 * p.x + m.m31 * p.y + m.m32 * p.z + m.m33 * p.w
+        );
+    }
+
+    Matrix4x4 identity() {
+        Matrix4x4 I{};
+        I.identity();
+        return I;
+    }
+
+    // Compute the transpose of a matrix: turn its rows into columns
+    Matrix4x4 transpose(const Matrix4x4 &m) {
+        Matrix4x4 r{};
+
+        r.m00 = m.m00;
+        r.m01 = m.m10;
+        r.m02 = m.m20;
+        r.m03 = m.m30;
+
+        r.m10 = m.m01;
+        r.m11 = m.m11;
+        r.m12 = m.m21;
+        r.m13 = m.m31;
+
+        r.m20 = m.m02;
+        r.m21 = m.m12;
+        r.m22 = m.m22;
+        r.m23 = m.m32;
+
+        r.m30 = m.m03;
+        r.m31 = m.m13;
+        r.m32 = m.m23;
+        r.m33 = m.m33;
+
+        return r;
+    }
+
+    double determinant(const Matrix4x4 &m) {
+        return m.determinant();
+    }
+
+    Matrix4x4 inverse(const Matrix4x4 &m) {
+        Matrix4x4 r{};
+        double det = determinant(m);
+
+        // Fail silently by returning default constructed matrix
+        if (epsilon_equal(det, 0.0)) return r;
+
+        // transpose while calculating
+        r.m00 = Matrix4x4::minor(m.m11,m.m12,m.m13,m.m21,m.m22,m.m23,m.m31,m.m32,m.m33)/det;
+        r.m10 = -Matrix4x4::minor(m.m10,m.m12,m.m13,m.m20,m.m22,m.m23,m.m30,m.m32,m.m33)/det;
+        r.m20 = Matrix4x4::minor(m.m10,m.m11,m.m13,m.m20,m.m21,m.m23,m.m30,m.m31,m.m33)/det;
+        r.m30 = -Matrix4x4::minor(m.m10,m.m11,m.m12,m.m20,m.m21,m.m22,m.m30,m.m31,m.m32)/det;
+
+        r.m01 = -Matrix4x4::minor(m.m01,m.m02,m.m03,m.m21,m.m22,m.m23,m.m31,m.m32,m.m33)/det;
+        r.m11 = Matrix4x4::minor(m.m00,m.m02,m.m03,m.m20,m.m22,m.m23,m.m30,m.m32,m.m33)/det;
+        r.m21 = -Matrix4x4::minor(m.m00,m.m01,m.m03,m.m20,m.m21,m.m23,m.m30,m.m31,m.m33)/det;
+        r.m31 = Matrix4x4::minor(m.m00,m.m01,m.m02,m.m20,m.m21,m.m22,m.m30,m.m31,m.m32)/det;
+
+        r.m02 = Matrix4x4::minor(m.m01,m.m02,m.m03,m.m11,m.m12,m.m13,m.m31,m.m32,m.m33)/det;
+        r.m12 = -Matrix4x4::minor(m.m00,m.m02,m.m03,m.m10,m.m12,m.m13,m.m30,m.m32,m.m33)/det;
+        r.m22 = Matrix4x4::minor(m.m00,m.m01,m.m03,m.m10,m.m11,m.m13,m.m30,m.m31,m.m33)/det;
+        r.m32 = -Matrix4x4::minor(m.m00,m.m01,m.m02,m.m10,m.m11,m.m12,m.m30,m.m31,m.m32)/det;
+
+        r.m03 = -Matrix4x4::minor(m.m01,m.m02,m.m03,m.m11,m.m12,m.m13,m.m21,m.m22,m.m23)/det;
+        r.m13 = Matrix4x4::minor(m.m00,m.m02,m.m03,m.m10,m.m12,m.m13,m.m20,m.m22,m.m23)/det;
+        r.m23 = -Matrix4x4::minor(m.m00,m.m01,m.m03,m.m10,m.m11,m.m13,m.m20,m.m21,m.m23)/det;
+        r.m33 = Matrix4x4::minor(m.m00,m.m01,m.m02,m.m10,m.m11,m.m12,m.m20,m.m21,m.m22)/det;
+
+        return r;
+    }
+
+    bool epsilon_equal(const Matrix4x4 &a, const Matrix4x4 &b, double e) {
+        bool rez =
+                (std::abs(a.m00 - b.m00) < e) &&
+                (std::abs(a.m01 - b.m01) < e) &&
+                (std::abs(a.m02 - b.m02) < e) &&
+                (std::abs(a.m03 - b.m03) < e) &&
+                (std::abs(a.m10 - b.m10) < e) &&
+                (std::abs(a.m11 - b.m11) < e) &&
+                (std::abs(a.m12 - b.m12) < e) &&
+                (std::abs(a.m13 - b.m13) < e) &&
+                (std::abs(a.m20 - b.m20) < e) &&
+                (std::abs(a.m21 - b.m21) < e) &&
+                (std::abs(a.m22 - b.m22) < e) &&
+                (std::abs(a.m23 - b.m23) < e) &&
+                (std::abs(a.m30 - b.m30) < e) &&
+                (std::abs(a.m31 - b.m31) < e) &&
+                (std::abs(a.m32 - b.m32) < e) &&
+                (std::abs(a.m33 - b.m33) < e);
+        return rez;
+    }
+
+}

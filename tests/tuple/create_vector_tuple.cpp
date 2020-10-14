@@ -2,7 +2,6 @@
 // Created by ivan on 5.10.2020..
 //
 #include "Tuple.h"
-#include "rtc.h"
 
 // A tuple with w = 0.0 is a vector
 int main() {

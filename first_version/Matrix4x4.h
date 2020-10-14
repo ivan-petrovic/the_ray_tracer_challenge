@@ -1,7 +1,6 @@
 #ifndef __MATRIX4X4_INCLUDED__
 #define __MATRIX4X4_INCLUDED__
 
-// #include "Vector4.h"
 class Vector4;
 class Matrix3x3;
 

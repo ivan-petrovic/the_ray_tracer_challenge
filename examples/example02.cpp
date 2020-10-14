@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Tuple.h"
-#include "rtc.h"
 #include "canvas_to_file/PPM.h"
 
 class Projectile {

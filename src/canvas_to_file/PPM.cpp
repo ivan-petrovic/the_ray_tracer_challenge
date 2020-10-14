@@ -3,11 +3,10 @@
 //
 #include <fstream>
 #include "PPM.h"
-#include "../rtc.h"
 
 namespace mn {
 
-    void PPM::canvas_to_ppm(const Canvas &canvas, const std::string& filename) {
+    void PPM::canvas_to_ppm(const Canvas &canvas, const std::string &filename) {
         _header(canvas.width(), canvas.height());
         _pixel_data(canvas.buffer());
 
@@ -16,17 +15,7 @@ namespace mn {
         }
     }
 
-    int PPM::test() {
-        if (!test_convert_to_0_255_range()) return 1;
-
-        if (!test_case_1()) return 1;
-
-        // prepare clean state for test case 2
-        _ppm.clear();
-        if (!test_case_2()) return 1;
-
-        return 0;
-    }
+    const std::vector<std::string> &PPM::data() const { return _ppm; }
 
     // PPM file header
     void PPM::_header(int width, int height) {
@@ -36,6 +25,14 @@ namespace mn {
     }
 
     // PPM file data
+    // Canvas coordinates go from bottom to top; for example for 5x3 canvas:
+    // (0,4) (1,4) (2,4) (3,4) (4,4)
+    // (0,3) (1,3) (2,3) (3,3) (4,3)
+    // (0,2) (1,2) (2,2) (3,2) (4,2)
+    // (0,1) (1,1) (2,1) (3,1) (4,1)
+    // (0,0) (1,0) (2,0) (3,0) (4,0)
+    // PPM file format saves image from top to bottom.
+    // That is why we go from height - 1 to 0 for y coordinate.
     void PPM::_pixel_data(const std::vector<std::vector<Color>> &buffer) {
         int height = buffer.size();
         for (int y = height - 1; y >= 0; --y) {
@@ -75,78 +72,13 @@ namespace mn {
         return static_cast <int>(std::round(255 * a));
     }
 
-    void PPM::_save(const std::string& filename) const {
+    void PPM::_save(const std::string &filename) const {
         std::ofstream output_file(filename);
 
         if (!output_file.is_open()) return;
 
-        for (const std::string& line : _ppm) output_file << line;
+        for (const std::string &line : _ppm) output_file << line;
         output_file.close();
-    }
-
-    // Testing functions
-    bool PPM::test_case_1() {
-        // arrange
-        const int width = 5;
-        const int height = 3;
-        mn::Canvas canvas(5, 3);
-
-        Color c1 = color(1.5, 0.0, 0.0);
-        Color c2 = color(0.0, 0.5, 0.0);
-        Color c3 = color(-0.5, 0.0, 1.0);
-
-        canvas.write_pixel(0, 0, c1);
-        canvas.write_pixel(2, 1, c2);
-        canvas.write_pixel(4, 2, c3);
-
-        // act
-        canvas_to_ppm(canvas);
-
-        // assert
-        if (_ppm[0] != "P3\n") return false;
-        if (_ppm[1] != (std::to_string(width) + ' ' + std::to_string(height) + '\n')) return false;
-        if (_ppm[2] != "255\n") return false;
-
-        if (_ppm[3] != "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n") return false;
-        if (_ppm[4] != "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n") return false;
-        if (_ppm[5] != "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n") return false;
-
-        return true;
-    }
-
-    bool PPM::test_case_2() {
-        // arrange
-        const int width = 10;
-        const int height = 2;
-        Canvas canvas(width, height);
-
-        Color c = mn::color(1.0, 0.8, 0.6);
-        for(int x = 0; x < width; ++x)
-            for(int y = 0; y < height; ++y) {
-                canvas.write_pixel(x, y, c);
-            }
-
-        // act
-        canvas_to_ppm(canvas);
-
-        if (_ppm[0] != "P3\n") return false;
-        if (_ppm[1] != (std::to_string(width) + ' ' + std::to_string(height) + '\n')) return false;
-        if (_ppm[2] != "255\n") return false;
-
-        if (_ppm[3] != "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n") return false;
-        if (_ppm[4] != "153 255 204 153 255 204 153 255 204 153 255 204 153\n") return false;
-        if (_ppm[5] != "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n") return false;
-        if (_ppm[6] != "153 255 204 153 255 204 153 255 204 153 255 204 153\n") return false;
-
-        return true;
-    }
-
-    bool PPM::test_convert_to_0_255_range() {
-        if (_convert_to_0_255_range(1.5) != 255) return false;
-        if (_convert_to_0_255_range(-0.5) != 0) return false;
-        if (_convert_to_0_255_range(0.5) != 128) return false;
-
-        return true;
     }
 
 }

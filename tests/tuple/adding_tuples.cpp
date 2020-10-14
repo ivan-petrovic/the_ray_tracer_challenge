@@ -2,7 +2,6 @@
 // Created by ivan on 6.10.2020..
 //
 #include "Tuple.h"
-#include "rtc.h"
 
 // Adding two tuples
 int main() {

@@ -3,7 +3,6 @@
 //
 
 #include "Tuple.h"
-#include "rtc.h"
 
 bool magnitude_example_case_1();
 

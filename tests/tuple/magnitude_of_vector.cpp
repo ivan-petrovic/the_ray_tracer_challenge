@@ -2,7 +2,6 @@
 // Created by ivan on 8.10.2020..
 //
 #include "Tuple.h"
-#include "rtc.h"
 
 bool magnitude_example_case_1();
 

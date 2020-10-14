@@ -12,6 +12,7 @@ namespace mn {
 
     class Canvas {
     public:
+        // width x height pixels initialized to black
         Canvas(int width, int height) : _width{width}, _height{height}, _canvas(height, std::vector<Tuple>(width)) {}
 
         [[nodiscard]] int width() const { return _width; }

@@ -5,7 +5,7 @@
 #ifndef THE_RAY_TRACER_CHALLENGE_TUPLE_H
 #define THE_RAY_TRACER_CHALLENGE_TUPLE_H
 
-#include <cmath>
+#include "math_util.h"
 
 namespace mn {
 
@@ -62,7 +62,7 @@ namespace mn {
 
         // Hadamard product (for color multiplication). We overload the standard
         // multiplication symbol to do this
-        Tuple operator *(const Tuple &a) const {
+        Tuple operator*(const Tuple &a) const {
             return Tuple(x * a.x, y * a.y, z * a.z, w * a.w);
         }
 
@@ -129,6 +129,36 @@ namespace mn {
     typedef Tuple Point;
     typedef Tuple Vector;
     typedef Tuple Color;
+
+    inline bool is_point(const Tuple &t) { return t.w == 1.0; }
+
+    inline bool is_not_point(const Tuple &t) { return t.w != 1.0; }
+
+    inline bool is_vector(const Tuple &t) { return t.w == 0.0; }
+
+    inline bool is_not_vector(Tuple &t) { return t.w != 0.0; }
+
+    // Factory method for making points
+    inline Point point(double x, double y, double z) { return Tuple(x, y, z, 1.0); }
+
+    // Factory method for making vectors
+    inline Vector vector(double x, double y, double z) { return Tuple(x, y, z, 0.0); }
+
+    // Zero vector
+    inline Tuple zero() { return Tuple(0.0, 0.0, 0.0, 0.0); }
+
+    // Factory method for making colors
+    inline Color color(double red, double green, double blue, double alpha = 0.0) {
+        return Tuple(red, green, blue, alpha);
+    }
+
+    inline bool epsilon_equal(const Tuple &a, const Tuple &b, double e = epsilon) {
+        return
+                epsilon_equal(a.x, b.x, e) &&
+                epsilon_equal(a.y, b.y, e) &&
+                epsilon_equal(a.z, b.z, e) &&
+                epsilon_equal(a.w, b.w, e);
+    }
 
 }
 

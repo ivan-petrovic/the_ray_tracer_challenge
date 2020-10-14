@@ -2,7 +2,6 @@
 // Created by ivan on 6.10.2020..
 //
 #include "Tuple.h"
-#include "rtc.h"
 
 bool subtracting_a_vector_from_the_zero_vector();
 

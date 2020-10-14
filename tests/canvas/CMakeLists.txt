@@ -8,17 +8,9 @@ target_link_libraries(RTC_WritingCanvas PRIVATE RTC_rtc)
 add_executable(RTC_CanvasToPPM canvas_to_ppm.cpp)
 target_link_libraries(RTC_CanvasToPPM PRIVATE RTC_rtc)
 
-#add_executable(RTC_MultiplyingColorByScalar multiplying_by_scalar.cpp)
-#target_link_libraries(RTC_MultiplyingColorByScalar PRIVATE RTC_rtc)
-#
-#add_executable(RTC_MultiplyingColors multiplying_colors.cpp)
-#target_link_libraries(RTC_MultiplyingColors PRIVATE RTC_rtc)
-#
 ##=========================
 ## Testing
 ##=========================
 add_test(NAME RTC.Canvas.Create COMMAND RTC_CreateCanvas)
 add_test(NAME RTC.Canvas.Write COMMAND RTC_WritingCanvas)
 add_test(NAME RTC.Canvas.ToPPM COMMAND RTC_CanvasToPPM)
-#add_test(NAME RTC.Color.MultiplyByScalar COMMAND RTC_MultiplyingColorByScalar)
-#add_test(NAME RTC.Color.Multiply COMMAND RTC_MultiplyingColors)

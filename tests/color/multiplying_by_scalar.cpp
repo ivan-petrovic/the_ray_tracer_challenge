@@ -2,7 +2,6 @@
 // Created by ivan on 6.10.2020..
 //
 #include "Tuple.h"
-#include "rtc.h"
 
 // Multiplying a color by a scalar
 int main() {

@@ -2,7 +2,6 @@
 // Created by ivan on 5.10.2020..
 //
 #include "Tuple.h"
-#include "rtc.h"
 
 // A tuple with w = 1.0 is a point
 int main() {

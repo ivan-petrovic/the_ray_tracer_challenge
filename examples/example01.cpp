@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Tuple.h"
-#include "rtc.h"
 
 class Projectile {
 public:

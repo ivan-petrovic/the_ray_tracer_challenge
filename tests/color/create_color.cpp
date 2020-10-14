@@ -2,7 +2,6 @@
 // Created by ivan on 5.10.2020..
 //
 #include "Tuple.h"
-#include "rtc.h"
 
 // Colors are red, green, blue tuples
 int main() {

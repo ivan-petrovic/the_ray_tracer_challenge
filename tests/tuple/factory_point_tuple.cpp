@@ -2,7 +2,6 @@
 // Created by ivan on 6.10.2020..
 //
 #include "Tuple.h"
-#include "rtc.h"
 
 // point() creates tuples with w = 1.0
 int main() {
