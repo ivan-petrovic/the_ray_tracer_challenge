@@ -4,3 +4,6 @@ target_link_libraries(EXAMPLE_Projectile PRIVATE RTC_rtc)
 
 add_executable(EXAMPLE_Trajectory example02.cpp)
 target_link_libraries(EXAMPLE_Trajectory PRIVATE RTC_rtc)
+
+add_executable(EXAMPLE_ClockFaceBackground example03.cpp)
+target_link_libraries(EXAMPLE_ClockFaceBackground PRIVATE RTC_rtc)

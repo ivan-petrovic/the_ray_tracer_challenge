@@ -74,7 +74,7 @@ namespace mn {
         void normalize() {
             double magnitude_squared = x * x + y * y + z * z + w * w;
             if (magnitude_squared > 0.0) { // check for divide-by-zero
-                double one_over_magnitude = 1.0 / sqrt(magnitude_squared);
+                double one_over_magnitude = 1.0 / std::sqrt(magnitude_squared);
                 x *= one_over_magnitude;
                 y *= one_over_magnitude;
                 z *= one_over_magnitude;
@@ -145,14 +145,14 @@ namespace mn {
     inline Vector vector(double x, double y, double z) { return Tuple(x, y, z, 0.0); }
 
     // Zero vector
-    inline Tuple zero() { return Tuple(0.0, 0.0, 0.0, 0.0); }
+    inline Vector zero() { return Tuple(0.0, 0.0, 0.0, 0.0); }
 
     // Factory method for making colors
     inline Color color(double red, double green, double blue, double alpha = 0.0) {
         return Tuple(red, green, blue, alpha);
     }
 
-    inline bool epsilon_equal(const Tuple &a, const Tuple &b, double e = epsilon) {
+    inline bool epsilon_equal(const Tuple &a, const Tuple &b, double e = kEpsilon) {
         return
                 epsilon_equal(a.x, b.x, e) &&
                 epsilon_equal(a.y, b.y, e) &&

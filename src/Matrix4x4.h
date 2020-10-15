@@ -62,8 +62,21 @@ namespace mn {
     // Compute the inverse of the 4x4 matrix
     Matrix4x4 inverse(const Matrix4x4 &m);
 
-    bool epsilon_equal(const Matrix4x4 &a, const Matrix4x4 &b, double e = epsilon);
+    bool epsilon_equal(const Matrix4x4 &a, const Matrix4x4 &b, double e = kEpsilon);
 
+    // Transformations
+
+    Matrix4x4 translation(double dx, double dy, double dz);
+
+    Matrix4x4 scaling(double sx, double sy, double sz);
+
+    Matrix4x4 rotation_x(double rad);
+
+    Matrix4x4 rotation_y(double rad);
+
+    Matrix4x4 rotation_z(double rad);
+
+    Matrix4x4 shearing(double xy, double xz, double yx, double yz, double zx, double zy);
 }
 
 #endif //THE_RAY_TRACER_CHALLENGE_MATRIX4X4_H
