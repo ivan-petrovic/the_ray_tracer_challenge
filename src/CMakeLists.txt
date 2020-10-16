@@ -7,4 +7,6 @@ add_library(RTC_rtc
     Canvas.h
     canvas_to_file/PPM.cpp canvas_to_file/PPM.h
     Matrix4x4.cpp Matrix4x4.h
-    Ray.h model/Sphere.h)
+    Ray.h
+    model/Object.h model/Sphere.h
+    intersection/Intersections.cpp intersection/Intersections.h)

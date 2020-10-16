@@ -24,12 +24,14 @@ namespace mn {
 
         Point position(double t) { return _origin + t * _direction; }
 
-        // Ray transform(const Matrix4x4 &m) const { return Ray(m * _origin, m * _direction); }
+        [[nodiscard]] Ray transform(const Matrix4x4 &m) const { return Ray(m * _origin, m * _direction); }
 
     private:
         Point _origin;
         Vector _direction;
     };
+
+    inline Ray transform(const Ray &ray, const Matrix4x4 &m) { return ray.transform(m); }
 
 }
 

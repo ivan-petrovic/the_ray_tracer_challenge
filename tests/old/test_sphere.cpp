@@ -3,8 +3,6 @@
 #include "../../first_version/Sphere.h"
 #include "../../first_version/Matrix4x4.h"
 
-bool spheres_default_transformation();
-bool changing_a_spheres_transformation();
 bool normal_on_a_sphere_at_a_point_on_the_x_axis();
 bool normal_on_a_sphere_at_a_point_on_the_y_axis();
 bool normal_on_a_sphere_at_a_point_on_the_z_axis();
@@ -18,18 +16,6 @@ bool sphere_can_be_assigned_a_material();
 int main() {
     int cnt_failed = 0;
     int cnt_passed = 0;
-
-    std::cout << "Testing Ray class\n";
-
-    if(!spheres_default_transformation()) {
-        cnt_failed += 1;
-        std::cout << "spheres_default_transformation failed\n";
-    } else { cnt_passed += 1; }
-
-    if(!changing_a_spheres_transformation()) {
-        cnt_failed += 1;
-        std::cout << "changing_a_spheres_transformation failed\n";
-    } else { cnt_passed += 1; }
 
     if(!normal_on_a_sphere_at_a_point_on_the_x_axis()) {
         cnt_failed += 1;
@@ -76,25 +62,6 @@ int main() {
     std::cout << "Failed: " << cnt_failed << "\n";
 
     return 0;
-}
-
-bool spheres_default_transformation() {
-    Sphere sphere;
-    Matrix4x4 I; I.identity();
-
-    if (sphere.transform != I) return false;
-
-    return true; 
-}
-
-bool changing_a_spheres_transformation() {
-    Sphere sphere;
-    Matrix4x4 T = translation(2.0f, 3.0f, 4.0f);
-    sphere.transform = T;
-
-    if (sphere.transform != T) return false;
-
-    return true; 
 }
 
 bool normal_on_a_sphere_at_a_point_on_the_x_axis() {

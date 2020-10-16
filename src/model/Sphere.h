@@ -5,19 +5,13 @@
 #ifndef THE_RAY_TRACER_CHALLENGE_SPHERE_H
 #define THE_RAY_TRACER_CHALLENGE_SPHERE_H
 
-#include "Tuple.h"
-// #include "Matrix4x4.h"
-// #include "Material.h"
+#include "Object.h"
 
 namespace mn {
 
-    class Sphere {
+    class Sphere : public Object {
     public:
-        Sphere() : _origin(point(0.0, 0.0, 0.0)), _radius(1.0) { /* transform.identity(); */ }
-
-        [[nodiscard]] Point origin() const { return _origin; }
-
-        void origin(const Point &p) { _origin = p; }
+        Sphere() : Object(), _radius(1.0) {}
 
         [[nodiscard]] double radius() const { return _radius; }
 
@@ -33,11 +27,7 @@ namespace mn {
 //        }
 
     private:
-        Point _origin;
         double _radius;
-//        Matrix4x4 transform;
-//        Material material;
-
     };
 
 }
