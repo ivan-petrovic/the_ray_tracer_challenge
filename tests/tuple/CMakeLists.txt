@@ -38,6 +38,9 @@ target_link_libraries(RTC_DotProduct PRIVATE RTC_rtc)
 add_executable(RTC_CrossProduct cross_product.cpp)
 target_link_libraries(RTC_CrossProduct PRIVATE RTC_rtc)
 
+add_executable(RTC_ReflectVector reflecting_vector.cpp)
+target_link_libraries(RTC_ReflectVector PRIVATE RTC_rtc)
+
 #=========================
 # Testing
 #=========================
@@ -54,3 +57,4 @@ add_test(NAME RTC.Tuple.Magnitude COMMAND RTC_MagnitudeOfVector)
 add_test(NAME RTC.Tuple.Normalize COMMAND RTC_NormalizeVector)
 add_test(NAME RTC.Tuple.DotProduct COMMAND RTC_DotProduct)
 add_test(NAME RTC.Tuple.CrossProduct COMMAND RTC_CrossProduct)
+add_test(NAME RTC.Tuple.Reflect COMMAND RTC_ReflectVector)

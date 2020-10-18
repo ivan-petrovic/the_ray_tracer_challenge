@@ -23,10 +23,10 @@ namespace mn {
 
         void transform(const Matrix4x4 &m) { _transform = m; }
 
-    private:
+    protected:
         Point _origin;
         Matrix4x4 _transform;
-//        Material material;
+//        Material _material;
 
     };
 

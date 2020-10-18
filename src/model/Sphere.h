@@ -11,23 +11,25 @@ namespace mn {
 
     class Sphere : public Object {
     public:
-        Sphere() : Object(), _radius(1.0) {}
+        Sphere() : Object() /*, _radius(1.0) */ {}
 
-        [[nodiscard]] double radius() const { return _radius; }
+//        [[nodiscard]] double radius() const { return _radius; }
+//
+//        void radius(double r) { _radius = r; }
 
-        void radius(double r) { _radius = r; }
+        // We assume world_point is on the sphere.
+        // For example it is ray sphere intersection point.
+        [[nodiscard]] Vector normal_at(const Point &world_point) const {
+            Point object_point = inverse(_transform) * world_point;
+            Vector object_normal = object_point /* - mn::point(0.0, 0.0, 0.0) */;
+            Vector world_normal = transpose(inverse(_transform)) * object_normal;
+            world_normal.w = 0.0;
+            world_normal.normalize();
+            return world_normal;
+        }
 
-//        Vector4 normal_at(Vector4 world_point) {
-//            Vector4 object_point = inverse(transform) * world_point;
-//            Vector4 object_normal = object_point - make_point(0.0f, 0.0f, 0.0f);
-//            Vector4 world_normal = transpose(inverse(transform)) * object_normal;
-//            world_normal.w = 0.0f;
-//            world_normal.normalize();
-//            return world_normal;
-//        }
-
-    private:
-        double _radius;
+//    private:
+//        double _radius;
     };
 
 }

@@ -160,6 +160,24 @@ namespace mn {
                 epsilon_equal(a.w, b.w, e);
     }
 
+    // Compute the reflection vector
+    // vector: in starts in L ends in P
+    // vector: n starts in P ends in N
+    // vector: r starts in P ends in R
+    // We reflect in vector in relation to n vector
+    // and result is r (reflection) vector
+    // R   N   L
+    //  \  |  /
+    //   \ | /
+    //    \|/
+    //     P
+    inline Vector reflect(const Vector &in, const Vector &normal) {
+        return in - 2.0 * dot(in, normal) * normal;
+
+        // if vector in starts in P ends in L, then the formula would be:
+        // return 2.0 * dot(in, normal) * normal - in;
+    }
+
 }
 
 #endif //THE_RAY_TRACER_CHALLENGE_TUPLE_H
