@@ -7,7 +7,7 @@
 
 #include "../Tuple.h"
 #include "../Matrix4x4.h"
-// #include "../Material.h"
+#include "../Material.h"
 
 namespace mn {
 
@@ -15,7 +15,7 @@ namespace mn {
     public:
         explicit Object() : _origin(point(0.0, 0.0, 0.0)), _transform() { _transform.identity(); }
 
-        [[nodiscard]] Point origin() const { return _origin; }
+        [[nodiscard]] const Point &origin() const { return _origin; }
 
         void origin(const Point &p) { _origin = p; }
 
@@ -23,10 +23,14 @@ namespace mn {
 
         void transform(const Matrix4x4 &m) { _transform = m; }
 
+        [[nodiscard]] const Material &material() const { return _material; }
+
+        void material(const Material &m) { _material = m; }
+
     protected:
         Point _origin;
         Matrix4x4 _transform;
-//        Material _material;
+        Material _material;
 
     };
 

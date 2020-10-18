@@ -9,4 +9,5 @@ add_library(RTC_rtc
     Matrix4x4.cpp Matrix4x4.h
     Ray.h
     model/Object.h model/Sphere.h
-    intersection/Intersections.cpp intersection/Intersections.h)
+    intersection/Intersections.cpp intersection/Intersections.h
+    light/PointLight.h Material.h)
