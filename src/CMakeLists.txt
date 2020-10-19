@@ -10,4 +10,5 @@ add_library(RTC_rtc
     Ray.h
     model/Object.h model/Sphere.h
     intersection/Intersections.cpp intersection/Intersections.h
-    light/PointLight.h Material.h)
+    light/PointLight.h Material.h
+    light/lighting.cpp light/lighting.h)

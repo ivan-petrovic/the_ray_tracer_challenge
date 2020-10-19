@@ -27,6 +27,8 @@ namespace mn {
 
         void material(const Material &m) { _material = m; }
 
+        [[nodiscard]] virtual Vector normal_at(const Point &world_point) const = 0;
+
     protected:
         Point _origin;
         Matrix4x4 _transform;

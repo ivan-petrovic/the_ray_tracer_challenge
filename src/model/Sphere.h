@@ -19,7 +19,7 @@ namespace mn {
 
         // We assume world_point is on the sphere.
         // For example it is ray sphere intersection point.
-        [[nodiscard]] Vector normal_at(const Point &world_point) const {
+        [[nodiscard]] Vector normal_at(const Point &world_point) const override {
             Point object_point = inverse(_transform) * world_point;
             Vector object_normal = object_point /* - mn::point(0.0, 0.0, 0.0) */;
             Vector world_normal = transpose(inverse(_transform)) * object_normal;

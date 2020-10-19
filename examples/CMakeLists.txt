@@ -10,3 +10,6 @@ target_link_libraries(EXAMPLE_ClockFaceBackground PRIVATE RTC_rtc)
 
 add_executable(EXAMPLE_SphereSilhouette example04.cpp)
 target_link_libraries(EXAMPLE_SphereSilhouette PRIVATE RTC_rtc)
+
+add_executable(EXAMPLE_Sphere3D example05.cpp)
+target_link_libraries(EXAMPLE_Sphere3D PRIVATE RTC_rtc)
