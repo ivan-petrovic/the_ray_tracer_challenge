@@ -1,5 +1,7 @@
 //
 // Created by ivan on 5.10.2020..
+// Used: 3D Math Primer for Games and Graphics Development
+// Changed a little bit: added w coordinate
 //
 
 #ifndef THE_RAY_TRACER_CHALLENGE_TUPLE_H
@@ -31,7 +33,17 @@ namespace mn {
             return x != a.x || y != a.y || z != a.z || w != a.w;
         }
 
+//        // Assignment.  We adhere to C convention and
+//        // return reference to the lvalue
+//        Vector4 &operator =(const Vector4 &a) {
+//            x = a.x; y = a.y; z = a.z; w = a.w;
+//            return *this;
+//        }
+
         // Operations
+
+//        // Set the vector to zero
+//        void zero() { x = y = z = w = 0.0f; }
 
         // Unary minus returns the negative of the tuple
         // Makes sense only if tuple is a vector
@@ -59,6 +71,29 @@ namespace mn {
             double one_over_a = 1.0 / a; // NOTE: no check for divide by zero here
             return Tuple(x * one_over_a, y * one_over_a, z * one_over_a, w * one_over_a);
         }
+
+//        // Combined assignment operators to conform to
+//        // C notation convention
+//        Vector4 &operator +=(const Vector4 &a) {
+//            x += a.x; y += a.y; z += a.z; w += a.w;
+//            return *this;
+//        }
+//
+//        Vector4 &operator -=(const Vector4 &a) {
+//            x -= a.x; y -= a.y; z -= a.z; w -= a.w;
+//            return *this;
+//        }
+//
+//        Vector4 &operator *=(float a) {
+//            x *= a; y *= a; z *= a; w *= a;
+//            return *this;
+//        }
+//
+//        Vector4 &operator /=(float a) {
+//            float	oneOverA = 1.0f / a;
+//            x *= oneOverA; y *= oneOverA; z *= oneOverA; w *= oneOverA;
+//            return *this;
+//        }
 
         // Hadamard product (for color multiplication). We overload the standard
         // multiplication symbol to do this
@@ -106,6 +141,24 @@ namespace mn {
         r.normalize();
         return r;
     }
+
+//    // Compute the distance between two points
+//    inline float distance(const Vector4 &a, const Vector4 &b) {
+//        float dx = a.x - b.x;
+//        float dy = a.y - b.y;
+//        float dz = a.z - b.z;
+//        return sqrt(dx*dx + dy*dy + dz*dz);
+//    }
+// Compute the distance between two points, squared.  Often useful
+// when comparing distances, since the square root is slow
+//
+//    inline float distanceSquared(const Vector4 &a, const Vector4 &b) {
+//        float dx = a.x - b.x;
+//        float dy = a.y - b.y;
+//        float dz = a.z - b.z;
+//        return dx*dx + dy*dy + dz*dz;
+//    }
+
 
     // Vector dot product.
     inline double dot(const Tuple &a, const Tuple &b) {
