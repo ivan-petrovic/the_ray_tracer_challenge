@@ -18,13 +18,19 @@ namespace mn {
 //        void radius(double r) { _radius = r; }
 
         // We assume world_point is on the sphere.
-        // For example it is ray sphere intersection point.
+        // For example it is ray-sphere intersection point.
         [[nodiscard]] Vector normal_at(const Point &world_point) const override {
             Point object_point = inverse(_transform) * world_point;
+
+            // Since we do not subtract origin point, we are left with point instead of vector
+            // We need to lose w = 1; for vectors should be w = 0
             Vector object_normal = object_point /* - mn::point(0.0, 0.0, 0.0) */;
-            Vector world_normal = transpose(inverse(_transform)) * object_normal;
-            world_normal.w = 0.0;
+
+            // In normal_matrix method last row are all zeros,
+            // so after multiplication world_normal.w is 0.0
+            Vector world_normal = normal_matrix(_transform) * object_normal;
             world_normal.normalize();
+
             return world_normal;
         }
 

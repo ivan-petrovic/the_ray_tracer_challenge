@@ -62,6 +62,11 @@ namespace mn {
     // Compute the inverse of the 4x4 matrix
     Matrix4x4 inverse(const Matrix4x4 &m);
 
+    // Compute the normal matrix of the 4x4 matrix
+    // Normal matrix is used to transform normal vector
+    // from object to world space
+    Matrix4x4 normal_matrix(const Matrix4x4 &m);
+
     bool epsilon_equal(const Matrix4x4 &a, const Matrix4x4 &b, double e = kEpsilon);
 
     // Transformations

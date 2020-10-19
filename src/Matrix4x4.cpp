@@ -203,6 +203,35 @@ namespace mn {
         return r;
     }
 
+    // Vector world_normal = transpose(inverse(_transform)) * object_normal;
+    Matrix4x4 normal_matrix(const Matrix4x4 &m) {
+        Matrix4x4 r{};
+        // determinant of 3x3 portion of matrix m
+        double det3x3 = Matrix4x4::minor(m.m00, m.m01, m.m02, m.m10, m.m11, m.m12, m.m20, m.m21, m.m22);
+
+        r.m00 = (m.m11 * m.m22 - m.m12 * m.m21) / det3x3;
+        r.m01 = (m.m12 * m.m20 - m.m10 * m.m22) / det3x3;
+        r.m02 = (m.m10 * m.m21 - m.m11 * m.m20) / det3x3;
+        r.m03 = 0.0;
+
+        r.m10 = (m.m02 * m.m21 - m.m01 * m.m22) / det3x3;
+        r.m11 = (m.m00 * m.m22 - m.m02 * m.m20) / det3x3;
+        r.m12 = (m.m01 * m.m20 - m.m00 * m.m21) / det3x3;
+        r.m13 = 0.0;
+
+        r.m20 = (m.m01 * m.m12 - m.m02 * m.m11) / det3x3;
+        r.m21 = (m.m02 * m.m10 - m.m00 * m.m12) / det3x3;
+        r.m22 = (m.m00 * m.m11 - m.m01 * m.m10) / det3x3;
+        r.m23 = 0.0;
+
+        r.m30 = 0.0;
+        r.m31 = 0.0;
+        r.m32 = 0.0;
+        r.m33 = 0.0;
+
+        return r;
+    }
+
     bool epsilon_equal(const Matrix4x4 &a, const Matrix4x4 &b, double e) {
         return
                 epsilon_equal(a.m00, b.m00, e) &&
