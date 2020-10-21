@@ -4,8 +4,8 @@
 #include "light/PointLight.h"
 
 int main() {
-    mn::Point position = mn::point(0.0, 0.0, 0.0);
-    mn::Color intensity = mn::color(1.0, 1.0, 1.0);
+    mn::Point position = mn::make_point(0.0, 0.0, 0.0);
+    mn::Color intensity = mn::make_color(1.0, 1.0, 1.0);
 
     mn::PointLight light(position, intensity);
 

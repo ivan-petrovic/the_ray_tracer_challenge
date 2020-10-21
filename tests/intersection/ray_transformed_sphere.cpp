@@ -19,7 +19,7 @@ int main() {
 }
 
 bool intersecting_a_scaled_sphere_with_a_ray() {
-    mn::Ray ray(mn::point(0.0, 0.0, -5.0), mn::vector(0.0, 0.0, 1.0));
+    mn::Ray ray(mn::make_point(0.0, 0.0, -5.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Sphere sphere;
     sphere.transform(mn::scaling(2.0, 2.0, 2.0));
 
@@ -34,7 +34,7 @@ bool intersecting_a_scaled_sphere_with_a_ray() {
 }
 
 bool intersecting_a_translated_sphere_with_a_ray() {
-    mn::Ray ray(mn::point(0.0, 0.0, -5.0), mn::vector(0.0, 0.0, 1.0));
+    mn::Ray ray(mn::make_point(0.0, 0.0, -5.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Sphere sphere;
     sphere.transform(mn::translation(5.0, 0.0, 0.0));
 

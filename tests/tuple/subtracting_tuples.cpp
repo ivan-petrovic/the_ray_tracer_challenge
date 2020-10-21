@@ -16,9 +16,9 @@ int main() {
 }
 
 bool subtracting_two_points() {
-    mn::Tuple a = mn::point(3.0, 2.0, 1.0);
-    mn::Tuple b = mn::point(5.0, 6.0, 7.0);
-    mn::Tuple expected = mn::vector(-2.0, -4.0, -6.0);
+    mn::Tuple a = mn::make_point(3.0, 2.0, 1.0);
+    mn::Tuple b = mn::make_point(5.0, 6.0, 7.0);
+    mn::Tuple expected = mn::make_vector(-2.0, -4.0, -6.0);
 
     mn::Tuple actual = a - b;
 
@@ -27,9 +27,9 @@ bool subtracting_two_points() {
 }
 
 bool subtracting_vector_from_a_point() {
-    mn::Tuple p = mn::point(3.0, 2.0, 1.0);
-    mn::Tuple v = mn::vector(5.0, 6.0, 7.0);
-    mn::Tuple expected = mn::point(-2.0, -4.0, -6.0);
+    mn::Tuple p = mn::make_point(3.0, 2.0, 1.0);
+    mn::Tuple v = mn::make_vector(5.0, 6.0, 7.0);
+    mn::Tuple expected = mn::make_point(-2.0, -4.0, -6.0);
 
     mn::Tuple actual = p - v;
 
@@ -38,9 +38,9 @@ bool subtracting_vector_from_a_point() {
 }
 
 bool subtracting_two_vectors() {
-    mn::Tuple p = mn::vector(3.0, 2.0, 1.0);
-    mn::Tuple v = mn::vector(5.0, 6.0, 7.0);
-    mn::Tuple expected = mn::vector(-2.0, -4.0, -6.0);
+    mn::Tuple p = mn::make_vector(3.0, 2.0, 1.0);
+    mn::Tuple v = mn::make_vector(5.0, 6.0, 7.0);
+    mn::Tuple expected = mn::make_vector(-2.0, -4.0, -6.0);
 
     mn::Tuple actual = p - v;
 

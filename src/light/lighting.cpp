@@ -13,7 +13,7 @@ namespace mn {
             const Vector &normal
     ) {
         Color ambient, diffuse, specular;
-        Color black = mn::color(0.0, 0.0, 0.0);
+        Color black = mn::make_color(0.0, 0.0, 0.0);
 
         // combine the surface color with the light's color/intensity
         Color effective_color = material.color() * light.intensity();

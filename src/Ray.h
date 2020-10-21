@@ -22,7 +22,7 @@ namespace mn {
 
         void direction(const Vector &v) { _direction = v; }
 
-        Point position(double t) { return _origin + t * _direction; }
+        [[nodiscard]] Point position(double t) const { return _origin + t * _direction; }
 
         [[nodiscard]] Ray transform(const Matrix4x4 &m) const { return Ray(m * _origin, m * _direction); }
 

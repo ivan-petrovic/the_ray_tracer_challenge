@@ -28,7 +28,7 @@ int main() {
 }
 
 bool ray_intersects_sphere_at_two_points() {
-    mn::Ray ray(mn::point(0.0, 0.0, -5.0), mn::vector(0.0, 0.0, 1.0));
+    mn::Ray ray(mn::make_point(0.0, 0.0, -5.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Sphere sphere;
 
     mn::Intersections result;
@@ -42,7 +42,7 @@ bool ray_intersects_sphere_at_two_points() {
 }
 
 bool ray_intersects_sphere_at_a_tangent() {
-    mn::Ray ray(mn::point(0.0, 1.0, -5.0), mn::vector(0.0, 0.0, 1.0));
+    mn::Ray ray(mn::make_point(0.0, 1.0, -5.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Sphere sphere;
 
     mn::Intersections result;
@@ -56,7 +56,7 @@ bool ray_intersects_sphere_at_a_tangent() {
 }
 
 bool ray_misses_a_sphere() {
-    mn::Ray ray(mn::point(0.0, 2.0, -5.0), mn::vector(0.0, 0.0, 1.0));
+    mn::Ray ray(mn::make_point(0.0, 2.0, -5.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Sphere sphere;
 
     mn::Intersections result;
@@ -67,7 +67,7 @@ bool ray_misses_a_sphere() {
 }
 
 bool ray_originates_inside_a_sphere() {
-    mn::Ray ray(mn::point(0.0, 0.0, 0.0), mn::vector(0.0, 0.0, 1.0));
+    mn::Ray ray(mn::make_point(0.0, 0.0, 0.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Sphere sphere;
 
     mn::Intersections result;
@@ -81,7 +81,7 @@ bool ray_originates_inside_a_sphere() {
 }
 
 bool sphere_is_behind_a_ray() {
-    mn::Ray ray(mn::point(0.0, 0.0, 5.0), mn::vector(0.0, 0.0, 1.0));
+    mn::Ray ray(mn::make_point(0.0, 0.0, 5.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Sphere sphere;
 
     mn::Intersections result;

@@ -28,14 +28,14 @@ int main() {
     // projectile starts one unit above origin.
     // velocity is normalized to 1 unit/tick
     Projectile projectile(
-            mn::point(0.0, 1.0, 0.0),
-            mn::normalize(mn::vector(1.0, 1.0, 0.0))
+            mn::make_point(0.0, 1.0, 0.0),
+            mn::normalize(mn::make_vector(1.0, 1.0, 0.0))
     );
 
     // gravity -0.1 unit/tick, and wind is -0.01 unit/tick
     Environment environment(
-            mn::vector(0.0, -0.1, 0.0),
-            mn::vector(-0.01, 0.0, 0.0)
+            mn::make_vector(0.0, -0.1, 0.0),
+            mn::make_vector(-0.01, 0.0, 0.0)
     );
 
     while (projectile.position.y > 0.0) {

@@ -16,7 +16,7 @@ int main() {
     mn::Sphere sphere;
     // sphere.transform(mn::shearing(1.0, 0.0, 0.0, 0.0, 0.0, 0.0) * mn::scaling(0.5, 1.0, 1.0));
 
-    mn::Point ray_origin = mn::point(0.0, 0.0, -5.0);
+    mn::Point ray_origin = mn::make_point(0.0, 0.0, -5.0);
 
     double wall_z = 10.0;
     double wall_size = 7.0;
@@ -24,7 +24,7 @@ int main() {
 
     double pixel_size = wall_size / width;
 
-    mn::Color red = mn::color(0.9, 0.1, 0.0);
+    mn::Color red = mn::make_color(0.9, 0.1, 0.0);
     mn::Canvas canvas(width, width);
 
     for (int y = 0; y < width; y += 1) {
@@ -34,14 +34,14 @@ int main() {
             double world_x = -half_wall_size + pixel_size * x;
 
             // point on the wall that the ray will target
-            mn::Point position = mn::point(world_x, world_y, wall_z);
+            mn::Point position = mn::make_point(world_x, world_y, wall_z);
             mn::Vector direction = mn::normalize(position - ray_origin);
 
             mn::Ray ray(ray_origin, direction);
             mn::Intersections xs;
             mn::intersect(ray, sphere, xs);
 
-            mn::Intersection intersection = mn::hit(xs);
+            mn::Intersection intersection = mn::find_hit(xs);
             if (intersection.object != nullptr) canvas.write_pixel(x, y, red);
         }
     }

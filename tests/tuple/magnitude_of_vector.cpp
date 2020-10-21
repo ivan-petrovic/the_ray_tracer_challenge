@@ -26,7 +26,7 @@ int main() {
 }
 
 bool magnitude_example_case_1() {
-    mn::Tuple v = mn::vector(1.0, 0.0, 0.0);
+    mn::Tuple v = mn::make_vector(1.0, 0.0, 0.0);
     double expected = 1.0;
 
     if (mn::magnitude(v) == expected) return true;
@@ -34,7 +34,7 @@ bool magnitude_example_case_1() {
 }
 
 bool magnitude_example_case_2() {
-    mn::Tuple v = mn::vector(0.0, 1.0, 0.0);
+    mn::Tuple v = mn::make_vector(0.0, 1.0, 0.0);
     double expected = 1.0;
 
     if (mn::magnitude(v) == expected) return true;
@@ -42,7 +42,7 @@ bool magnitude_example_case_2() {
 }
 
 bool magnitude_example_case_3() {
-    mn::Tuple v = mn::vector(0.0, 0.0, 1.0);
+    mn::Tuple v = mn::make_vector(0.0, 0.0, 1.0);
     double expected = 1.0;
 
     if (mn::magnitude(v) == expected) return true;
@@ -50,7 +50,7 @@ bool magnitude_example_case_3() {
 }
 
 bool magnitude_example_case_4() {
-    mn::Tuple v = mn::vector(1.0f, 2.0f, 3.0f);
+    mn::Tuple v = mn::make_vector(1.0f, 2.0f, 3.0f);
     double expected = std::sqrt(14.0);
 
     if (mn::magnitude(v) == expected) return true;
@@ -58,7 +58,7 @@ bool magnitude_example_case_4() {
 }
 
 bool magnitude_example_case_5() {
-    mn::Tuple v = mn::vector(-1.0f, -2.0f, -3.0f);
+    mn::Tuple v = mn::make_vector(-1.0f, -2.0f, -3.0f);
     double expected = std::sqrt(14.0);
 
     if (v.magnitude() == expected) return true;

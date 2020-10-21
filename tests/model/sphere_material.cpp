@@ -18,29 +18,20 @@ int main() {
 
 bool sphere_has_a_default_material() {
     mn::Sphere sphere;
-    mn::Material material;
+    mn::Material material{};
+    mn::make_default_material(material);
 
-    if (sphere.material().color() != material.color()) return false;
-    if (sphere.material().ambient() != material.ambient()) return false;
-    if (sphere.material().diffuse() != material.diffuse()) return false;
-    if (sphere.material().specular() != material.specular()) return false;
-    if (sphere.material().shininess() != material.shininess()) return false;
-
-    return true;
+    return sphere.material() == material;
 }
 
 bool sphere_can_be_assigned_a_material() {
     mn::Sphere sphere;
-    mn::Material material;
+    mn::Material material{};
+    mn::make_default_material(material);
     material.ambient(1.0);
 
-    sphere.material(material);
+    // sphere.material(material);
+    sphere.material().ambient(1.0);
 
-    if (sphere.material().color() != material.color()) return false;
-    if (sphere.material().ambient() != material.ambient()) return false;
-    if (sphere.material().diffuse() != material.diffuse()) return false;
-    if (sphere.material().specular() != material.specular()) return false;
-    if (sphere.material().shininess() != material.shininess()) return false;
-
-    return true;
+    return sphere.material() == material;
 }

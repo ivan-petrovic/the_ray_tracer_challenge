@@ -13,7 +13,15 @@ namespace mn {
 
     class Object {
     public:
-        explicit Object() : _origin(point(0.0, 0.0, 0.0)), _transform() { _transform.identity(); }
+        Object() :
+                _origin(make_point(0.0, 0.0, 0.0)),
+                _transform{},
+                _material{} {
+            _transform.identity();
+            make_default_material(_material);
+        }
+
+        virtual ~Object() = default;
 
         [[nodiscard]] const Point &origin() const { return _origin; }
 
@@ -24,6 +32,8 @@ namespace mn {
         void transform(const Matrix4x4 &m) { _transform = m; }
 
         [[nodiscard]] const Material &material() const { return _material; }
+
+        [[nodiscard]] Material &material() { return _material; }
 
         void material(const Material &m) { _material = m; }
 

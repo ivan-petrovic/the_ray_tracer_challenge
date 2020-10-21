@@ -5,9 +5,9 @@
 
 // Subtracting colors
 int main() {
-    mn::Tuple c1 = mn::color(0.9, 0.6, 0.75);
-    mn::Tuple c2 = mn::color(0.7, 0.1, 0.25);
-    mn::Tuple expected = mn::color(0.2, 0.5, 0.5);
+    mn::Tuple c1 = mn::make_color(0.9, 0.6, 0.75);
+    mn::Tuple c2 = mn::make_color(0.7, 0.1, 0.25);
+    mn::Tuple expected = mn::make_color(0.2, 0.5, 0.5);
 
     mn::Tuple actual = c1 - c2;
 

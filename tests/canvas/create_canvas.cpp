@@ -13,7 +13,7 @@ int main() {
     if (canvas.buffer().size() != height) return 1;
     if (canvas.buffer()[0].size() != width) return 1;
 
-    mn::Color black = mn::color(0.0, 0.0, 0.0);
+    mn::Color black = mn::make_color(0.0, 0.0, 0.0);
     for (int x = 0; x < width; ++x)
         for (int y = 0; y < height; ++y)
             if (canvas.pixel_at(x, y) != black) return 1;

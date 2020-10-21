@@ -9,11 +9,11 @@
 int main() {
     int w = 100;     // canvas width and height
     int radius = 40; // clock radius
-    mn::Color white = mn::color(1.0, 1.0, 1.0);
+    mn::Color white = mn::make_color(1.0, 1.0, 1.0);
 
     mn::Canvas canvas(w, w);
 
-    mn::Point twelve = mn::point(0.0, 1.0, 0.0);
+    mn::Point twelve = mn::make_point(0.0, 1.0, 0.0);
 
     for (int i = 0; i <= 11; i += 1) {
         mn::Matrix4x4 R = mn::rotation_z(mn::deg_to_rad(i * (-30.0)));

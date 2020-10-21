@@ -24,7 +24,7 @@ namespace mn {
 
             // Since we do not subtract origin point, we are left with point instead of vector
             // We need to lose w = 1; for vectors should be w = 0
-            Vector object_normal = object_point /* - mn::point(0.0, 0.0, 0.0) */;
+            Vector object_normal = object_point /* - mn::make_point(0.0, 0.0, 0.0) */;
 
             // In normal_matrix method last row are all zeros,
             // so after multiplication world_normal.w is 0.0

@@ -32,42 +32,42 @@ int main() {
 
 bool test_shearing_moves_x_in_proportions_to_y() {
     mn::Matrix4x4 M = mn::shearing(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-    mn::Point p = mn::point(2.0f, 3.0f, 4.0f);
+    mn::Point p = mn::make_point(2.0f, 3.0f, 4.0f);
 
-    return M * p == mn::point(5.0f, 3.0f, 4.0f);
+    return M * p == mn::make_point(5.0f, 3.0f, 4.0f);
 }
 
 bool test_shearing_moves_x_in_proportions_to_z() {
     mn::Matrix4x4 M = mn::shearing(0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-    mn::Point p = mn::point(2.0f, 3.0f, 4.0f);
+    mn::Point p = mn::make_point(2.0f, 3.0f, 4.0f);
 
-    return M * p == mn::point(6.0f, 3.0f, 4.0f);
+    return M * p == mn::make_point(6.0f, 3.0f, 4.0f);
 }
 
 bool test_shearing_moves_y_in_proportions_to_x() {
     mn::Matrix4x4 M = mn::shearing(0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f);
-    mn::Point p = mn::point(2.0f, 3.0f, 4.0f);
+    mn::Point p = mn::make_point(2.0f, 3.0f, 4.0f);
 
-    return M * p == mn::point(2.0f, 5.0f, 4.0f);
+    return M * p == mn::make_point(2.0f, 5.0f, 4.0f);
 }
 
 bool test_shearing_moves_y_in_proportions_to_z() {
     mn::Matrix4x4 M = mn::shearing(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
-    mn::Point p = mn::point(2.0f, 3.0f, 4.0f);
+    mn::Point p = mn::make_point(2.0f, 3.0f, 4.0f);
 
-    return M * p == mn::point(2.0f, 7.0f, 4.0f);
+    return M * p == mn::make_point(2.0f, 7.0f, 4.0f);
 }
 
 bool test_shearing_moves_z_in_proportions_to_x() {
     mn::Matrix4x4 M = mn::shearing(0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-    mn::Point p = mn::point(2.0f, 3.0f, 4.0f);
+    mn::Point p = mn::make_point(2.0f, 3.0f, 4.0f);
 
-    return M * p == mn::point(2.0f, 3.0f, 6.0f);
+    return M * p == mn::make_point(2.0f, 3.0f, 6.0f);
 }
 
 bool test_shearing_moves_z_in_proportions_to_y() {
     mn::Matrix4x4 M = mn::shearing(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
-    mn::Point p = mn::point(2.0f, 3.0f, 4.0f);
+    mn::Point p = mn::make_point(2.0f, 3.0f, 4.0f);
 
-    return M * p == mn::point(2.0f, 3.0f, 7.0f);
+    return M * p == mn::make_point(2.0f, 3.0f, 7.0f);
 }

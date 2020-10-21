@@ -19,7 +19,7 @@ namespace mn {
 
         // the vector from the sphere's center, to the ray origin
         // remember: the sphere is centered at the world origin
-        Vector sphere_to_ray = ray2.origin() - point(0.0, 0.0, 0.0);
+        Vector sphere_to_ray = ray2.origin() - make_point(0.0, 0.0, 0.0);
 
         double a = dot(ray2.direction(), ray2.direction());
         double b = 2.0 * dot(ray2.direction(), sphere_to_ray);
@@ -39,7 +39,7 @@ namespace mn {
         intersections.add(t2, &sphere);
     }
 
-    Intersection hit(Intersections &intersections) {
+    Intersection find_hit(Intersections &intersections) {
         // no intersection
         if (intersections.count() == 0) return Intersection{0.0, nullptr};
 
@@ -52,6 +52,34 @@ namespace mn {
 
         // no non-negative t value, so no intersection
         return Intersection{0.0, nullptr};
+    }
+
+    void intersect(const Ray &ray, const World &world, Intersections &intersections) {
+        for (const Sphere& sphere : world.objects()) // access by const reference
+            intersect(ray, sphere, intersections);
+        intersections.sort();
+    }
+
+    Hit prepare_computations(const Intersection &intersection, const Ray &ray) {
+        Hit hit_data{};
+
+        // copy the intersection's properties, for convenience
+        hit_data.t = intersection.t;
+        hit_data.object = intersection.object;
+
+        // precompute some useful values
+        hit_data.point = ray.position(hit_data.t);
+        hit_data.eye = -ray.direction();
+        hit_data.normal = intersection.object->normal_at(hit_data.point);
+
+        if (dot(hit_data.normal, hit_data.eye) < 0) {
+            hit_data.inside = true;
+            hit_data.normal = -hit_data.normal;
+        } else {
+            hit_data.inside = false;
+        }
+
+        return hit_data;
     }
 
 }

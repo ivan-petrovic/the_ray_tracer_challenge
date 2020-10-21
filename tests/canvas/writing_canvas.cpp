@@ -7,7 +7,7 @@
 // Colors are red, green, blue tuples
 int main() {
     mn::Canvas canvas(10, 20);
-    mn::Color red = mn::color(1.0, 0.0, 0.0);
+    mn::Color red = mn::make_color(1.0, 0.0, 0.0);
 
     int x = 2, y = 3;
     canvas.write_pixel(x, y, red);

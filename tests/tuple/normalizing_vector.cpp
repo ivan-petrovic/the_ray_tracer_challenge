@@ -21,8 +21,8 @@ int main() {
 }
 
 bool magnitude_example_case_1() {
-    mn::Tuple v = mn::vector(4.0f, 0.0f, 0.0f);
-    mn::Tuple expected = mn::vector(1.0f, 0.0f, 0.0f);
+    mn::Tuple v = mn::make_vector(4.0f, 0.0f, 0.0f);
+    mn::Tuple expected = mn::make_vector(1.0f, 0.0f, 0.0f);
 
     v.normalize();
     if (v == expected) return true;
@@ -30,9 +30,9 @@ bool magnitude_example_case_1() {
 }
 
 bool magnitude_example_case_2() {
-    mn::Tuple v = mn::vector(1.0f, 2.0f, 3.0f);
+    mn::Tuple v = mn::make_vector(1.0f, 2.0f, 3.0f);
     double t = std::sqrt(14.0);
-    mn::Tuple expected = mn::vector(1.0 / t, 2.0 / t, 3.0 / t);
+    mn::Tuple expected = mn::make_vector(1.0 / t, 2.0 / t, 3.0 / t);
 
     if (mn::normalize(v) == expected) return true;
     return false;
@@ -40,7 +40,7 @@ bool magnitude_example_case_2() {
 
 // The magnitude of a normalized vector
 bool magnitude_example_case_3() {
-    mn::Tuple v = mn::vector(1.0, 2.0, 3.0);
+    mn::Tuple v = mn::make_vector(1.0, 2.0, 3.0);
     mn::Tuple norm = mn::normalize(v);
 
     if (mn::magnitude(norm) == 1.0) return true;

@@ -31,7 +31,7 @@ bool the_hit_when_all_intersections_have_positive_t() {
     intersections.add(1.0, &sphere);
     intersections.add(2.0, &sphere);
 
-    mn::Intersection intersection = mn::hit(intersections);
+    mn::Intersection intersection = mn::find_hit(intersections);
 
     if (intersection.t != 1.0) return false;
     if (intersection.object != &sphere) return false;
@@ -45,7 +45,7 @@ bool the_hit_when_some_intersections_have_negative_t() {
     intersections.add(-1.0, &sphere);
     intersections.add(1.0, &sphere);
 
-    mn::Intersection intersection = hit(intersections);
+    mn::Intersection intersection = mn::find_hit(intersections);
 
     if (intersection.t != 1.0) return false;
     if (intersection.object != &sphere) return false;
@@ -59,7 +59,7 @@ bool the_hit_when_all_intersections_have_negative_t() {
     intersections.add(-1.0, &sphere);
     intersections.add(-2.0, &sphere);
 
-    mn::Intersection intersection = hit(intersections);
+    mn::Intersection intersection = mn::find_hit(intersections);
 
     if (intersection.t != 0.0) return false;
     if (intersection.object != nullptr) return false;
@@ -76,7 +76,7 @@ bool the_hit_is_always_the_lowest_non_negative_intersection() {
     intersections.add(-3.0, &sphere2);
     intersections.add(2.0, &sphere2);
 
-    mn::Intersection intersection = hit(intersections);
+    mn::Intersection intersection = mn::find_hit(intersections);
 
     if (intersection.t != 2.0) return false;
     if (intersection.object != &sphere2) return false;

@@ -11,6 +11,7 @@ namespace mn {
 
     class PointLight {
     public:
+        PointLight() = default;
 
         PointLight(Point p, Color i) : _position(p), _intensity(i) {}
 
@@ -21,6 +22,10 @@ namespace mn {
         [[nodiscard]] Color intensity() const { return _intensity; }
 
         void intensity(const Color &c) { _intensity = c; }
+
+        bool operator==(const PointLight &l) const {
+            return _position == l._position && _intensity == l._intensity;
+        }
 
     private:
         Point _position;

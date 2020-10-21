@@ -46,7 +46,7 @@ bool aggregating_intersections() {
 }
 
 bool intersect_sets_the_object_on_the_intersection() {
-    mn::Ray ray(mn::point(0.0, 0.0, -5.0), mn::vector(0.0, 0.0, 1.0));
+    mn::Ray ray(mn::make_point(0.0, 0.0, -5.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Sphere sphere;
 
     mn::Intersections result;

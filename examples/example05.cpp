@@ -16,15 +16,13 @@ int main() {
     const int width = 400;
 
     mn::Sphere sphere;
-    mn::Material mat(mn::color(1.0, 0.2, 1.0));
-    sphere.material(mat);
-    // sphere.transform(mn::shearing(1.0, 0.0, 0.0, 0.0, 0.0, 0.0) * mn::scaling(0.5, 1.0, 1.0));
+    sphere.material().color(mn::make_color(1.0, 0.2, 1.0));
 
-    mn::Point light_position = mn::point(-10.0, 10.0, -10.0);
-    mn::Color light_color = mn::color(1.0, 1.0, 1.0);
+    mn::Point light_position = mn::make_point(-10.0, 10.0, -10.0);
+    mn::Color light_color = mn::make_color(1.0, 1.0, 1.0);
     mn::PointLight light(light_position, light_color);
 
-    mn::Point ray_origin = mn::point(0.0, 0.0, -5.0);
+    mn::Point ray_origin = mn::make_point(0.0, 0.0, -5.0);
 
     double wall_z = 10.0;
     double wall_size = 7.0;
@@ -41,14 +39,14 @@ int main() {
             double world_x = -half_wall_size + pixel_size * x;
 
             // point on the wall that the ray will target
-            mn::Point position = mn::point(world_x, world_y, wall_z);
+            mn::Point position = mn::make_point(world_x, world_y, wall_z);
             mn::Vector direction = mn::normalize(position - ray_origin);
 
             mn::Ray ray(ray_origin, direction);
             mn::Intersections xs;
             mn::intersect(ray, sphere, xs);
 
-            mn::Intersection intersection = mn::hit(xs);
+            mn::Intersection intersection = mn::find_hit(xs);
             if (intersection.object != nullptr) {
                 mn::Point point = ray.position(intersection.t);
                 mn::Vector normal = intersection.object->normal_at(point);

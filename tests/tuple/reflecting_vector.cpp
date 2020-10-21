@@ -17,20 +17,20 @@ int main() {
 }
 
 bool reflecting_a_vector_approaching_at_45() {
-    mn::Vector v = mn::vector(-1.0, 1.0, 0.0);
-    mn::Vector n = mn::vector(0.0, 1.0, 0.0);
+    mn::Vector v = mn::make_vector(-1.0, 1.0, 0.0);
+    mn::Vector n = mn::make_vector(0.0, 1.0, 0.0);
 
     mn::Vector result = reflect(v, n);
 
-    return result == mn::vector(1.0, 1.0, 0.0);
+    return result == mn::make_vector(1.0, 1.0, 0.0);
 }
 
 bool reflecting_a_vector_of_a_slanted_surface() {
-    mn::Vector v = mn::vector(0.0, 1.0, 0.0);
+    mn::Vector v = mn::make_vector(0.0, 1.0, 0.0);
     const double sqrt_of_2 = std::sqrt(2.0);
-    mn::Vector n = mn::vector(sqrt_of_2 / 2, sqrt_of_2 / 2, 0.0);
+    mn::Vector n = mn::make_vector(sqrt_of_2 / 2, sqrt_of_2 / 2, 0.0);
 
     mn::Vector result = reflect(v, n);
 
-    return mn::epsilon_equal(result, mn::vector(1.0, 0.0, 0.0));
+    return mn::epsilon_equal(result, mn::make_vector(1.0, 0.0, 0.0));
 }

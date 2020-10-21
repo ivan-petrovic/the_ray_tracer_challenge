@@ -15,8 +15,8 @@ int main() {
 
 bool subtracting_a_vector_from_the_zero_vector() {
     mn::Tuple zero = mn::zero();
-    mn::Tuple v = mn::vector(1.0, -2.0, 3.0);
-    mn::Tuple expected = mn::vector(-1.0, 2.0, -3.0);
+    mn::Tuple v = mn::make_vector(1.0, -2.0, 3.0);
+    mn::Tuple expected = mn::make_vector(-1.0, 2.0, -3.0);
 
     mn::Tuple actual = zero - v;
 
@@ -25,8 +25,8 @@ bool subtracting_a_vector_from_the_zero_vector() {
 }
 
 bool negating_a_vector() {
-    mn::Tuple v = mn::vector(1.0, -2.0, 3.0);
-    mn::Tuple expected = mn::vector(-1.0, 2.0, -3.0);
+    mn::Tuple v = mn::make_vector(1.0, -2.0, 3.0);
+    mn::Tuple expected = mn::make_vector(-1.0, 2.0, -3.0);
 
     mn::Tuple actual = -v;
 

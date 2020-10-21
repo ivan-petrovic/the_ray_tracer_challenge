@@ -19,9 +19,9 @@ bool test_case_1() {
     const int height = 3;
     mn::Canvas canvas(5, 3);
 
-    mn::Color c1 = mn::color(1.5, 0.0, 0.0);
-    mn::Color c2 = mn::color(0.0, 0.5, 0.0);
-    mn::Color c3 = mn::color(-0.5, 0.0, 1.0);
+    mn::Color c1 = mn::make_color(1.5, 0.0, 0.0);
+    mn::Color c2 = mn::make_color(0.0, 0.5, 0.0);
+    mn::Color c3 = mn::make_color(-0.5, 0.0, 1.0);
 
     canvas.write_pixel(0, 0, c1);
     canvas.write_pixel(2, 1, c2);
@@ -51,7 +51,7 @@ bool test_case_2() {
     const int height = 2;
     mn::Canvas canvas(width, height);
 
-    mn::Color c = mn::color(1.0, 0.8, 0.6);
+    mn::Color c = mn::make_color(1.0, 0.8, 0.6);
     for(int x = 0; x < width; ++x)
         for(int y = 0; y < height; ++y) {
             canvas.write_pixel(x, y, c);

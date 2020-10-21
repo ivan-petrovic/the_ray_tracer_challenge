@@ -192,16 +192,16 @@ namespace mn {
     inline bool is_not_vector(Tuple &t) { return t.w != 0.0; }
 
     // Factory method for making points
-    inline Point point(double x, double y, double z) { return Tuple(x, y, z, 1.0); }
+    inline Point make_point(double x, double y, double z) { return Tuple(x, y, z, 1.0); }
 
     // Factory method for making vectors
-    inline Vector vector(double x, double y, double z) { return Tuple(x, y, z, 0.0); }
+    inline Vector make_vector(double x, double y, double z) { return Tuple(x, y, z, 0.0); }
 
     // Zero vector
     inline Vector zero() { return Tuple(0.0, 0.0, 0.0, 0.0); }
 
     // Factory method for making colors
-    inline Color color(double red, double green, double blue, double alpha = 0.0) {
+    inline Color make_color(double red, double green, double blue, double alpha = 0.0) {
         return Tuple(red, green, blue, alpha);
     }
 

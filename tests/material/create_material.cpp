@@ -11,9 +11,10 @@ int main() {
 }
 
 bool the_default_material() {
-    mn::Material material;
+    mn::Material material{};
+    mn::make_default_material(material);
 
-    if (material.color() != mn::color(1.0, 1.0, 1.0)) return false;
+    if (material.color() != mn::make_color(1.0, 1.0, 1.0)) return false;
     if (material.ambient() != 0.1) return false;
     if (material.diffuse() != 0.9) return false;
     if (material.specular() != 0.9) return false;
