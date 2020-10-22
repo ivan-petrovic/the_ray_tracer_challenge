@@ -43,7 +43,7 @@ namespace mn {
         std::vector<Intersection> _intersections;
     };
 
-    void intersect(const Ray &ray, const Sphere &sphere, Intersections &intersections);
+    void intersect(const Ray &ray, const Object &object, Intersections &intersections);
 
     void intersect(const Ray &ray, const World &world, Intersections &intersections);
 

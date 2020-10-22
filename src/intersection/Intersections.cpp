@@ -14,8 +14,8 @@ namespace mn {
         );
     }
 
-    void intersect(const Ray &ray, const Sphere &sphere, Intersections &intersections) {
-        Ray ray2 = ray.transform(inverse(sphere.transform()));
+    void intersect(const Ray &ray, const Object &object, Intersections &intersections) {
+        Ray ray2 = ray.transform(inverse(object.transform()));
 
         // the vector from the sphere's center, to the ray origin
         // remember: the sphere is centered at the world origin
@@ -35,8 +35,8 @@ namespace mn {
         double t1 = (-b - sqrt_discriminant) * one_over_2a;
         double t2 = (-b + sqrt_discriminant) * one_over_2a;
 
-        intersections.add(t1, &sphere);
-        intersections.add(t2, &sphere);
+        intersections.add(t1, &object);
+        intersections.add(t2, &object);
     }
 
     Intersection find_hit(Intersections &intersections) {
@@ -55,8 +55,9 @@ namespace mn {
     }
 
     void intersect(const Ray &ray, const World &world, Intersections &intersections) {
-        for (const Sphere& sphere : world.objects()) // access by const reference
-            intersect(ray, sphere, intersections);
+        for (auto &&object : world.objects()) {
+            intersect(ray, *object, intersections);
+        }
         intersections.sort();
     }
 

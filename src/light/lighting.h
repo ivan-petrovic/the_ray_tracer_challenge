@@ -8,6 +8,8 @@
 #include "../Tuple.h"
 #include "../Material.h"
 #include "PointLight.h"
+#include "../World.h"
+#include "../intersection/Intersections.h"
 
 namespace mn {
 
@@ -18,6 +20,10 @@ namespace mn {
             const Vector &eye,
             const Vector &normal
     );
+
+    Color shade_hit(const World &world, const Hit &hit);
+
+    Color color_at(const World &world, const Ray &ray);
 
 }
 

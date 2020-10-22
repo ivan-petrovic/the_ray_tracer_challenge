@@ -5,6 +5,7 @@
 #ifndef THE_RAY_TRACER_CHALLENGE_SPHERE_H
 #define THE_RAY_TRACER_CHALLENGE_SPHERE_H
 
+#include <memory>
 #include "Object.h"
 
 namespace mn {
@@ -37,6 +38,13 @@ namespace mn {
 //    private:
 //        double _radius;
     };
+
+    inline std::unique_ptr<Object> make_sphere() {
+//        std::unique_ptr<Object> ptr_obj(nullptr);
+//        ptr_obj = std::make_unique<Sphere>();
+//        return ptr_obj;
+        return std::make_unique<Sphere>();
+    }
 
 }
 #endif //THE_RAY_TRACER_CHALLENGE_SPHERE_H

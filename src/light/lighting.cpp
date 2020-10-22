@@ -54,4 +54,21 @@ namespace mn {
         return ambient + diffuse + specular;
     }
 
+    Color shade_hit(const World &world, const Hit &hit) {
+        return lighting(hit.object->material(), world.light(), hit.point, hit.eye, hit.normal);
+    }
+
+    Color color_at(const World &world, const Ray &ray) {
+        Intersections intersections;
+        intersect(ray, world, intersections);
+
+        Intersection intersection = find_hit(intersections);
+        if (intersection.object == nullptr) {
+            return make_color(0.0, 0.0, 0.0); // black
+        }
+
+        Hit hit = prepare_computations(intersection, ray);
+        return shade_hit(world, hit);
+    }
+
 }

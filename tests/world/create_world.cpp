@@ -7,6 +7,6 @@ int main() {
     mn::World world;
 
     // World contains no objects and has no light source
-    if (world.objects().empty()) return 0;
+    if (world.is_empty() && !world.has_light()) return 0;
     return 1;
 }

@@ -27,6 +27,10 @@ namespace mn {
             return _position == l._position && _intensity == l._intensity;
         }
 
+        bool operator!=(const PointLight &l) const {
+            return _position != l._position || _intensity != l._intensity;
+        }
+
     private:
         Point _position;
         Color _intensity;
