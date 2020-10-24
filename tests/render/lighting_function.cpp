@@ -16,6 +16,7 @@ bool lighting_with_the_eye_in_the_path_of_the_reflection_vector();
 
 bool lighting_with_the_light_behind_the_surface();
 
+bool lighting_with_the_surface_in_shadow();
 
 int main() {
     if (
@@ -23,7 +24,8 @@ int main() {
             lighting_with_the_eye_between_the_light_and_the_surface_with_eye_offset_45() &&
             lighting_with_the_eye_between_the_light_and_the_surface_with_light_offset_45() &&
             lighting_with_the_eye_in_the_path_of_the_reflection_vector() &&
-            lighting_with_the_light_behind_the_surface()
+            lighting_with_the_light_behind_the_surface() &&
+            lighting_with_the_surface_in_shadow()
             )
         return 0;
     return 1;
@@ -111,6 +113,21 @@ bool lighting_with_the_light_behind_the_surface() {
     mn::PointLight light(mn::make_point(0.0, 10.0, 10.0), mn::make_color(1.0, 1.0, 1.0));
 
     mn::Color result = mn::lighting(material, light, position, eye, normal);
+
+    return result == mn::make_color(0.1, 0.1, 0.1);
+}
+
+bool lighting_with_the_surface_in_shadow() {
+    mn::Material material{};
+    mn::make_default_material(material);
+    mn::Point position = mn::make_point(0.0, 0.0, 0.0);
+
+    mn::Vector eye = mn::make_vector(0.0, 0.0, -1.0);
+    mn::Vector normal = mn::make_vector(0.0, 0.0, -1.0);
+    mn::PointLight light(mn::make_point(0.0, 0.0, -10.0), mn::make_color(1.0, 1.0, 1.0));
+
+    bool in_shadow = true;
+    mn::Color result = mn::lighting(material, light, position, eye, normal, in_shadow);
 
     return result == mn::make_color(0.1, 0.1, 0.1);
 }

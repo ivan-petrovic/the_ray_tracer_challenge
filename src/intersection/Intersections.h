@@ -22,6 +22,7 @@ namespace mn {
         double t;
         const Object *object;
         Point point;
+        Point over_point;
         Vector eye;
         Vector normal;
         bool inside;

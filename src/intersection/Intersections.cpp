@@ -80,6 +80,8 @@ namespace mn {
             hit_data.inside = false;
         }
 
+        hit_data.over_point = hit_data.point + hit_data.normal * kEpsilon;
+
         return hit_data;
     }
 

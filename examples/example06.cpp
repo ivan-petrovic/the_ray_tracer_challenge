@@ -1,6 +1,7 @@
 //
 // Created by ivan on 24.10.2020..
-// Chapter 7: Making a Scene
+// Chapter 7: Making a Scene and
+// Chapter 8: Shadows
 //
 #include "Tuple.h"
 #include "Matrix4x4.h"

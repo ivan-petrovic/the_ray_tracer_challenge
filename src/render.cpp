@@ -10,7 +10,8 @@ namespace mn {
             const PointLight &light,
             const Point &position,
             const Vector &eye,
-            const Vector &normal
+            const Vector &normal,
+            bool in_shadow
     ) {
         Color ambient, diffuse, specular;
         Color black = mn::make_color(0.0, 0.0, 0.0);
@@ -23,6 +24,8 @@ namespace mn {
 
         // compute the ambient contribution
         ambient = effective_color * material.ambient();
+
+        if (in_shadow) return ambient;
 
         // light_dot_normal represents the cosine of the angle between the
         // light vector and the normal vector. A negative number means the
@@ -55,7 +58,8 @@ namespace mn {
     }
 
     Color shade_hit(const World &world, const Hit &hit) {
-        return lighting(hit.object->material(), world.light(), hit.point, hit.eye, hit.normal);
+        bool in_shadow = is_shadowed(world, hit.over_point);
+        return lighting(hit.object->material(), world.light(), hit.over_point, hit.eye, hit.normal, in_shadow);
     }
 
     Color color_at(const World &world, const Ray &ray) {
@@ -79,6 +83,23 @@ namespace mn {
                 canvas.write_pixel(x, y, color);
             }
         }
+    }
+
+    bool is_shadowed(const World &world, const Point &point) {
+        mn::Vector direction = world.light().position() - point;
+        double distance = direction.magnitude();
+        direction.normalize();
+
+        mn::Ray ray(point, direction);
+        mn::Intersections intersections;
+        mn::intersect(ray, world, intersections);
+
+        Intersection intersection = mn::find_hit(intersections);
+        if (intersection.object != nullptr && intersection.t < distance) {
+            return true;
+        }
+
+        return false;
     }
 
 }

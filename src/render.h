@@ -20,7 +20,8 @@ namespace mn {
             const PointLight &light,
             const Point &position,
             const Vector &eye,
-            const Vector &normal
+            const Vector &normal,
+            bool in_shadow = false
     );
 
     Color shade_hit(const World &world, const Hit &hit);
@@ -28,6 +29,8 @@ namespace mn {
     Color color_at(const World &world, const Ray &ray);
 
     void render(const Camera &camera, const World &world, Canvas &canvas);
+
+    bool is_shadowed(const World &world, const Point &point);
 
 }
 
