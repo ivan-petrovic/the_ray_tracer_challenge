@@ -14,6 +14,9 @@ target_link_libraries(RTC_Shearing PRIVATE RTC_rtc)
 add_executable(RTC_Chained_Transformations chained_transformations.cpp)
 target_link_libraries(RTC_Chained_Transformations PRIVATE RTC_rtc)
 
+add_executable(RTC_Viewing viewing_matrix.cpp)
+target_link_libraries(RTC_Viewing PRIVATE RTC_rtc)
+
 #=========================
 # Testing
 #=========================
@@ -22,3 +25,4 @@ add_test(NAME RTC.Transformation.Scaling COMMAND RTC_Scaling)
 add_test(NAME RTC.Transformation.Rotation COMMAND RTC_Rotation)
 add_test(NAME RTC.Transformation.Shearing COMMAND RTC_Shearing)
 add_test(NAME RTC.Transformation.Chaining COMMAND RTC_Chained_Transformations)
+add_test(NAME RTC.Transformation.Viewing COMMAND RTC_Viewing)

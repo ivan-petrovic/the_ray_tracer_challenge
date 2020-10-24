@@ -13,3 +13,6 @@ target_link_libraries(EXAMPLE_SphereSilhouette PRIVATE RTC_rtc)
 
 add_executable(EXAMPLE_Sphere3D example05.cpp)
 target_link_libraries(EXAMPLE_Sphere3D PRIVATE RTC_rtc)
+
+add_executable(EXAMPLE_3Spheres example06.cpp)
+target_link_libraries(EXAMPLE_3Spheres PRIVATE RTC_rtc)

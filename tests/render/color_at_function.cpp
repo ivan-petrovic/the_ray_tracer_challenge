@@ -4,7 +4,7 @@
 #include "Tuple.h"
 #include "Material.h"
 #include "light/PointLight.h"
-#include "light/lighting.h"
+#include "render.h"
 #include "World.h"
 
 bool the_color_when_a_ray_misses();

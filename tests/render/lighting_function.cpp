@@ -4,7 +4,7 @@
 #include "Tuple.h"
 #include "Material.h"
 #include "light/PointLight.h"
-#include "light/lighting.h"
+#include "render.h"
 
 bool lighting_with_the_eye_between_the_light_and_the_surface();
 

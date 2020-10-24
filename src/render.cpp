@@ -1,7 +1,7 @@
 //
-// Created by ivan on 18.10.2020..
+// Created by ivan on 24.10.2020..
 //
-#include "lighting.h"
+#include "render.h"
 
 namespace mn {
 
@@ -69,6 +69,16 @@ namespace mn {
 
         Hit hit = prepare_computations(intersection, ray);
         return shade_hit(world, hit);
+    }
+
+    void render(const Camera &camera, const World &world, Canvas &canvas) {
+        for (int y = 0; y < camera.vertical_size(); ++y) {
+            for (int x = 0; x < camera.horizontal_size(); ++x) {
+                Ray ray = camera.ray_for_pixel(x, y);
+                Color color = color_at(world, ray);
+                canvas.write_pixel(x, y, color);
+            }
+        }
     }
 
 }

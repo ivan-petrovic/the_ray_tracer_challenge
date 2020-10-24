@@ -7,8 +7,7 @@
 #include "Ray.h"
 #include "model/Sphere.h"
 #include "intersection/Intersections.h"
-#include "light/PointLight.h"
-#include "light/lighting.h"
+#include "render.h"
 #include "Canvas.h"
 #include "canvas_to_file/PPM.h"
 

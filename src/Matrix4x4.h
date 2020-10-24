@@ -82,6 +82,8 @@ namespace mn {
     Matrix4x4 rotation_z(double rad);
 
     Matrix4x4 shearing(double xy, double xz, double yx, double yz, double zx, double zy);
+
+    Matrix4x4 view_transform(Point from, Point to, Vector up);
 }
 
 #endif //THE_RAY_TRACER_CHALLENGE_MATRIX4X4_H

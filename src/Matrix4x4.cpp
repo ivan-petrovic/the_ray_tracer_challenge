@@ -442,4 +442,39 @@ namespace mn {
         return r;
     }
 
+    // | left_x     left_y     left_z    0|   | 1 0 0 -from.x|
+    // | true_up_x  true_up_y  true_up_z 0|   | 0 1 0 -from.y|
+    // |-forward_x -forward_y -forward_z 0| * | 0 0 1 -from.z|
+    // |   0          0          0       1|   | 0 0 0   1    |
+    Matrix4x4 view_transform(Point from, Point to, Vector up) {
+        Vector forward = normalize(to - from);
+        Vector upn = normalize(up);
+        Vector left = cross(forward, upn);
+        Vector true_up = cross(left, forward);
+
+        Matrix4x4 r{};
+
+        r.m00 = left.x;
+        r.m01 = left.y;
+        r.m02 = left.z;
+        r.m03 = 0.0;
+
+        r.m10 = true_up.x;
+        r.m11 = true_up.y;
+        r.m12 = true_up.z;
+        r.m13 = 0.0;
+
+        r.m20 = -forward.x;
+        r.m21 = -forward.y;
+        r.m22 = -forward.z;
+        r.m23 = 0.0;
+
+        r.m30 = 0.0;
+        r.m31 = 0.0;
+        r.m32 = 0.0;
+        r.m33 = 1.0;
+
+        return r * translation(-from.x, -from.y, -from.z);
+    }
+
 }

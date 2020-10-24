@@ -11,5 +11,6 @@ add_library(RTC_rtc
     model/Object.h model/Sphere.h
     intersection/Intersections.cpp intersection/Intersections.h
     light/PointLight.h Material.h
-    light/lighting.cpp light/lighting.h
-    World.cpp World.h)
+    World.cpp World.h
+    Camera.h
+    render.cpp render.h)
