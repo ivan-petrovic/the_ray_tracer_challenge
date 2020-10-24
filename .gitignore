@@ -2,9 +2,3 @@
 .vscode
 .DS_Store
 cmake-build-debug
-a.out
-tests/a.out
-tests/a.exe
-examples/a.out
-examples/a.exe
-examples/temp.ppm

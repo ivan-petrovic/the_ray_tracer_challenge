@@ -50,6 +50,10 @@ namespace mn {
     // And to transform points
     Tuple operator*(const Matrix4x4 &m, const Tuple &p);
 
+    // Operator *= for conformace to C++ standards
+    // Matrix4x4 &operator*=(Matrix4x4 &a, const Matrix4x4 &b);
+    // Vector &operator*=(const Matrix4x4 &m, Vector &p);
+
     // Identity matrix factory
     Matrix4x4 identity();
 

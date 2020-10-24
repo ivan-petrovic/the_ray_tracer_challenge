@@ -121,6 +121,11 @@ namespace mn {
         return r;
     }
 
+//    Matrix4x4 &operator*=(Matrix4x4 &a, const Matrix4x4 &b) {
+//        a = a * b;
+//        return a;
+//    }
+
     Tuple operator*(const Matrix4x4 &m, const Tuple &p) {
         return Tuple(
                 m.m00 * p.x + m.m01 * p.y + m.m02 * p.z + m.m03 * p.w,
@@ -129,6 +134,11 @@ namespace mn {
                 m.m30 * p.x + m.m31 * p.y + m.m32 * p.z + m.m33 * p.w
         );
     }
+
+//    Vector &operator*=(const Matrix4x4 &m, Vector &p) {
+//        p = m * p;
+//        return p;
+//    }
 
     Matrix4x4 identity() {
         Matrix4x4 I{};
