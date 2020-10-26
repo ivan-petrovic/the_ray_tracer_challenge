@@ -3,7 +3,6 @@
 //
 #include "Ray.h"
 #include "model/Sphere.h"
-#include "intersection/intersect.h"
 
 bool ray_intersects_sphere_at_two_points();
 

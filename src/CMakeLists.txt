@@ -8,7 +8,7 @@ add_library(RTC_rtc
     Ray.h
     Canvas.h
     canvas_to_file/PPM.cpp canvas_to_file/PPM.h
-    model/Object.h model/Sphere.h
+    model/Object.h model/Sphere.h model/Plane.h
     intersection/Intersections.cpp intersection/Intersections.h
     intersection/intersect.cpp intersection/intersect.h
     light/PointLight.h Material.h
