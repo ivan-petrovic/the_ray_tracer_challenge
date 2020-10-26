@@ -7,7 +7,9 @@
 
 #include "../Tuple.h"
 #include "../Matrix4x4.h"
+#include "../Ray.h"
 #include "../Material.h"
+#include "../intersection/Intersections.h"
 
 namespace mn {
 
@@ -37,7 +39,22 @@ namespace mn {
 
         void material(const Material &m) { _material = m; }
 
-        [[nodiscard]] virtual Vector normal_at(const Point &world_point) const = 0;
+        virtual void local_intersect(const Ray &ray, Intersections &intersections) const = 0;
+
+        [[nodiscard]] virtual Vector local_normal_at(const Point &object_point) const = 0;
+
+        [[nodiscard]] Vector normal_at(const Point &world_point) const {
+            Point object_point = inverse(_transform) * world_point;
+
+            Vector object_normal = local_normal_at(object_point);
+
+            // In normal_matrix method last row are all zeros,
+            // so after multiplication world_normal.w is 0.0
+            Vector world_normal = normal_matrix(_transform) * object_normal;
+            world_normal.normalize();
+
+            return world_normal;
+        }
 
     protected:
         Point _origin;

@@ -12,6 +12,8 @@ namespace mn {
 
     class Ray {
     public:
+        Ray() : _origin{}, _direction{} {}
+
         Ray(Point origin_, Vector direction_) : _origin(origin_), _direction(direction_) {}
 
         [[nodiscard]] Point origin() const { return _origin; }

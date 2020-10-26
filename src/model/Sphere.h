@@ -7,36 +7,46 @@
 
 #include <memory>
 #include "Object.h"
+// #include "../intersection/Intersections.h"
+#include "../Ray.h"
 
 namespace mn {
 
     class Sphere : public Object {
     public:
-        Sphere() : Object() /*, _radius(1.0) */ {}
+        Sphere() : Object() {}
 
-//        [[nodiscard]] double radius() const { return _radius; }
-//
-//        void radius(double r) { _radius = r; }
+        void local_intersect(const Ray &object_ray, Intersections &intersections) const override {
+            // the vector from the object's center, to the ray origin
+            // remember: the object is centered at the world origin
+            Vector object_to_ray = object_ray.origin() - make_point(0.0, 0.0, 0.0);
 
-        // We assume world_point is on the sphere.
-        // For example it is ray-sphere intersection point.
-        [[nodiscard]] Vector normal_at(const Point &world_point) const override {
-            Point object_point = inverse(_transform) * world_point;
+            double a = dot(object_ray.direction(), object_ray.direction());
+            double b = 2.0 * dot(object_ray.direction(), object_to_ray);
+            double c = dot(object_to_ray, object_to_ray) - 1;
 
-            // Since we do not subtract origin point, we are left with point instead of vector
-            // We need to lose w = 1; for vectors should be w = 0
-            Vector object_normal = object_point /* - mn::make_point(0.0, 0.0, 0.0) */;
+            double discriminant = b * b - 4.0 * a * c;
 
-            // In normal_matrix method last row are all zeros,
-            // so after multiplication world_normal.w is 0.0
-            Vector world_normal = normal_matrix(_transform) * object_normal;
-            world_normal.normalize();
+            if (discriminant < 0.0) return; // no intersection
 
-            return world_normal;
+            double sqrt_discriminant = std::sqrt(discriminant);
+            double one_over_2a = 0.5 / a;
+
+            double t1 = (-b - sqrt_discriminant) * one_over_2a;
+            double t2 = (-b + sqrt_discriminant) * one_over_2a;
+
+            intersections.add(t1, this);
+            intersections.add(t2, this);
         }
 
-//    private:
-//        double _radius;
+        // We assume object_point is on the sphere.
+        // For example it is ray-sphere intersection point.
+        [[nodiscard]] Vector local_normal_at(const Point &object_point) const override {
+            // We need to lose w = 1; for vectors it should be w = 0
+            // That's why we subtract origin point
+            return object_point - mn::make_point(0.0, 0.0, 0.0);
+        }
+
     };
 
     inline std::unique_ptr<Object> make_sphere() {

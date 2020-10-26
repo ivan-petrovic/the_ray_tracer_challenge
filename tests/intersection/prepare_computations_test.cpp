@@ -3,7 +3,7 @@
 //
 #include "Ray.h"
 #include "model/Sphere.h"
-#include "intersection/Intersections.h"
+#include "intersection/intersect.h"
 
 bool precomputing_the_state_of_an_intersection();
 

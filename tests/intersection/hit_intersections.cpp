@@ -3,7 +3,7 @@
 //
 #include "Ray.h"
 #include "model/Sphere.h"
-#include "intersection/Intersections.h"
+#include "intersection/intersect.h"
 
 bool the_hit_when_all_intersections_have_positive_t();
 

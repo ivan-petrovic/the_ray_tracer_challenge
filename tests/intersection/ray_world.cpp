@@ -3,7 +3,7 @@
 //
 #include "Ray.h"
 #include "World.h"
-#include "intersection/Intersections.h"
+#include "intersection/intersect.h"
 
 bool intersects_a_world_with_a_ray();
 

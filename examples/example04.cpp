@@ -6,7 +6,7 @@
 #include "Matrix4x4.h"
 #include "Ray.h"
 #include "model/Sphere.h"
-#include "intersection/Intersections.h"
+#include "intersection/intersect.h"
 #include "Canvas.h"
 #include "canvas_to_file/PPM.h"
 

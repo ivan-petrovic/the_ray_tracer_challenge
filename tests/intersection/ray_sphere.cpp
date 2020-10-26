@@ -3,7 +3,7 @@
 //
 #include "Ray.h"
 #include "model/Sphere.h"
-#include "intersection/Intersections.h"
+#include "intersection/intersect.h"
 
 bool ray_intersects_sphere_at_two_points();
 
@@ -32,7 +32,7 @@ bool ray_intersects_sphere_at_two_points() {
     mn::Sphere sphere;
 
     mn::Intersections result;
-    mn::intersect(ray, sphere, result);
+    sphere.local_intersect(ray, result);
 
     if (result.count() != 2) return false;
     if (result[0].t != 4.0) return false;
@@ -46,7 +46,7 @@ bool ray_intersects_sphere_at_a_tangent() {
     mn::Sphere sphere;
 
     mn::Intersections result;
-    mn::intersect(ray, sphere, result);
+    sphere.local_intersect(ray, result);
 
     if (result.count() != 2) return false;
     if (result[0].t != 5.0) return false;
@@ -60,7 +60,7 @@ bool ray_misses_a_sphere() {
     mn::Sphere sphere;
 
     mn::Intersections result;
-    mn::intersect(ray, sphere, result);
+    sphere.local_intersect(ray, result);
 
     if (result.count() != 0) return false;
     return true;
@@ -71,7 +71,7 @@ bool ray_originates_inside_a_sphere() {
     mn::Sphere sphere;
 
     mn::Intersections result;
-    mn::intersect(ray, sphere, result);
+    sphere.local_intersect(ray, result);
 
     if (result.count() != 2) return false;
     if (result[0].t != -1.0) return false;
@@ -85,7 +85,7 @@ bool sphere_is_behind_a_ray() {
     mn::Sphere sphere;
 
     mn::Intersections result;
-    mn::intersect(ray, sphere, result);
+    sphere.local_intersect(ray, result);
 
     if (result.count() != 2) return false;
     if (result[0].t != -6.0) return false;

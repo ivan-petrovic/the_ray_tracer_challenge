@@ -6,7 +6,6 @@
 #define THE_RAY_TRACER_CHALLENGE_MATRIX4X4_H
 
 #include "Tuple.h"
-#include "math_util.h"
 
 namespace mn {
 

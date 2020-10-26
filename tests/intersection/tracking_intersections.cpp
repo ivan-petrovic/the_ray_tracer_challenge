@@ -3,7 +3,7 @@
 //
 #include "Ray.h"
 #include "model/Sphere.h"
-#include "intersection/Intersections.h"
+#include "intersection/intersect.h"
 
 bool intersection_encapsulates_t_and_object();
 

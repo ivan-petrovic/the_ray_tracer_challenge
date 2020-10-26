@@ -6,12 +6,15 @@
 #define THE_RAY_TRACER_CHALLENGE_INTERSECTIONS_H
 
 #include <vector>
-#include "../Ray.h"
-#include "../model/Object.h"
-#include "../model/Sphere.h"
-#include "../World.h"
+#include "../Tuple.h"
+//#include "../Ray.h"
+// #include "../model/Object.h"
+//#include "../model/Sphere.h"
+// #include "../World.h"
 
 namespace mn {
+
+    class Object;
 
     struct Intersection {
         double t;
@@ -44,13 +47,13 @@ namespace mn {
         std::vector<Intersection> _intersections;
     };
 
-    void intersect(const Ray &ray, const Object &object, Intersections &intersections);
-
-    void intersect(const Ray &ray, const World &world, Intersections &intersections);
-
-    Intersection find_hit(Intersections &intersections);
-
-    Hit prepare_computations(const Intersection &intersection, const Ray &ray);
+//    void intersect(const Ray &ray, const Object &object, Intersections &intersections);
+//
+//    void intersect(const Ray &ray, const World &world, Intersections &intersections);
+//
+//    Intersection find_hit(Intersections &intersections);
+//
+//    Hit prepare_computations(const Intersection &intersection, const Ray &ray);
 
 }
 #endif //THE_RAY_TRACER_CHALLENGE_INTERSECTIONS_H

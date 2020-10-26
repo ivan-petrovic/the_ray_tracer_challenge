@@ -17,6 +17,9 @@ target_link_libraries(RTC_RayWorldIntersection PRIVATE RTC_rtc)
 add_executable(RTC_PrepareComputations prepare_computations_test.cpp)
 target_link_libraries(RTC_PrepareComputations PRIVATE RTC_rtc)
 
+add_executable(RTC_RayTransformedObjectIntersection ray_transformed_object.cpp)
+target_link_libraries(RTC_RayTransformedObjectIntersection PRIVATE RTC_rtc)
+
 #=========================
 # Testing
 #=========================
@@ -26,3 +29,4 @@ add_test(NAME RTC.Intersection.Track COMMAND RTC_TrackingIntersections)
 add_test(NAME RTC.Intersection.Hit COMMAND RTC_HitIntersections)
 add_test(NAME RTC.Intersection.RayWorld COMMAND RTC_RayWorldIntersection)
 add_test(NAME RTC.Intersection.PrepareComputations COMMAND RTC_PrepareComputations)
+add_test(NAME RTC.Intersection.RayTransformedObject COMMAND RTC_RayTransformedObjectIntersection)
