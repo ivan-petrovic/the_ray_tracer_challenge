@@ -51,7 +51,7 @@ int main() {
                 mn::Vector normal = intersection.object->normal_at(point);
                 mn::Vector eye = -ray.direction();
 
-                mn::Color c = mn::lighting(intersection.object->material(), light, point, eye, normal);
+                mn::Color c = mn::lighting(intersection.object->material(), *intersection.object, light, point, eye, normal);
                 canvas.write_pixel(x, y, c);
             }
         }

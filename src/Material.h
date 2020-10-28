@@ -6,6 +6,7 @@
 #define THE_RAY_TRACER_CHALLENGE_MATERIAL_H
 
 #include "Tuple.h"
+#include "pattern/StripedPattern.h"
 
 namespace mn {
 
@@ -14,7 +15,7 @@ namespace mn {
         Material() = default;
 
         Material(const Color &c, double a, double d, double s, double sh) :
-                _color(c), _ambient(a), _diffuse(d), _specular(s), _shininess(sh) {}
+                _color(c), _ambient(a), _diffuse(d), _specular(s), _shininess(sh), _pattern_is_set(false) {}
 
         [[nodiscard]] const Color &color() const { return _color; }
 
@@ -38,6 +39,12 @@ namespace mn {
 
         void shininess(double sh) { _shininess = sh; }
 
+        [[nodiscard]] bool has_pattern() const { return _pattern_is_set; }
+
+        void pattern(const StripedPattern &pattern) { _pattern = pattern; _pattern_is_set = true; }
+
+        [[nodiscard]] const StripedPattern &pattern() const { return _pattern; }
+
         bool operator==(const Material &m) const {
             return
                     _color == m._color &&
@@ -59,6 +66,8 @@ namespace mn {
     private:
         Color _color;
         double _ambient, _diffuse, _specular, _shininess;
+        StripedPattern _pattern;
+        bool _pattern_is_set;
 
     };
 

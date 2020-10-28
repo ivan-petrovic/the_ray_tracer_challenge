@@ -8,6 +8,7 @@
 #include "../Tuple.h"
 #include "../Matrix4x4.h"
 #include "../Ray.h"
+// #include "../pattern/StripedPattern.h"
 #include "../Material.h"
 #include "../intersection/Intersections.h"
 

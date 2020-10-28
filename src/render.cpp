@@ -7,17 +7,25 @@ namespace mn {
 
     Color lighting(
             const Material &material,
+            const Object &object,
             const PointLight &light,
             const Point &position,
             const Vector &eye,
             const Vector &normal,
             bool in_shadow
     ) {
+        Color c;
+        if (material.has_pattern()) {
+            // c = material.pattern().stripe_at(position);
+            c = stripe_at_object(material.pattern(), object, position);
+        } else {
+            c = material.color();
+        }
         Color ambient, diffuse, specular;
         Color black = mn::make_color(0.0, 0.0, 0.0);
 
         // combine the surface color with the light's color/intensity
-        Color effective_color = material.color() * light.intensity();
+        Color effective_color = c * light.intensity();
 
         // find the direction to the light source
         Vector light_vector = normalize(light.position() - position);
@@ -59,7 +67,7 @@ namespace mn {
 
     Color shade_hit(const World &world, const Hit &hit) {
         bool in_shadow = is_shadowed(world, hit.over_point);
-        return lighting(hit.object->material(), world.light(), hit.over_point, hit.eye, hit.normal, in_shadow);
+        return lighting(hit.object->material(), *hit.object, world.light(), hit.over_point, hit.eye, hit.normal, in_shadow);
     }
 
     Color color_at(const World &world, const Ray &ray) {
@@ -86,20 +94,27 @@ namespace mn {
     }
 
     bool is_shadowed(const World &world, const Point &point) {
-        mn::Vector direction = world.light().position() - point;
+        Vector direction = world.light().position() - point;
         double distance = direction.magnitude();
         direction.normalize();
 
-        mn::Ray ray(point, direction);
-        mn::Intersections intersections;
-        mn::intersect(ray, world, intersections);
+        Ray ray(point, direction);
+        Intersections intersections;
+        intersect(ray, world, intersections);
 
-        Intersection intersection = mn::find_hit(intersections);
+        Intersection intersection = find_hit(intersections);
         if (intersection.object != nullptr && intersection.t < distance) {
             return true;
         }
 
         return false;
+    }
+
+    const Color &stripe_at_object(const StripedPattern &pattern, const Object &object, const Point &world_point) {
+        Point object_point = inverse(object.transform()) * world_point;
+        Point pattern_point = inverse(pattern.transform()) * object_point;
+
+        return pattern.stripe_at(pattern_point);
     }
 
 }

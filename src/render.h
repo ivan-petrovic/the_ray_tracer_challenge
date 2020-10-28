@@ -6,9 +6,9 @@
 #define THE_RAY_TRACER_CHALLENGE_RENDER_H
 
 #include "Tuple.h"
+#include "model/Object.h"
 #include "Material.h"
 #include "light/PointLight.h"
-// #include "intersection/Intersections.h"
 #include "intersection/intersect.h"
 #include "World.h"
 #include "Camera.h"
@@ -18,6 +18,7 @@ namespace mn {
 
     Color lighting(
             const Material &material,
+            const Object &object,
             const PointLight &light,
             const Point &position,
             const Vector &eye,
@@ -32,6 +33,8 @@ namespace mn {
     void render(const Camera &camera, const World &world, Canvas &canvas);
 
     bool is_shadowed(const World &world, const Point &point);
+
+    const Color &stripe_at_object(const StripedPattern &pattern, const Object &object, const Point &world_point);
 
 }
 
