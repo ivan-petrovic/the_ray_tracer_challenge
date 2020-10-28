@@ -15,16 +15,14 @@ int main() {
 
 bool the_default_material() {
     mn::TestObject object;
-    mn::Material material{};
-    mn::make_default_material(material);
+    mn::Material material = mn::make_default_material();
 
     return object.material() == material;
 }
 
 bool assigning_a_material() {
     mn::TestObject object;
-    mn::Material material{};
-    mn::make_default_material(material);
+    mn::Material material = mn::make_default_material();
     material.ambient(1.0);
 
     object.material(material);

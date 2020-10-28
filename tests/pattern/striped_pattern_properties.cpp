@@ -26,9 +26,9 @@ bool a_stripe_pattern_is_constant_in_y() {
 
     mn::StripedPattern pattern(white, black);
 
-    if (pattern.stripe_at(mn::make_point(0.0, 0.0, 0.0)) != white) return false;
-    if (pattern.stripe_at(mn::make_point(0.0, 1.0, 0.0)) != white) return false;
-    if (pattern.stripe_at(mn::make_point(0.0, 2.0, 0.0)) != white) return false;
+    if (pattern.pattern_at(mn::make_point(0.0, 0.0, 0.0)) != white) return false;
+    if (pattern.pattern_at(mn::make_point(0.0, 1.0, 0.0)) != white) return false;
+    if (pattern.pattern_at(mn::make_point(0.0, 2.0, 0.0)) != white) return false;
     return true;
 }
 
@@ -38,9 +38,9 @@ bool a_stripe_pattern_is_constant_in_z() {
 
     mn::StripedPattern pattern(white, black);
 
-    if (pattern.stripe_at(mn::make_point(0.0, 0.0, 0.0)) != white) return false;
-    if (pattern.stripe_at(mn::make_point(0.0, 0.0, 1.0)) != white) return false;
-    if (pattern.stripe_at(mn::make_point(0.0, 0.0, 2.0)) != white) return false;
+    if (pattern.pattern_at(mn::make_point(0.0, 0.0, 0.0)) != white) return false;
+    if (pattern.pattern_at(mn::make_point(0.0, 0.0, 1.0)) != white) return false;
+    if (pattern.pattern_at(mn::make_point(0.0, 0.0, 2.0)) != white) return false;
     return true;
 }
 
@@ -50,12 +50,12 @@ bool a_stripe_pattern_alternates_in_x() {
 
     mn::StripedPattern pattern(white, black);
 
-    if (pattern.stripe_at(mn::make_point(0.0, 0.0, 0.0)) != white) return false;
-    if (pattern.stripe_at(mn::make_point(0.9, 0.0, 0.0)) != white) return false;
-    if (pattern.stripe_at(mn::make_point(1.0, 0.0, 0.0)) != black) return false;
-    if (pattern.stripe_at(mn::make_point(-0.1, 0.0, 0.0)) != black) return false;
-    if (pattern.stripe_at(mn::make_point(-1.0, 0.0, 0.0)) != black) return false;
-    if (pattern.stripe_at(mn::make_point(-1.1, 0.0, 0.0)) != white) return false;
+    if (pattern.pattern_at(mn::make_point(0.0, 0.0, 0.0)) != white) return false;
+    if (pattern.pattern_at(mn::make_point(0.9, 0.0, 0.0)) != white) return false;
+    if (pattern.pattern_at(mn::make_point(1.0, 0.0, 0.0)) != black) return false;
+    if (pattern.pattern_at(mn::make_point(-0.1, 0.0, 0.0)) != black) return false;
+    if (pattern.pattern_at(mn::make_point(-1.0, 0.0, 0.0)) != black) return false;
+    if (pattern.pattern_at(mn::make_point(-1.1, 0.0, 0.0)) != white) return false;
 
     return true;
 }

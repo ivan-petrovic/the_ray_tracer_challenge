@@ -17,7 +17,7 @@ namespace mn {
         Color c;
         if (material.has_pattern()) {
             // c = material.pattern().stripe_at(position);
-            c = stripe_at_object(material.pattern(), object, position);
+            c = pattern_at_object(material.pattern(), object, position);
         } else {
             c = material.color();
         }
@@ -110,11 +110,11 @@ namespace mn {
         return false;
     }
 
-    const Color &stripe_at_object(const StripedPattern &pattern, const Object &object, const Point &world_point) {
+    const Color &pattern_at_object(const Pattern &pattern, const Object &object, const Point &world_point) {
         Point object_point = inverse(object.transform()) * world_point;
         Point pattern_point = inverse(pattern.transform()) * object_point;
 
-        return pattern.stripe_at(pattern_point);
+        return pattern.pattern_at(pattern_point);
     }
 
 }

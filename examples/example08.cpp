@@ -21,12 +21,11 @@ int main() {
 
     auto middle = mn::make_sphere();
     middle->transform(mn::translation(-0.5, 0.0, 0.5));
-    mn::StripedPattern pattern(
+    middle->material().set_pattern(mn::make_striped_pattern(
             mn::make_color(0.5, 0.0, 0.0),
             mn::make_color(0.0, 0.0, 0.5)
-    );
-    pattern.transform(mn::scaling(0.1, 0.1, 0.1));
-    middle->material().pattern(pattern);
+    ));
+    middle->material().pattern().transform(mn::scaling(0.1, 0.1, 0.1));
     middle->material().color(mn::make_color(0.1, 1.0, 0.5));
     middle->material().diffuse(0.7);
     middle->material().specular(0.3);

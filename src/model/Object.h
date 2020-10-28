@@ -21,7 +21,7 @@ namespace mn {
                 _transform{},
                 _material{} {
             _transform.identity();
-            make_default_material(_material);
+            _material = make_default_material();
         }
 
         virtual ~Object() = default;

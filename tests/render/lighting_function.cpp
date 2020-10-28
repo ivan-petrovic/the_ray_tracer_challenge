@@ -37,8 +37,7 @@ int main() {
 bool lighting_with_the_eye_between_the_light_and_the_surface() {
     mn::Sphere sphere;
 
-    mn::Material material{};
-    mn::make_default_material(material);
+    mn::Material material = mn::make_default_material();
     mn::Point position = mn::make_point(0.0, 0.0, 0.0);
 
     mn::Vector eye = mn::make_vector(0.0, 0.0, -1.0);
@@ -53,8 +52,7 @@ bool lighting_with_the_eye_between_the_light_and_the_surface() {
 bool lighting_with_the_eye_between_the_light_and_the_surface_with_eye_offset_45() {
     mn::Sphere sphere;
 
-    mn::Material material{};
-    mn::make_default_material(material);
+    mn::Material material = mn::make_default_material();
     mn::Point position = mn::make_point(0.0, 0.0, 0.0);
 
     const double half_sqrt_of_2 = std::sqrt(2.0) / 2;
@@ -70,8 +68,7 @@ bool lighting_with_the_eye_between_the_light_and_the_surface_with_eye_offset_45(
 bool lighting_with_the_eye_between_the_light_and_the_surface_with_light_offset_45() {
     mn::Sphere sphere;
 
-    mn::Material material{};
-    mn::make_default_material(material);
+    mn::Material material = mn::make_default_material();
     mn::Point position = mn::make_point(0.0, 0.0, 0.0);
 
     mn::Vector eye = mn::make_vector(0.0, 0.0, -1.0);
@@ -93,8 +90,7 @@ bool lighting_with_the_eye_between_the_light_and_the_surface_with_light_offset_4
 bool lighting_with_the_eye_in_the_path_of_the_reflection_vector() {
     mn::Sphere sphere;
 
-    mn::Material material{};
-    mn::make_default_material(material);
+    mn::Material material = mn::make_default_material();
     mn::Point position = mn::make_point(0.0, 0.0, 0.0);
 
     const double half_sqrt_of_2 = std::sqrt(2.0) / 2;
@@ -116,8 +112,7 @@ bool lighting_with_the_eye_in_the_path_of_the_reflection_vector() {
 bool lighting_with_the_light_behind_the_surface() {
     mn::Sphere sphere;
 
-    mn::Material material{};
-    mn::make_default_material(material);
+    mn::Material material = mn::make_default_material();
     mn::Point position = mn::make_point(0.0, 0.0, 0.0);
 
     float sqrt_of_2 = 1.41421;
@@ -133,8 +128,7 @@ bool lighting_with_the_light_behind_the_surface() {
 bool lighting_with_the_surface_in_shadow() {
     mn::Sphere sphere;
 
-    mn::Material material{};
-    mn::make_default_material(material);
+    mn::Material material = mn::make_default_material();
     mn::Point position = mn::make_point(0.0, 0.0, 0.0);
 
     mn::Vector eye = mn::make_vector(0.0, 0.0, -1.0);
@@ -154,7 +148,7 @@ bool lighting_with_a_pattern_applied() {
     material.ambient(1.0);
     material.diffuse(0.0);
     material.specular(0.0);
-    material.pattern(mn::StripedPattern(mn::make_color(1.0, 1.0, 1.0), mn::make_color(0.0, 0.0, 0.0)));
+    material.set_pattern(mn::make_striped_pattern(mn::make_color(1.0, 1.0, 1.0), mn::make_color(0.0, 0.0, 0.0)));
 
     mn::Vector eye = mn::make_vector(0.0, 0.0, -1.0);
     mn::Vector normal = mn::make_vector(0.0, 0.0, -1.0);

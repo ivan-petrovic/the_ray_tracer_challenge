@@ -34,7 +34,7 @@ namespace mn {
 
     bool is_shadowed(const World &world, const Point &point);
 
-    const Color &stripe_at_object(const StripedPattern &pattern, const Object &object, const Point &world_point);
+    const Color &pattern_at_object(const Pattern &pattern, const Object &object, const Point &world_point);
 
 }
 

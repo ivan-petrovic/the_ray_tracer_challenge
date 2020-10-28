@@ -5,6 +5,7 @@
 #ifndef THE_RAY_TRACER_CHALLENGE_MATERIAL_H
 #define THE_RAY_TRACER_CHALLENGE_MATERIAL_H
 
+#include <memory>
 #include "Tuple.h"
 #include "pattern/StripedPattern.h"
 
@@ -12,10 +13,11 @@ namespace mn {
 
     class Material {
     public:
-        Material() = default;
+        Material() :
+                _color{}, _ambient(0.0), _diffuse(0.0), _specular(0.0), _shininess(0.0), _pattern(nullptr) {}
 
         Material(const Color &c, double a, double d, double s, double sh) :
-                _color(c), _ambient(a), _diffuse(d), _specular(s), _shininess(sh), _pattern_is_set(false) {}
+                _color(c), _ambient(a), _diffuse(d), _specular(s), _shininess(sh), _pattern(nullptr) {}
 
         [[nodiscard]] const Color &color() const { return _color; }
 
@@ -39,11 +41,14 @@ namespace mn {
 
         void shininess(double sh) { _shininess = sh; }
 
-        [[nodiscard]] bool has_pattern() const { return _pattern_is_set; }
+        [[nodiscard]] bool has_pattern() const { return _pattern != nullptr; }
 
-        void pattern(const StripedPattern &pattern) { _pattern = pattern; _pattern_is_set = true; }
+        // void pattern(const Pattern &pattern) { *_pattern = pattern; }
+        void set_pattern(const std::shared_ptr<Pattern> &pattern) { _pattern = pattern; }
 
-        [[nodiscard]] const StripedPattern &pattern() const { return _pattern; }
+        [[nodiscard]] const Pattern &pattern() const { return *_pattern; }
+
+        [[nodiscard]] Pattern &pattern() { return *_pattern; }
 
         bool operator==(const Material &m) const {
             return
@@ -66,17 +71,17 @@ namespace mn {
     private:
         Color _color;
         double _ambient, _diffuse, _specular, _shininess;
-        StripedPattern _pattern;
-        bool _pattern_is_set;
+        std::shared_ptr<Pattern> _pattern;
 
     };
 
-    inline void make_default_material(Material &material) {
-        material.color(mn::make_color(1.0, 1.0, 1.0));
-        material.ambient(0.1);
-        material.diffuse(0.9);
-        material.specular(0.9);
-        material.shininess(200.0);
+    inline Material make_default_material() {
+        Material material(
+                mn::make_color(1.0, 1.0, 1.0),
+                0.1, 0.9, 0.9, 200.0
+        );
+
+        return material;
     }
 
 }
