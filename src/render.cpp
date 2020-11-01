@@ -110,7 +110,7 @@ namespace mn {
         return false;
     }
 
-    const Color &pattern_at_object(const Pattern &pattern, const Object &object, const Point &world_point) {
+    Color pattern_at_object(const Pattern &pattern, const Object &object, const Point &world_point) {
         Point object_point = inverse(object.transform()) * world_point;
         Point pattern_point = inverse(pattern.transform()) * object_point;
 

@@ -2,6 +2,7 @@
 // Created by ivan on 18.10.2020..
 //
 #include "Tuple.h"
+#include "pattern/StripedPattern.h"
 #include "Material.h"
 #include "light/PointLight.h"
 #include "render.h"
@@ -148,6 +149,7 @@ bool lighting_with_a_pattern_applied() {
     material.ambient(1.0);
     material.diffuse(0.0);
     material.specular(0.0);
+    // auto pattern = ;
     material.set_pattern(mn::make_striped_pattern(mn::make_color(1.0, 1.0, 1.0), mn::make_color(0.0, 0.0, 0.0)));
 
     mn::Vector eye = mn::make_vector(0.0, 0.0, -1.0);

@@ -5,6 +5,10 @@
 #include "Tuple.h"
 #include "Matrix4x4.h"
 #include "Ray.h"
+#include "pattern/StripedPattern.h"
+#include "pattern/Checker3DPattern.h"
+#include "pattern/RingPattern.h"
+#include "pattern/GradientPattern.h"
 #include "model/Sphere.h"
 #include "model/Plane.h"
 #include "light/PointLight.h"
@@ -16,25 +20,37 @@
 
 int main() {
     auto floor = mn::make_plane();
-    floor->material().color(mn::make_color(1.0, 0.9, 0.9));
-    floor->material().specular(0);
+    floor->material().set_pattern(mn::make_checker3d_pattern(
+            mn::make_color(0.0, 0.8, 0.0),
+            mn::make_color(0.0, 0.0, 0.8)
+    ));
+
+    auto wall = mn::make_plane();
+    wall->transform(mn::translation(0.0, 0.0, 5.0) * mn::rotation_x(mn::deg_to_rad(-90.0)));
+    wall->material().set_pattern(mn::make_striped_pattern(
+            mn::make_color(0.5, 0.1, 0.0),
+            mn::make_color(0.0, 0.1, 0.5)
+    ));
+    wall->material().pattern().transform(mn::rotation_y(mn::deg_to_rad(30.0)));
 
     auto middle = mn::make_sphere();
-    middle->transform(mn::translation(-0.5, 0.0, 0.5));
-    middle->material().set_pattern(mn::make_striped_pattern(
-            mn::make_color(0.5, 0.0, 0.0),
-            mn::make_color(0.0, 0.0, 0.5)
+    middle->transform(mn::translation(-0.5, 0.7, 0.5) *
+                      mn::rotation_y(mn::kPi / 4.0));
+    middle->material().set_pattern(mn::make_ring_pattern(
+            mn::make_color(1.0, 1.0, 1.0),
+            mn::make_color(0.1, 0.0, 0.5)
     ));
-    middle->material().pattern().transform(mn::scaling(0.1, 0.1, 0.1));
-    middle->material().color(mn::make_color(0.1, 1.0, 0.5));
-    middle->material().diffuse(0.7);
-    middle->material().specular(0.3);
+    middle->material().pattern().transform(
+            mn::scaling(0.3, 0.3, 0.3) *
+            mn::rotation_z(mn::kPi / 4.0)
+    );
 
     auto right = mn::make_sphere();
     right->transform(mn::translation(1.5, 0.5, -0.5) * mn::scaling(0.5, 0.5, 0.5));
-    right->material().color(mn::make_color(0.5, 1.0, 0.1));
-    right->material().diffuse(0.7);
-    right->material().specular(0.3);
+    right->material().set_pattern(mn::make_gradient_pattern(
+            mn::make_color(0.5, 0.0, 0.0),
+            mn::make_color(0.5, 0.5, 0.0)
+    ));
 
     auto left = mn::make_sphere();
     left->transform(mn::translation(-1.5, 0.33, -0.75) * mn::scaling(0.33, 0.33, 0.33));
@@ -49,6 +65,7 @@ int main() {
     mn::World world;
     world.set_light(p_light);
     world.add_object(floor);
+    world.add_object(wall);
     world.add_object(middle);
     world.add_object(right);
     world.add_object(left);

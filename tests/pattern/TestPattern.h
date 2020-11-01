@@ -17,7 +17,7 @@ namespace mn {
                 make_color(1.0, 1.0, 1.0)
                 ), c{} {}
 
-        [[nodiscard]] const Color &pattern_at(const Point &pattern_point) const override {
+        [[nodiscard]] Color pattern_at(const Point &pattern_point) const override {
             c = make_color(pattern_point.x, pattern_point.y, pattern_point.z);
             return c;
         };

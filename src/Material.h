@@ -7,7 +7,7 @@
 
 #include <memory>
 #include "Tuple.h"
-#include "pattern/StripedPattern.h"
+#include "pattern/Pattern.h"
 
 namespace mn {
 
@@ -43,8 +43,7 @@ namespace mn {
 
         [[nodiscard]] bool has_pattern() const { return _pattern != nullptr; }
 
-        // void pattern(const Pattern &pattern) { *_pattern = pattern; }
-        void set_pattern(const std::shared_ptr<Pattern> &pattern) { _pattern = pattern; }
+        void set_pattern(std::shared_ptr<Pattern> pattern) { _pattern = pattern; }
 
         [[nodiscard]] const Pattern &pattern() const { return *_pattern; }
 

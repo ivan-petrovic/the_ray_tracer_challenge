@@ -41,7 +41,7 @@ namespace mn {
             return _a != pattern._a || _b != pattern._b || _transform != pattern._transform;
         }
 
-        [[nodiscard]] virtual const Color &pattern_at(const Point &pattern_point) const = 0;
+        [[nodiscard]] virtual Color pattern_at(const Point &pattern_point) const = 0;
 
     protected:
         Color _a, _b;

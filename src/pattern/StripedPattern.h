@@ -16,7 +16,7 @@ namespace mn {
     public:
         StripedPattern(const Color &c1, const Color &c2) : Pattern(c1, c2) {}
 
-        [[nodiscard]] const Color &pattern_at(const Point &pattern_point) const override {
+        [[nodiscard]] Color pattern_at(const Point &pattern_point) const override {
             if (static_cast<int>(std::floor(pattern_point.x)) % 2 == 0) return _a;
             return _b;
         }
