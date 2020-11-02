@@ -3,6 +3,7 @@
 //
 #include "Tuple.h"
 #include "Material.h"
+#include "model/Plane.h"
 #include "light/PointLight.h"
 #include "render.h"
 #include "World.h"
@@ -13,11 +14,14 @@ bool shading_an_intersection_from_the_inside();
 
 bool shading_an_intersection_in_shadow();
 
+bool shade_hit_with_a_reflective_material();
+
 int main() {
     if (
             shading_an_intersection() &&
             shading_an_intersection_from_the_inside() &&
-            shading_an_intersection_in_shadow()
+            shading_an_intersection_in_shadow() &&
+            shade_hit_with_a_reflective_material()
             )
         return 0;
 
@@ -74,4 +78,28 @@ bool shading_an_intersection_in_shadow() {
 
     mn::Color color = mn::shade_hit(world, hit);
     return color == mn::make_color(0.1, 0.1, 0.1);
+}
+
+bool shade_hit_with_a_reflective_material() {
+    mn::World world;
+    mn::make_default_world(world);
+
+    auto plane = mn::make_plane();
+    plane->material().reflective(0.5);
+    plane->transform(mn::translation(0.0, -1.0, 0.0));
+    world.add_object(plane);
+
+    const double sqrt_of_2 = std::sqrt(2.0);
+    const double half_sqrt_of_2 = std::sqrt(2.0) / 2.0;
+    mn::Ray ray(
+            mn::make_point(0.0, 0.0, -3.0),
+            mn::make_vector(0.0, -half_sqrt_of_2, half_sqrt_of_2));
+
+    mn::Intersection intersection{sqrt_of_2, world.objects()[2].get()};
+
+    mn::Hit hit = mn::prepare_computations(intersection, ray);
+
+    mn::Color color = mn::shade_hit(world, hit);
+
+    return mn::epsilon_equal(color, mn::make_color(0.87677, 0.92436, 0.82918), 0.0001);
 }

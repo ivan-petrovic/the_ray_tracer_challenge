@@ -14,6 +14,9 @@ target_link_libraries(RTC_ColorAtFunction PRIVATE RTC_rtc)
 add_executable(RTC_IsShadowedFunction is_shadowed_function.cpp)
 target_link_libraries(RTC_IsShadowedFunction PRIVATE RTC_rtc)
 
+add_executable(RTC_ReflectedColorFunction reflected_color_fn.cpp)
+target_link_libraries(RTC_ReflectedColorFunction PRIVATE RTC_rtc)
+
 add_executable(RTC_PatternAtObject pattern_at_object_fn.cpp)
 target_link_libraries(RTC_PatternAtObject PRIVATE RTC_rtc)
 
@@ -25,4 +28,5 @@ add_test(NAME RTC.Render.ShadeHit COMMAND RTC_ShadeHitFunction)
 add_test(NAME RTC.Render.ColorAt COMMAND RTC_ColorAtFunction)
 add_test(NAME RTC.Render.DefaultWorld COMMAND RTC_RenderDefaultWorld)
 add_test(NAME RTC.Render.IsShadowed COMMAND RTC_IsShadowedFunction)
+add_test(NAME RTC.Render.ReflectedColor COMMAND RTC_ReflectedColorFunction)
 add_test(NAME RTC.Render.PatternAtObject COMMAND RTC_PatternAtObject)

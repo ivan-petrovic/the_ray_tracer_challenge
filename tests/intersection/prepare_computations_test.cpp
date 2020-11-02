@@ -3,6 +3,7 @@
 //
 #include "Ray.h"
 #include "model/Sphere.h"
+#include "model/Plane.h"
 #include "intersection/intersect.h"
 
 bool precomputing_the_state_of_an_intersection();
@@ -13,12 +14,15 @@ bool the_hit_when_an_intersection_occurs_on_the_inside();
 
 bool the_hit_should_offset_the_point();
 
+bool precomputing_the_reflection_vector();
+
 int main() {
     if (
             precomputing_the_state_of_an_intersection() &&
             the_hit_when_an_intersection_occurs_on_the_outside() &&
             the_hit_when_an_intersection_occurs_on_the_inside() &&
-            the_hit_should_offset_the_point()
+            the_hit_should_offset_the_point() &&
+            precomputing_the_reflection_vector()
             )
         return 0;
     return 1;
@@ -81,4 +85,18 @@ bool the_hit_should_offset_the_point() {
     if (hit_data.point.z <= hit_data.over_point.z) return false;
 
     return true;
+}
+
+bool precomputing_the_reflection_vector() {
+    mn::Plane plane;
+    const double sqrt_of_2 = std::sqrt(2.0);
+    mn::Ray ray(
+            mn::make_point(0.0, 1.0, -1.0),
+            mn::make_vector(0.0, -sqrt_of_2 / 2.0, sqrt_of_2 / 2.0)
+    );
+    mn::Intersection intersection{sqrt_of_2, &plane};
+
+    mn::Hit hit = mn::prepare_computations(intersection, ray);
+
+    return hit.reflect_v == mn::make_vector(0.0, sqrt_of_2 / 2.0, sqrt_of_2 / 2.0);
 }

@@ -26,15 +26,19 @@ namespace mn {
             bool in_shadow = false
     );
 
-    Color shade_hit(const World &world, const Hit &hit);
+    const int kRemaining = 5;
 
-    Color color_at(const World &world, const Ray &ray);
+    Color shade_hit(const World &world, const Hit &hit, int remaining = kRemaining);
+
+    Color color_at(const World &world, const Ray &ray, int remaining = kRemaining);
 
     void render(const Camera &camera, const World &world, Canvas &canvas);
 
     bool is_shadowed(const World &world, const Point &point);
 
     Color pattern_at_object(const Pattern &pattern, const Object &object, const Point &world_point);
+
+    Color reflected_color(const World &world, const Hit &hit, int remaining = kRemaining);
 
 }
 

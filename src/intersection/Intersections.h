@@ -28,6 +28,7 @@ namespace mn {
         Point over_point;
         Vector eye;
         Vector normal;
+        Vector reflect_v;
         bool inside;
     };
 

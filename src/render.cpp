@@ -65,12 +65,23 @@ namespace mn {
         return ambient + diffuse + specular;
     }
 
-    Color shade_hit(const World &world, const Hit &hit) {
+    Color shade_hit(const World &world, const Hit &hit, int remaining) {
         bool in_shadow = is_shadowed(world, hit.over_point);
-        return lighting(hit.object->material(), *hit.object, world.light(), hit.over_point, hit.eye, hit.normal, in_shadow);
+        Color surface = lighting(
+                hit.object->material(),
+                *hit.object,
+                world.light(),
+                hit.over_point,
+                hit.eye,
+                hit.normal,
+                in_shadow
+        );
+        Color reflected = reflected_color(world, hit, remaining);
+
+        return surface + reflected;
     }
 
-    Color color_at(const World &world, const Ray &ray) {
+    Color color_at(const World &world, const Ray &ray, int remaining) {
         Intersections intersections;
         intersect(ray, world, intersections);
 
@@ -80,7 +91,7 @@ namespace mn {
         }
 
         Hit hit = prepare_computations(intersection, ray);
-        return shade_hit(world, hit);
+        return shade_hit(world, hit, remaining);
     }
 
     void render(const Camera &camera, const World &world, Canvas &canvas) {
@@ -115,6 +126,19 @@ namespace mn {
         Point pattern_point = inverse(pattern.transform()) * object_point;
 
         return pattern.pattern_at(pattern_point);
+    }
+
+    Color reflected_color(const World &world, const Hit &hit, int remaining) {
+        if (remaining <= 0)
+            return make_color(0.0, 0.0, 0.0); // black
+
+        if (hit.object->material().reflective() == 0.0)
+            return make_color(0.0, 0.0, 0.0); // black
+
+        Ray reflect_ray(hit.over_point, hit.reflect_v);
+        Color color = color_at(world, reflect_ray, remaining - 1);
+
+        return color * hit.object->material().reflective();
     }
 
 }
