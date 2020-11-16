@@ -40,6 +40,9 @@ namespace mn {
 
     Color reflected_color(const World &world, const Hit &hit, int remaining = kRemaining);
 
+    Color refracted_color(const World &world, const Hit &hit, int remaining = kRemaining);
+
+    double schlick(const Hit &hit);
 }
 
 #endif //THE_RAY_TRACER_CHALLENGE_RENDER_H

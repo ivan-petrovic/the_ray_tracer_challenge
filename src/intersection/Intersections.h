@@ -26,10 +26,12 @@ namespace mn {
         const Object *object;
         Point point;
         Point over_point;
+        Point under_point;
         Vector eye;
         Vector normal;
         Vector reflect_v;
         bool inside;
+        double n1, n2;
     };
 
     class Intersections {
@@ -40,7 +42,7 @@ namespace mn {
 
         void add(double t, const Object *o) { _intersections.push_back(Intersection{t, o}); }
 
-        const Intersection &operator[](int i) { return _intersections[i]; } // no bound checking
+        const Intersection &operator[](int i) const { return _intersections[i]; } // no bound checking
 
         void sort();
 

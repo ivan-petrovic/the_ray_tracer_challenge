@@ -25,6 +25,10 @@ namespace mn {
         mutable Color c;
     };
 
+    inline std::unique_ptr<Pattern> make_test_pattern() {
+        return std::make_unique<TestPattern>();
+    }
+
 }
 
 #endif //THE_RAY_TRACER_CHALLENGE_TEST_PATTERN_H

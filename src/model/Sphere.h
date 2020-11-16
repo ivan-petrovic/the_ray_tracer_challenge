@@ -56,5 +56,12 @@ namespace mn {
         return std::make_unique<Sphere>();
     }
 
+    inline std::unique_ptr<Object> make_glass_sphere() {
+        auto sphere = std::make_unique<Sphere>();
+        sphere->material().transparency(1.0);
+        sphere->material().refractive_index(1.5);
+        return sphere;
+    }
+
 }
 #endif //THE_RAY_TRACER_CHALLENGE_SPHERE_H

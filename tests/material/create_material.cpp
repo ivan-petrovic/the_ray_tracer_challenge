@@ -19,6 +19,8 @@ bool the_default_material() {
     if (material.specular() != 0.9) return false;
     if (material.shininess() != 200.0) return false;
     if (material.reflective() != 0.0) return false;
+    if (material.transparency() != 0.0) return false;
+    if (material.refractive_index() != 1.0) return false;
 
     return true;
 }

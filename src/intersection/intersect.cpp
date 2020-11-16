@@ -1,6 +1,7 @@
 //
 // Created by ivan on 26.10.2020..
 //
+#include <algorithm>    // std::find
 #include "intersect.h"
 
 namespace mn {
@@ -34,7 +35,7 @@ namespace mn {
         intersections.sort();
     }
 
-    Hit prepare_computations(const Intersection &intersection, const Ray &ray) {
+    Hit prepare_computations(const Intersection &intersection, const Ray &ray, const Intersections &intersections) {
         Hit hit_data{};
 
         // copy the intersection's properties, for convenience
@@ -56,6 +57,38 @@ namespace mn {
         hit_data.reflect_v = mn::reflect(-ray.direction(), hit_data.normal);
 
         hit_data.over_point = hit_data.point + hit_data.normal * kEpsilon;
+        hit_data.under_point = hit_data.point - hit_data.normal * kEpsilon;
+
+        // logic for refractive indices computation
+        hit_data.n1 = hit_data.n2 = 1.0;
+        std::vector<const Object *> containers;
+
+        for (int i = 0; i < intersections.count(); ++i) {
+            if (intersections[i].t == intersection.t && intersections[i].object == intersection.object) {
+                if (containers.empty()) {
+                    hit_data.n1 = 1.0;
+                } else {
+                    hit_data.n1 = containers.back()->material().refractive_index();
+                }
+            }
+
+            std::vector<const Object *>::iterator it;
+            it = std::find(containers.begin(), containers.end(), intersections[i].object);
+            if (it != containers.end()) {
+                containers.erase(it);
+            } else {
+                containers.push_back(intersections[i].object);
+            }
+
+            if (intersections[i].t == intersection.t && intersections[i].object == intersection.object) {
+                if (containers.empty()) {
+                    hit_data.n2 = 1.0;
+                } else {
+                    hit_data.n2 = containers.back()->material().refractive_index();
+                }
+                break;
+            }
+        }
 
         return hit_data;
     }

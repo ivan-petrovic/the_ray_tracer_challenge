@@ -20,7 +20,7 @@ namespace mn {
 
     Intersection find_hit(Intersections &intersections);
 
-    Hit prepare_computations(const Intersection &intersection, const Ray &ray);
+    Hit prepare_computations(const Intersection &intersection, const Ray &ray, const Intersections &intersections);
 
 }
 

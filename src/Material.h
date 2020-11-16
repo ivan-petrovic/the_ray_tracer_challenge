@@ -18,7 +18,8 @@ namespace mn {
 
         Material(const Color &c, double a, double d, double s, double sh) :
                 _color(c), _ambient(a), _diffuse(d), _specular(s), _shininess(sh),
-                _reflective(0.0), _pattern(nullptr) {}
+                _reflective(0.0), _transparency(0.0), _refractive_index(1.0),
+                _pattern(nullptr) {}
 
         [[nodiscard]] const Color &color() const { return _color; }
 
@@ -45,6 +46,14 @@ namespace mn {
         [[nodiscard]] double reflective() const { return _reflective; }
 
         void reflective(double r) { _reflective = r; }
+
+        [[nodiscard]] double transparency() const { return _transparency; }
+
+        void transparency(double t) { _transparency = t; }
+
+        [[nodiscard]] double refractive_index() const { return _refractive_index; }
+
+        void refractive_index(double r) { _refractive_index = r; }
 
         [[nodiscard]] bool has_pattern() const { return _pattern != nullptr; }
 
@@ -75,7 +84,7 @@ namespace mn {
     private:
         Color _color;
         double _ambient, _diffuse, _specular, _shininess;
-        double _reflective;
+        double _reflective, _transparency, _refractive_index;
         std::shared_ptr<Pattern> _pattern;
 
     };

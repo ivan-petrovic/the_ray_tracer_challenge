@@ -1,6 +1,6 @@
 //
 // Created by ivan on 24.10.2020..
-// Chapter 10: Patterns
+// Chapter 11: Reflections and Refractions
 //
 #include "Tuple.h"
 #include "Matrix4x4.h"
@@ -25,8 +25,18 @@ int main() {
 
     auto ball = mn::make_sphere();
     ball->transform(mn::translation(-0.5, 1.0, 2.5));
-    ball->material().color(mn::make_color(0.5, 0.1, 0.1));
-    ball->material().reflective(0.1);
+    ball->material().color(mn::make_color(0.1, 0.0, 0.0));
+    ball->material().ambient(0.6);
+//    ball->material().diffuse(0.3);
+    ball->material().reflective(0.7);
+
+    auto ball2 = mn::make_sphere();
+    ball2->transform(mn::translation(0.5, 1.0, 1.5) * mn::scaling(0.5, 1.0, 0.5));
+    ball2->material().color(mn::make_color(0.0, 0.2, 0.0));
+    ball2->material().ambient(0.2);
+    ball2->material().diffuse(0.2);
+    ball2->material().transparency(0.9);
+    ball2->material().refractive_index(1.5);
 
     mn::Point light_position = mn::make_point(-10.0, 10.0, -10.0);
     mn::Color light_color = mn::make_color(1.0, 1.0, 1.0);
@@ -36,6 +46,7 @@ int main() {
     world.set_light(p_light);
     world.add_object(floor);
     world.add_object(ball);
+    world.add_object(ball2);
 
     mn::Camera camera(600, 300, mn::kPi / 3.0);
     camera.transform(
@@ -50,7 +61,7 @@ int main() {
     mn::render(camera, world, canvas);
 
     mn::PPM ppm;
-    ppm.canvas_to_ppm(canvas, "reflection.ppm");
+    ppm.canvas_to_ppm(canvas, "reflection_refraction.ppm");
 
     return 0;
 }

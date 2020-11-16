@@ -33,8 +33,8 @@ bool the_reflected_color_for_a_non_reflective_material() {
 
     world.objects()[1]->material().ambient(1.0);
     mn::Intersection intersection{1.0, world.objects()[1].get()};
-
-    mn::Hit hit = mn::prepare_computations(intersection, ray);
+    mn::Intersections intersections;
+    mn::Hit hit = mn::prepare_computations(intersection, ray, intersections);
 
     mn::Color color = mn::reflected_color(world, hit);
 
@@ -57,8 +57,8 @@ bool the_reflected_color_for_a_reflective_material() {
             mn::make_vector(0.0, -half_sqrt_of_2, half_sqrt_of_2));
 
     mn::Intersection intersection{sqrt_of_2, world.objects()[2].get()};
-
-    mn::Hit hit = mn::prepare_computations(intersection, ray);
+    mn::Intersections intersections;
+    mn::Hit hit = mn::prepare_computations(intersection, ray, intersections);
 
     mn::Color color = mn::reflected_color(world, hit);
 
@@ -81,8 +81,8 @@ bool the_reflected_color_at_a_maximum_recursive_depth() {
             mn::make_vector(0.0, -half_sqrt_of_2, half_sqrt_of_2));
 
     mn::Intersection intersection{sqrt_of_2, world.objects()[2].get()};
-
-    mn::Hit hit = mn::prepare_computations(intersection, ray);
+    mn::Intersections intersections;
+    mn::Hit hit = mn::prepare_computations(intersection, ray, intersections);
 
     mn::Color color = mn::reflected_color(world, hit, 0);
 

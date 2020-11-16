@@ -77,8 +77,14 @@ namespace mn {
                 in_shadow
         );
         Color reflected = reflected_color(world, hit, remaining);
+        Color refracted = refracted_color(world, hit, remaining);
 
-        return surface + reflected;
+        if (hit.object->material().reflective() > 0 && hit.object->material().transparency() > 0) {
+            const double reflectance = schlick(hit);
+            return surface + reflectance * reflected + (1 - reflectance) * refracted;
+        }
+
+        return surface + reflected + refracted;
     }
 
     Color color_at(const World &world, const Ray &ray, int remaining) {
@@ -90,7 +96,7 @@ namespace mn {
             return make_color(0.0, 0.0, 0.0); // black
         }
 
-        Hit hit = prepare_computations(intersection, ray);
+        Hit hit = prepare_computations(intersection, ray, intersections);
         return shade_hit(world, hit, remaining);
     }
 
@@ -139,6 +145,71 @@ namespace mn {
         Color color = color_at(world, reflect_ray, remaining - 1);
 
         return color * hit.object->material().reflective();
+    }
+
+    Color refracted_color(const World &world, const Hit &hit, int remaining) {
+        if (remaining <= 0)
+            return make_color(0.0, 0.0, 0.0); // black
+
+        if (hit.object->material().transparency() == 0.0)
+            return make_color(0.0, 0.0, 0.0); // black
+
+        // Page 157 in the book.
+        // Find the ratio of first index of refraction to the second.
+        // (Yup, this is inverted from the definition of Snell's Law.)
+        const double n_ratio = hit.n1 / hit.n2;
+
+        // cos(theta_i) is the same as the dot product of the two vectors
+        const double cos_i = dot(hit.eye, hit.normal);
+
+        // Find sin(theta_t)^2 via trigonometric identity
+        const double sin2_t = n_ratio * n_ratio * (1 - cos_i * cos_i);
+
+        if (sin2_t > 1.0)
+            return make_color(0.0, 0.0, 0.0); // black
+
+        // Find cos(theta_t) via trigonometric identity
+        const double cos_t = std::sqrt(1.0 - sin2_t);
+
+        // Explanation: http://graphics.stanford.edu/courses/cs148-10-summer/docs/2006--degreve--reflection_refraction.pdf
+        // Compute the direction of the refracted ray
+        Vector direction = hit.normal * (n_ratio * cos_i - cos_t) - hit.eye * n_ratio;
+
+        // Another explanation: http://www.starkeffects.com/snells-law-vector.shtml
+        // Formula from this site:
+        // Vector c = cross(hit.normal, -hit.eye);
+        // Vector direction = n_ratio * (cross(hit.normal, -c)) -
+        //         hit.normal * std::sqrt(1 - n_ratio * n_ratio * dot(c, c));
+        // Not the same as above, but gives the same result (difference is on 16th decimal place)
+
+        // Create the refracted ray
+        Ray refract_ray(hit.under_point, direction);
+
+        // Find the color or the refracted ray, making sure to multiply
+        // by the transparency value to account for any opacity
+        Color color = color_at(world, refract_ray, remaining - 1) * hit.object->material().transparency();
+        return color;
+    }
+
+    double schlick(const Hit &hit) {
+        // find the cosine of the angle between the eye and normal vectors
+        double cos_angle = dot(hit.eye, hit.normal);
+
+        // total internal reflection can only occur if n1 > n2
+        if (hit.n1 > hit.n2) {
+            const double n = hit.n1 / hit.n2;
+            const double sin2_t = n * n * (1 - cos_angle * cos_angle);
+            if (sin2_t > 1.0) return 1.0;
+
+            // when n1 > n2, use cos(theta_t) instead
+            cos_angle = std::sqrt(1.0 - sin2_t);
+        }
+
+        double r0 = (hit.n1 - hit.n2) / (hit.n1 + hit.n2);
+        r0 *= r0;
+        const double x = 1- cos_angle;
+
+        return r0 + (1 - r0) * x * x * x * x * x;
     }
 
 }

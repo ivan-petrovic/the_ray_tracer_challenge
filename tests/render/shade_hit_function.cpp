@@ -16,12 +16,18 @@ bool shading_an_intersection_in_shadow();
 
 bool shade_hit_with_a_reflective_material();
 
+bool shade_hit_with_a_transparent_material();
+
+bool shade_hit_with_a_reflective_transparent_material();
+
 int main() {
     if (
             shading_an_intersection() &&
             shading_an_intersection_from_the_inside() &&
             shading_an_intersection_in_shadow() &&
-            shade_hit_with_a_reflective_material()
+            shade_hit_with_a_reflective_material() &&
+            shade_hit_with_a_transparent_material() &&
+            shade_hit_with_a_reflective_transparent_material()
             )
         return 0;
 
@@ -35,7 +41,8 @@ bool shading_an_intersection() {
     mn::Ray ray(mn::make_point(0.0, 0.0, -5.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Intersection intersection{4.0, world.objects()[0].get()}; // first object in world
 
-    mn::Hit hit = mn::prepare_computations(intersection, ray);
+    mn::Intersections intersections;
+    mn::Hit hit = mn::prepare_computations(intersection, ray, intersections);
 
     mn::Color color = mn::shade_hit(world, hit);
 
@@ -50,7 +57,8 @@ bool shading_an_intersection_from_the_inside() {
     mn::Ray ray(mn::make_point(0.0, 0.0, 0.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Intersection intersection{0.5, world.objects()[1].get()}; // second object in world
 
-    mn::Hit hit = mn::prepare_computations(intersection, ray);
+    mn::Intersections intersections;
+    mn::Hit hit = mn::prepare_computations(intersection, ray, intersections);
 
     mn::Color color = mn::shade_hit(world, hit);
 
@@ -74,7 +82,8 @@ bool shading_an_intersection_in_shadow() {
 
     mn::Ray ray(mn::make_point(0.0, 0.0, 5.0), mn::make_vector(0.0, 0.0, 1.0));
     mn::Intersection intersection{4.0, world.objects()[1].get()}; // second object in world
-    mn::Hit hit = mn::prepare_computations(intersection, ray);
+    mn::Intersections intersections;
+    mn::Hit hit = mn::prepare_computations(intersection, ray, intersections);
 
     mn::Color color = mn::shade_hit(world, hit);
     return color == mn::make_color(0.1, 0.1, 0.1);
@@ -96,10 +105,73 @@ bool shade_hit_with_a_reflective_material() {
             mn::make_vector(0.0, -half_sqrt_of_2, half_sqrt_of_2));
 
     mn::Intersection intersection{sqrt_of_2, world.objects()[2].get()};
-
-    mn::Hit hit = mn::prepare_computations(intersection, ray);
+    mn::Intersections intersections;
+    mn::Hit hit = mn::prepare_computations(intersection, ray, intersections);
 
     mn::Color color = mn::shade_hit(world, hit);
 
     return mn::epsilon_equal(color, mn::make_color(0.87677, 0.92436, 0.82918), 0.0001);
+}
+
+bool shade_hit_with_a_transparent_material() {
+    mn::World world;
+    mn::make_default_world(world);
+
+    auto floor = mn::make_plane();
+    floor->transform(mn::translation(0.0, -1.0, 0.0));
+    floor->material().transparency(0.5);
+    floor->material().refractive_index(1.5);
+    world.add_object(floor);
+
+    auto ball = mn::make_sphere();
+    ball->material().color(mn::make_color(1.0, 0.0, 0.0));
+    ball->material().ambient(0.5);
+    ball->transform(mn::translation(0.0, -3.5, -0.5));
+    world.add_object(ball);
+
+    const double sqrt_of_2 = std::sqrt(2.0);
+    const double half_sqrt_of_2 = std::sqrt(2.0) / 2.0;
+    mn::Ray ray(
+            mn::make_point(0.0, 0.0, -3.0),
+            mn::make_vector(0.0, -half_sqrt_of_2, half_sqrt_of_2));
+
+    mn::Intersections intersections;
+    intersections.add(sqrt_of_2, world.objects()[2].get());
+    mn::Hit hit = mn::prepare_computations(intersections[0], ray, intersections);
+
+    mn::Color color = mn::shade_hit(world, hit, 5);
+
+    return mn::epsilon_equal(color, mn::make_color(0.93642, 0.68642, 0.68642), 0.00001);
+}
+
+bool shade_hit_with_a_reflective_transparent_material() {
+    mn::World world;
+    mn::make_default_world(world);
+
+    auto floor = mn::make_plane();
+    floor->transform(mn::translation(0.0, -1.0, 0.0));
+    floor->material().reflective(0.5);
+    floor->material().transparency(0.5);
+    floor->material().refractive_index(1.5);
+    world.add_object(floor);
+
+    auto ball = mn::make_sphere();
+    ball->material().color(mn::make_color(1.0, 0.0, 0.0));
+    ball->material().ambient(0.5);
+    ball->transform(mn::translation(0.0, -3.5, -0.5));
+    world.add_object(ball);
+
+    const double sqrt_of_2 = std::sqrt(2.0);
+    const double half_sqrt_of_2 = std::sqrt(2.0) / 2.0;
+    mn::Ray ray(
+            mn::make_point(0.0, 0.0, -3.0),
+            mn::make_vector(0.0, -half_sqrt_of_2, half_sqrt_of_2));
+
+    mn::Intersections intersections;
+    intersections.add(sqrt_of_2, world.objects()[2].get());
+    mn::Hit hit = mn::prepare_computations(intersections[0], ray, intersections);
+
+    mn::Color color = mn::shade_hit(world, hit, 5);
+
+    return mn::epsilon_equal(color, mn::make_color(0.93391, 0.69643, 0.69243), 0.00001);
 }
