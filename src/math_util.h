@@ -19,6 +19,7 @@ namespace mn {
     inline constexpr double k180OverPi = 180.0 / kPi;
 
     inline constexpr double kEpsilon{0.000001};
+    inline constexpr double kInfinity{1e10};
 
     inline bool epsilon_equal(double a, double b, double e = kEpsilon) { return std::abs(a - b) < e; }
 

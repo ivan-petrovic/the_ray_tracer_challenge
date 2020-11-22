@@ -25,3 +25,6 @@ target_link_libraries(EXAMPLE_Patterns PRIVATE RTC_rtc)
 
 add_executable(EXAMPLE_Reflection example09.cpp)
 target_link_libraries(EXAMPLE_Reflection PRIVATE RTC_rtc)
+
+add_executable(EXAMPLE_Cubes example10.cpp)
+target_link_libraries(EXAMPLE_Cubes PRIVATE RTC_rtc)

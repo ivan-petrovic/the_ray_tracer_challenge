@@ -12,7 +12,7 @@ add_library(RTC_rtc
     pattern/StripedPattern.h pattern/GradientPattern.h
     pattern/RingPattern.h pattern/Checker3DPattern.h
     Material.h
-    model/Object.h model/Sphere.h model/Plane.h
+    model/Object.h model/Sphere.h model/Plane.h model/Cube.h
     intersection/Intersections.cpp intersection/Intersections.h
     intersection/intersect.cpp intersection/intersect.h
     light/PointLight.h
