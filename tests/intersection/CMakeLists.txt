@@ -8,6 +8,12 @@ target_link_libraries(RTC_RayPlaneIntersection PRIVATE RTC_rtc)
 add_executable(RTC_RayCubeIntersection ray_cube.cpp)
 target_link_libraries(RTC_RayCubeIntersection PRIVATE RTC_rtc)
 
+add_executable(RTC_RayCylinderIntersection ray_cylinder.cpp)
+target_link_libraries(RTC_RayCylinderIntersection PRIVATE RTC_rtc)
+
+add_executable(RTC_RayConeIntersection ray_cone.cpp)
+target_link_libraries(RTC_RayConeIntersection PRIVATE RTC_rtc)
+
 add_executable(RTC_TrackingIntersections tracking_intersections.cpp)
 target_link_libraries(RTC_TrackingIntersections PRIVATE RTC_rtc)
 
@@ -29,6 +35,8 @@ target_link_libraries(RTC_RayTransformedObjectIntersection PRIVATE RTC_rtc)
 add_test(NAME RTC.Intersection.RaySphere COMMAND RTC_RaySphereIntersection)
 add_test(NAME RTC.Intersection.RayPlane COMMAND RTC_RayPlaneIntersection)
 add_test(NAME RTC.Intersection.RayCube COMMAND RTC_RayCubeIntersection)
+add_test(NAME RTC.Intersection.RayCylinder COMMAND RTC_RayCylinderIntersection)
+add_test(NAME RTC.Intersection.RayCone COMMAND RTC_RayConeIntersection)
 add_test(NAME RTC.Intersection.RayTransformedSphere COMMAND RTC_RayTransformedSphereIntersection)
 add_test(NAME RTC.Intersection.Track COMMAND RTC_TrackingIntersections)
 add_test(NAME RTC.Intersection.Hit COMMAND RTC_HitIntersections)
