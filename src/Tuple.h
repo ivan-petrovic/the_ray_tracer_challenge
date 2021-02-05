@@ -33,12 +33,9 @@ namespace mn {
             return x != a.x || y != a.y || z != a.z || w != a.w;
         }
 
-//        // Assignment.  We adhere to C convention and
-//        // return reference to the lvalue
-//        Vector4 &operator =(const Vector4 &a) {
-//            x = a.x; y = a.y; z = a.z; w = a.w;
-//            return *this;
-//        }
+        // Assignment. We adhere to C convention and
+        // return reference to the lvalue
+        Tuple &operator =(const Tuple &a) = default;
 
         // Operations
 

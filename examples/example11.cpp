@@ -1,6 +1,6 @@
 //
 // Created by ivan on 5.12.2020..
-// Chapter 12: Cylinders and cones
+// Chapter 13: Cylinders and cones
 //
 #include "Tuple.h"
 #include "Matrix4x4.h"

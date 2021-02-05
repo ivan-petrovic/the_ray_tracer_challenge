@@ -7,10 +7,13 @@ bool computing_the_normal_on_a_translated_object();
 
 bool computing_the_normal_on_a_transformed_object();
 
+bool object_has_a_parent_attribute();
+
 int main() {
     if (
             computing_the_normal_on_a_translated_object() &&
-                    computing_the_normal_on_a_transformed_object())
+            computing_the_normal_on_a_transformed_object() &&
+            object_has_a_parent_attribute())
         return 0;
     return 1;
 }
@@ -27,10 +30,16 @@ bool computing_the_normal_on_a_translated_object() {
 
 bool computing_the_normal_on_a_transformed_object() {
     mn::TestObject object;
-    object.transform(mn::scaling(1.0, 0.5, 1.0) * mn::rotation_z(mn::kPi/5));
+    object.transform(mn::scaling(1.0, 0.5, 1.0) * mn::rotation_z(mn::kPi / 5));
 
     const double half_sqrt_of_2 = std::sqrt(2.0) / 2;
     mn::Vector n = object.normal_at(mn::make_point(0.0, half_sqrt_of_2, -half_sqrt_of_2));
 
     return mn::epsilon_equal(n, mn::make_vector(0.0, 0.97014, -0.24254), 0.00001);
+}
+
+bool object_has_a_parent_attribute() {
+    mn::TestObject object;
+
+    return !object.has_parent();
 }

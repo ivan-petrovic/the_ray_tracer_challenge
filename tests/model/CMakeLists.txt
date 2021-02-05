@@ -29,6 +29,9 @@ target_link_libraries(RTC_ObjectMaterial PRIVATE RTC_rtc)
 add_executable(RTC_ObjectNormals object_normals.cpp TestObject.h)
 target_link_libraries(RTC_ObjectNormals PRIVATE RTC_rtc)
 
+add_executable(RTC_Group create_group.cpp)
+target_link_libraries(RTC_Group PRIVATE RTC_rtc)
+
 #=========================
 # Testing
 #=========================
@@ -42,3 +45,4 @@ add_test(NAME RTC.Plane.Normal COMMAND RTC_PlaneNormal)
 add_test(NAME RTC.Object.Transformation COMMAND RTC_ObjectTransformation)
 add_test(NAME RTC.Object.Material COMMAND RTC_ObjectMaterial)
 add_test(NAME RTC.Object.Normals COMMAND RTC_ObjectNormals)
+add_test(NAME RTC.Group.Create COMMAND RTC_Group)

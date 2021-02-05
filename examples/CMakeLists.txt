@@ -31,3 +31,6 @@ target_link_libraries(EXAMPLE_Cubes PRIVATE RTC_rtc)
 
 add_executable(EXAMPLE_Cylinders example11.cpp)
 target_link_libraries(EXAMPLE_Cylinders PRIVATE RTC_rtc)
+
+add_executable(EXAMPLE_Groups example12.cpp)
+target_link_libraries(EXAMPLE_Groups PRIVATE RTC_rtc)

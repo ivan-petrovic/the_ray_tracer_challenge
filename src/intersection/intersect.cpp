@@ -8,7 +8,7 @@ namespace mn {
 
     void intersect(const Ray &ray, const Object &object, Intersections &intersections) {
         // convert the ray into object space
-        Ray object_ray = ray.transform(inverse(object.transform()));
+        Ray object_ray = ray.transform(inverse(object.chained_transform()));
 
         object.local_intersect(object_ray, intersections);
     }
