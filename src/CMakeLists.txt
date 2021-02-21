@@ -13,10 +13,10 @@ add_library(RTC_rtc
     pattern/RingPattern.h pattern/Checker3DPattern.h
     Material.h
     model/Object.h model/Sphere.h model/Plane.h model/Cube.h
-    model/Cylinder.h model/Cone.h model/Group.h
+    model/Cylinder.h model/Cone.h model/Group.h model/Triangle.h
     intersection/Intersections.cpp intersection/Intersections.h
     intersection/intersect.cpp intersection/intersect.h
     light/PointLight.h
     World.cpp World.h
     Camera.h
-    render.cpp render.h)
+    render.cpp render.h obj_parser/OBJ_Parser.cpp obj_parser/OBJ_Parser.h)

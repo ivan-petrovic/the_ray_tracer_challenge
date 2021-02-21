@@ -1,0 +1,14 @@
+//
+// Created by ivan on 21.2.2021..
+//
+
+#ifndef THE_RAY_TRACER_CHALLENGE_OBJ_PARSER_H
+#define THE_RAY_TRACER_CHALLENGE_OBJ_PARSER_H
+
+
+class OBJ_Parser {
+
+};
+
+
+#endif //THE_RAY_TRACER_CHALLENGE_OBJ_PARSER_H
