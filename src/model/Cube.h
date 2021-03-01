@@ -33,7 +33,7 @@ namespace mn {
 
         // We assume object_point is on the cube.
         // For example it is ray-cube intersection point.
-        [[nodiscard]] Vector local_normal_at(const Point &object_point) const override {
+        [[nodiscard]] Vector local_normal_at(const Point &object_point, Intersection intersection) const override {
             double abs_x = std::abs(object_point.x);
             double abs_y = std::abs(object_point.y);
             double abs_z = std::abs(object_point.z);

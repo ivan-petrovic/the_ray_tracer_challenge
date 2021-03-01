@@ -66,7 +66,7 @@ int main() {
 bool the_normal_vector_on_a_cylinder(mn::Point point, mn::Vector normal) {
     mn::Cylinder cylinder;
 
-    mn::Vector n = cylinder.local_normal_at(point);
+    mn::Vector n = cylinder.local_normal_at(point, {});
 
     return n == normal;
 }
@@ -77,7 +77,7 @@ bool the_normal_vector_on_end_caps_of_a_cylinder(mn::Point point, mn::Vector nor
     cylinder.maximum(2.0);
     cylinder.closed(true);
 
-    mn::Vector n = cylinder.local_normal_at(point);
+    mn::Vector n = cylinder.local_normal_at(point, {});
 
     return n == normal;
 }

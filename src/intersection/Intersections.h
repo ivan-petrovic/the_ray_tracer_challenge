@@ -19,6 +19,7 @@ namespace mn {
     struct Intersection {
         double t;
         const Object *object;
+        double u, v;
     };
 
     struct Hit {
@@ -41,6 +42,9 @@ namespace mn {
         [[nodiscard]] int count() const { return _intersections.size(); }
 
         void add(double t, const Object *o) { _intersections.push_back(Intersection{t, o}); }
+        void add(double t, const Object *o, double u, double v) {
+            _intersections.push_back(Intersection{t, o, u, v});
+        }
 
         const Intersection &operator[](int i) const { return _intersections[i]; } // no bound checking
 

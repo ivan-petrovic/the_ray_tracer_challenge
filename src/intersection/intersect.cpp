@@ -45,7 +45,7 @@ namespace mn {
         // precompute some useful values
         hit_data.point = ray.position(hit_data.t);
         hit_data.eye = -ray.direction();
-        hit_data.normal = intersection.object->normal_at(hit_data.point);
+        hit_data.normal = intersection.object->normal_at(hit_data.point, intersection);
 
         if (dot(hit_data.normal, hit_data.eye) < 0) {
             hit_data.inside = true;

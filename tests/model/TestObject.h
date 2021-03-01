@@ -21,7 +21,7 @@ namespace mn {
 
         // We assume object_point is on the object.
         // For example it is ray-object intersection point.
-        [[nodiscard]] Vector local_normal_at(const Point &object_point) const override {
+        [[nodiscard]] Vector local_normal_at(const Point &object_point, Intersection intersection) const override {
             return object_point;
         }
 

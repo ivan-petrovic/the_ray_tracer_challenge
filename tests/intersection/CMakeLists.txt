@@ -35,6 +35,9 @@ target_link_libraries(RTC_RayGroupIntersection PRIVATE RTC_rtc)
 add_executable(RTC_RayTriangleIntersection ray_triangle.cpp)
 target_link_libraries(RTC_RayTriangleIntersection PRIVATE RTC_rtc)
 
+add_executable(RTC_RaySmoothTriangleIntersection ray_smooth_triangle.cpp)
+target_link_libraries(RTC_RaySmoothTriangleIntersection PRIVATE RTC_rtc)
+
 #=========================
 # Testing
 #=========================
@@ -51,3 +54,4 @@ add_test(NAME RTC.Intersection.PrepareComputations COMMAND RTC_PrepareComputatio
 add_test(NAME RTC.Intersection.RayTransformedObject COMMAND RTC_RayTransformedObjectIntersection)
 add_test(NAME RTC.Intersection.RayGroup COMMAND RTC_RayGroupIntersection)
 add_test(NAME RTC.Intersection.RayTriangle COMMAND RTC_RayTriangleIntersection)
+add_test(NAME RTC.Intersection.RaySmoothTriangle COMMAND RTC_RaySmoothTriangleIntersection)

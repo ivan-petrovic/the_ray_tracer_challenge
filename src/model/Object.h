@@ -74,11 +74,11 @@ namespace mn {
 
         virtual void local_intersect(const Ray &ray, Intersections &intersections) const = 0;
 
-        [[nodiscard]] virtual Vector local_normal_at(const Point &object_point) const = 0;
+        [[nodiscard]] virtual Vector local_normal_at(const Point &object_point, Intersection intersection) const = 0;
 
-        [[nodiscard]] Vector normal_at(const Point &world_point) const {
+        [[nodiscard]] Vector normal_at(const Point &world_point, Intersection intersection = {}) const {
             Point object_point = world_to_object(world_point);
-            Vector object_normal = local_normal_at(object_point);
+            Vector object_normal = local_normal_at(object_point, intersection);
             return normal_to_world(object_normal);
         }
 

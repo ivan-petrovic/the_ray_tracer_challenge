@@ -41,7 +41,7 @@ namespace mn {
 
         // We assume object_point is on the sphere.
         // For example it is ray-sphere intersection point.
-        [[nodiscard]] Vector local_normal_at(const Point &object_point) const override {
+        [[nodiscard]] Vector local_normal_at(const Point &object_point, Intersection intersection) const override {
             // We need to lose w = 1; for vectors it should be w = 0
             // That's why we subtract origin point
             return object_point - mn::make_point(0.0, 0.0, 0.0);

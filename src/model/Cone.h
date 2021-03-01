@@ -68,7 +68,7 @@ namespace mn {
 
         // We assume object_point is on the cone.
         // For example it is ray-cone intersection point.
-        [[nodiscard]] Vector local_normal_at(const Point &object_point) const override {
+        [[nodiscard]] Vector local_normal_at(const Point &object_point, Intersection intersection) const override {
             // compute the square of the distance from the y axis
             const double dist = object_point.x * object_point.x + object_point.z * object_point.z;
 

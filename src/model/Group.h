@@ -33,7 +33,7 @@ namespace mn {
 
         // This should not be called.
         // Consider throwing an exception. For now return zero vector.
-        [[nodiscard]] Vector local_normal_at(const Point &object_point) const override {
+        [[nodiscard]] Vector local_normal_at(const Point &object_point, Intersection intersection) const override {
             return mn::make_vector(0.0, 0.0, 0.0);
         }
 

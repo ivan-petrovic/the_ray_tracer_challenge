@@ -42,7 +42,7 @@ int main() {
 bool the_normal_vector_on_a_cone(mn::Point point, mn::Vector normal) {
     mn::Cone cone;
 
-    mn::Vector n = cone.local_normal_at(point);
+    mn::Vector n = cone.local_normal_at(point, {});
 
     return n == normal;
 }
@@ -53,7 +53,7 @@ bool the_normal_vector_on_end_caps_of_a_cone(mn::Point point, mn::Vector normal)
     cone.maximum(2.0);
     cone.closed(true);
 
-    mn::Vector n = cone.local_normal_at(point);
+    mn::Vector n = cone.local_normal_at(point, {});
 
     return n == normal;
 }

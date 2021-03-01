@@ -53,7 +53,7 @@ int main() {
 bool the_normal_on_the_surface_of_a_cube(mn::Point point, mn::Vector normal) {
     mn::Cube cube;
 
-    mn::Vector n = cube.local_normal_at(point);
+    mn::Vector n = cube.local_normal_at(point, {});
 
     return n == normal;
 }

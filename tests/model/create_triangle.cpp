@@ -36,9 +36,9 @@ bool test_normal_on_triangle() {
     mn::Point p3 = mn::make_point(1.0, 0.0, 0.0);
     mn::Triangle triangle(p1, p2, p3);
 
-    mn::Vector n1 = triangle.local_normal_at(mn::make_point(0.0,0.5, 0.0));
-    mn::Vector n2 = triangle.local_normal_at(mn::make_point(-0.5,0.75, 0.0));
-    mn::Vector n3 = triangle.local_normal_at(mn::make_point(0.5,0.25, 0.0));
+    mn::Vector n1 = triangle.local_normal_at(mn::make_point(0.0,0.5, 0.0), {});
+    mn::Vector n2 = triangle.local_normal_at(mn::make_point(-0.5,0.75, 0.0), {});
+    mn::Vector n3 = triangle.local_normal_at(mn::make_point(0.5,0.25, 0.0), {});
 
     if (triangle.normal() != n1) return false;
     if (triangle.normal() != n2) return false;

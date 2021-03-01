@@ -25,7 +25,7 @@ namespace mn {
 
         // We assume object_point is on the plane.
         // For example it is ray-plane intersection point.
-        [[nodiscard]] Vector local_normal_at(const Point &object_point) const override {
+        [[nodiscard]] Vector local_normal_at(const Point &object_point, Intersection intersection) const override {
             return mn::make_vector(0.0, 1.0, 0.0);
         }
 
