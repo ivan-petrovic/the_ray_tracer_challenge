@@ -9,7 +9,7 @@
 #include <memory>
 #include "Object.h"
 #include "../Ray.h"
-#include "intersection/intersect.h"
+#include "../intersection/intersect.h"
 
 namespace mn {
 

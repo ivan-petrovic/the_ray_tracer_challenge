@@ -24,17 +24,17 @@ namespace mn {
             _n = normalize(cross(_e2, _e1));
         }
 
-        Point p1() { return _p1; }
+        Point p1() const { return _p1; }
 
-        Point p2() { return _p2; }
+        Point p2() const { return _p2; }
 
-        Point p3() { return _p3; }
+        Point p3() const { return _p3; }
 
-        Vector normal() { return _n; }
+        Vector normal() const { return _n; }
 
-        Vector e1() { return _e1; }
+        Vector e1() const { return _e1; }
 
-        Vector e2() { return _e2; }
+        Vector e2() const { return _e2; }
 
         void local_intersect(const Ray &object_ray, Intersections &intersections) const override {
             Vector dir_cross_e2 = cross(object_ray.direction(), _e2);
