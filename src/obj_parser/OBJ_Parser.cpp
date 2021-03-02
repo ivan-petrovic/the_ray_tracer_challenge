@@ -5,6 +5,9 @@
 #include "OBJ_Parser.h"
 #include <fstream>
 #include <iostream>
+#include <algorithm>
+#include <iterator>
+#include <stdexcept>      // std::invalid_argument
 
 namespace mn {
 
@@ -26,137 +29,231 @@ namespace mn {
         _ignored_lines = 0;
         for (const std::string &line : lines) {
             if (!line.empty()) {
-                process_statement(line);
+                std::istringstream iss(line);
+                std::vector<std::string> tokens{
+                        std::istream_iterator<std::string>{iss},
+                        std::istream_iterator<std::string>{}
+                };
+                process_statement(tokens);
             }
         };
 
-        _current_triangle_index = 0;
+        _current_face_index = 0;
         for (const std::string &line : lines) {
             if (!line.empty()) {
-                process_statement_second_pass(line);
+                std::istringstream iss(line);
+                std::vector<std::string> tokens{
+                        std::istream_iterator<std::string>{iss},
+                        std::istream_iterator<std::string>{}
+                };
+                process_statement_second_pass(tokens);
             }
         };
     };
 
-    void OBJ_Parser::process_statement(const std::string &line) {
-        char c;
-        std::istringstream in(line);
-        in >> c;
+    void OBJ_Parser::process_statement(const std::vector<std::string> &tokens) {
+        std::string statement = tokens[0];
 
-        switch (c) {
-            case 'v':
-                if (!process_vertex_statement(in)) {
-                    ++_ignored_lines;
-                };
-                break;
-            case 'f':
-                if (!process_face_statement(in)) {
-                    ++_ignored_lines;
-                };
-                break;
-            case 'g':
-                if (!process_group_statement(in)) {
-                    ++_ignored_lines;
-                };
-                break;
-            default:
+        if (statement == "v") {
+            // std::cout << "vertex statement\n";
+            if (!process_vertex_statement(tokens)) {
                 ++_ignored_lines;
-                break;
+            };
+        } else if (statement == "vn") {
+            // std::cout << "vertex normal statement\n";
+            if (!process_vertex_normal_statement(tokens)) {
+                ++_ignored_lines;
+            };
+        } else if (statement == "f") {
+            // std::cout << "face statement\n";
+//            for (const auto &token : tokens) {
+//                std::cout << token << ";";
+//            }
+//            std::cout << "\n";
+            if (!process_face_statement(tokens)) {
+                ++_ignored_lines;
+            };
+        } else if (statement == "g") {
+            // std::cout << "group statement\n";
+            if (!process_group_statement(tokens)) {
+                ++_ignored_lines;
+            };
+        } else {
+            ++_ignored_lines;
         }
     }
 
-    void OBJ_Parser::process_statement_second_pass(const std::string &line) {
-        char c;
-        std::istringstream in(line);
-        in >> c;
+    void OBJ_Parser::process_statement_second_pass(const std::vector<std::string> &tokens) {
+        std::string statement = tokens[0];
 
-        switch (c) {
-            case 'f':
-                process_face_statement_second_pass(in);
-                break;
-            case 'g':
-                process_group_statement_second_pass(in);
-                break;
-            default:
-                break;
+        if (statement == "f") {
+            process_face_statement_second_pass(tokens);
+        } else if (statement == "g") {
+            process_group_statement_second_pass(tokens);
         }
     }
 
-    bool OBJ_Parser::process_vertex_statement(std::istringstream &in) {
-        double n1, n2, n3;
+    // Vertex statement has the following form:
+    // v -1 1 0
+    bool OBJ_Parser::process_vertex_statement(const std::vector<std::string> &tokens) {
+        double x, y, z;
 
-        if (!(in >> n1)) {
+        if (tokens.size() != 4) return false;
+
+        try {
+            x = std::stod(tokens[1]);
+        } catch (const std::invalid_argument &ia) {
+            // std::cout << "ERROR: " << tokens[1] << "\n";
             return false;
         }
-        if (!(in >> n2)) {
+        try {
+            y = std::stod(tokens[2]);
+        } catch (const std::invalid_argument &ia) {
             return false;
         }
-        if (!(in >> n3)) {
+        try {
+            z = std::stod(tokens[3]);
+        } catch (const std::invalid_argument &ia) {
             return false;
         }
 
-        _vertices.push_back(mn::make_point(n1, n2, n3));
+        _vertices.push_back(mn::make_point(x, y, z));
         return true;
     }
 
-    bool OBJ_Parser::process_face_statement(std::istringstream &in) {
-        std::vector<int> indices;
+    // Vertex normal statement has the following form:
+    // vn -1 1 0
+    bool OBJ_Parser::process_vertex_normal_statement(const std::vector<std::string> &tokens) {
+        double x, y, z;
 
-        int n;
-        while (in >> n) {
-            indices.push_back(n);
+        if (tokens.size() != 4) return false;
+
+        try {
+            x = std::stod(tokens[1]);
+        } catch (const std::invalid_argument &ia) {
+            return false;
         }
-
-        if (indices.size() < 3) {
+        try {
+            y = std::stod(tokens[2]);
+        } catch (const std::invalid_argument &ia) {
+            return false;
+        }
+        try {
+            z = std::stod(tokens[3]);
+        } catch (const std::invalid_argument &ia) {
             return false;
         }
 
-        fan_triangulation(indices);
+        _normals.push_back(mn::make_vector(x, y, z));
         return true;
     }
 
-    void OBJ_Parser::process_face_statement_second_pass(std::istringstream &in) {
-        int cnt = 0;
-        int n;
-        while (in >> n) {
-            ++cnt;
+    // Faces statement has the following forms:
+    // f 1 2 3
+    // f 1 2 3 4 5
+    // f 1//3 2//1 3//2
+    // f 1/0/3 2/102/1 3/14/2
+    // but in one file can be either form with 3 values 1//3 or 1/2/3
+    // either form with 1 value, not both (that is assumption, code does not check for that)
+    bool OBJ_Parser::process_face_statement(const std::vector<std::string> &tokens) {
+        std::vector<int> indices_face;
+        std::vector<int> indices_normal;
+
+        for (int i = 1; i < tokens.size(); ++i) {
+            try {
+                std::vector<std::string> out;
+                tokenize_face_statement(tokens[i], '/', out);
+                // std::cout << "tokenize in face statement\n";
+//                for (const auto &f : out) {
+//                    std::cout << (!f.empty() ? f : "X") << ";";
+//                }
+//                std::cout << "\n";
+                if (out.size() == 1) {
+//                    std::cout << "just one\n";
+                    int f = std::stoi(out[0]);
+                    indices_face.push_back(f);
+                } else if (out.size() == 3) {
+                    // std::cout << "three\n";
+                    int f = std::stoi(out[0]);
+                    // out[1] (if not empty) contains texture coord; no support for that - for now :)
+                    int n = std::stoi(out[2]);
+                    indices_face.push_back(f);
+                    indices_normal.push_back(n);
+                } else {
+                    return false;
+                }
+
+            } catch (const std::invalid_argument &ia) {
+                return false;
+            }
         }
 
-        if (cnt < 3) {
-            return;
+        if (indices_face.size() < 3) return false;
+        if (!indices_normal.empty()) _faces_normals_data_present = true;
+
+        fan_triangulation(indices_face, indices_normal);
+        return true;
+    }
+
+    void OBJ_Parser::tokenize_face_statement(
+            std::string const &str,
+            char delim,
+            std::vector<std::string> &out
+    ) {
+        // construct a stream from the string
+        std::stringstream ss(str);
+
+        std::string s;
+        while (std::getline(ss, s, delim)) {
+            out.push_back(s);
         }
+    }
+
+    void OBJ_Parser::process_face_statement_second_pass(const std::vector<std::string> &tokens) {
+        auto cnt = tokens.size() - 1; // - first token 'f'
+        if (cnt < 3) return;
 
         mn::Group &current_group = *_groups[_current_group];
-        for (int i = 0; i < cnt - 2; ++i) {
-            current_group.add_child(&_triangles[_current_triangle_index + i]);
+        if (!_faces_normals_data_present) {
+            for (int i = 0; i < cnt - 2; ++i) {
+                current_group.add_child(&_triangles[_current_face_index + i]);
+            }
+        } else {
+            for (int i = 0; i < cnt - 2; ++i) {
+                current_group.add_child(&_smooth_triangles[_current_face_index + i]);
+            }
         }
-        _current_triangle_index += cnt - 2;
+        _current_face_index += cnt - 2;
     }
 
-    bool OBJ_Parser::process_group_statement(std::istringstream &in) {
-        std::string name;
+    // Group statement has the following form:
+    // g <group name>
+    bool OBJ_Parser::process_group_statement(const std::vector<std::string> &tokens) {
+        if (tokens.size() != 2) return false;
 
-        if (!(in >> name)) {
-            return false;
-        }
-
-        _groups[name] = std::make_unique<Group>();
+        _groups[tokens[1]] = std::make_unique<Group>();
         return true;
     }
 
-    void OBJ_Parser::process_group_statement_second_pass(std::istringstream &in) {
-        std::string name;
-
-        if (!(in >> name)) {
-            return;
-        }
-
-        _current_group = name;
+    void OBJ_Parser::process_group_statement_second_pass(const std::vector<std::string> &tokens) {
+        _current_group = tokens[1];
     }
 
-    void OBJ_Parser::fan_triangulation(const std::vector<int> &v) {
-        for (int i = 1; i < v.size() - 1; ++i) {
-            _triangles.emplace_back(Triangle(_vertices[v[0]], _vertices[v[i]], _vertices[v[i + 1]]));
+    void OBJ_Parser::fan_triangulation(const std::vector<int> &v, const std::vector<int> &n) {
+        // there is no data about normals for face
+        if (!_faces_normals_data_present) {
+            for (int i = 1; i < v.size() - 1; ++i) {
+                _triangles.emplace_back(Triangle(_vertices[v[0]], _vertices[v[i]], _vertices[v[i + 1]]));
+            }
+        } else {
+            for (int i = 1; i < v.size() - 1; ++i) {
+                _smooth_triangles.emplace_back(
+                        SmoothTriangle(
+                                _vertices[v[0]], _vertices[v[i]], _vertices[v[i + 1]],
+                                _normals[n[0]], _normals[n[i]], _normals[n[i + 1]]
+                        )
+                );
+            }
         }
     }
 

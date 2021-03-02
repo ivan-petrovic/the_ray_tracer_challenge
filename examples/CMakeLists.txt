@@ -37,3 +37,6 @@ target_link_libraries(EXAMPLE_Groups PRIVATE RTC_rtc)
 
 add_executable(EXAMPLE_Triangles example13.cpp)
 target_link_libraries(EXAMPLE_Triangles PRIVATE RTC_rtc)
+
+add_executable(EXAMPLE_SmoothTriangles example14.cpp)
+target_link_libraries(EXAMPLE_SmoothTriangles PRIVATE RTC_rtc)

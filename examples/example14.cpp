@@ -1,6 +1,6 @@
 //
 // Created by ivan on 1.3.2021..
-// Chapter 15: Triangles and OBJ files
+// Chapter 15: Smooth triangles and OBJ files
 //
 #include "Tuple.h"
 #include "Matrix4x4.h"
@@ -16,7 +16,7 @@
 
 int main() {
     mn::OBJ_Parser parser;
-    parser.parse_file("teapot.obj");
+    parser.parse_file("teapot-low.obj");
 
     auto group = mn::make_group();
     auto g = dynamic_cast<mn::Group *>(group.get());
@@ -35,11 +35,11 @@ int main() {
     world.set_light(p_light);
     world.add_object(group);
 
-    mn::Camera camera(300, 150, mn::kPi / 3.0);
+    mn::Camera camera(600, 300, mn::kPi / 3.0);
     camera.transform(
             mn::view_transform(
-                    mn::make_point(6.0, 4.0, -8.0),
-                    mn::make_point(0.0, 1.0, 0.0),
+                    mn::make_point(24.0, 16.0, -8.0),
+                    mn::make_point(0.0, 0.0, 0.0),
                     mn::make_vector(0.0, 1.0, 0.0)
             )
     );
@@ -48,7 +48,7 @@ int main() {
     mn::render(camera, world, canvas);
 
     mn::PPM ppm;
-    ppm.canvas_to_ppm(canvas, "triangles.ppm");
+    ppm.canvas_to_ppm(canvas, "smooth_triangles.ppm");
 
     return 0;
 }
