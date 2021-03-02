@@ -4,7 +4,6 @@
 
 #include "OBJ_Parser.h"
 #include <fstream>
-#include <iostream>
 #include <algorithm>
 #include <iterator>
 #include <stdexcept>      // std::invalid_argument
@@ -55,26 +54,18 @@ namespace mn {
         std::string statement = tokens[0];
 
         if (statement == "v") {
-            // std::cout << "vertex statement\n";
             if (!process_vertex_statement(tokens)) {
                 ++_ignored_lines;
             };
         } else if (statement == "vn") {
-            // std::cout << "vertex normal statement\n";
             if (!process_vertex_normal_statement(tokens)) {
                 ++_ignored_lines;
             };
         } else if (statement == "f") {
-            // std::cout << "face statement\n";
-//            for (const auto &token : tokens) {
-//                std::cout << token << ";";
-//            }
-//            std::cout << "\n";
             if (!process_face_statement(tokens)) {
                 ++_ignored_lines;
             };
         } else if (statement == "g") {
-            // std::cout << "group statement\n";
             if (!process_group_statement(tokens)) {
                 ++_ignored_lines;
             };
@@ -103,7 +94,6 @@ namespace mn {
         try {
             x = std::stod(tokens[1]);
         } catch (const std::invalid_argument &ia) {
-            // std::cout << "ERROR: " << tokens[1] << "\n";
             return false;
         }
         try {
@@ -163,17 +153,10 @@ namespace mn {
             try {
                 std::vector<std::string> out;
                 tokenize_face_statement(tokens[i], '/', out);
-                // std::cout << "tokenize in face statement\n";
-//                for (const auto &f : out) {
-//                    std::cout << (!f.empty() ? f : "X") << ";";
-//                }
-//                std::cout << "\n";
                 if (out.size() == 1) {
-//                    std::cout << "just one\n";
                     int f = std::stoi(out[0]);
                     indices_face.push_back(f);
                 } else if (out.size() == 3) {
-                    // std::cout << "three\n";
                     int f = std::stoi(out[0]);
                     // out[1] (if not empty) contains texture coord; no support for that - for now :)
                     int n = std::stoi(out[2]);
@@ -261,10 +244,8 @@ namespace mn {
         if (_obj_to_group == nullptr) {
             _obj_to_group = std::make_unique<Group>();
             for (auto &group : _groups) {
-                // std::cout << group.first << "\t" << (group.second->empty() ? "empty" : "not empty") << "\n";
                 if (!group.second->empty()) {
                     _obj_to_group->add_child(group.second.get());
-                    // std::cout << group.first << "\t" << (long long)(group.second.get()) << "\n";
                 }
             }
         }

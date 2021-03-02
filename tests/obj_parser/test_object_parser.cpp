@@ -178,13 +178,6 @@ bool faces_with_normals() {
     // act
     parser.parse_lines(lines);
 
-//    std::cout << "parser: " << parser.smooth_triangles()[0].normal1().x << '\n';
-//    std::cout << "parser: " << parser.smooth_triangles()[0].normal1().y << '\n';
-//    std::cout << "parser: " << parser.smooth_triangles()[0].normal1().z << '\n';
-//    std::cout << "vertices: " << parser.vertices()[1].x << '\n';
-//    std::cout << "vertices: " << parser.vertices()[1].y << '\n';
-//    std::cout << "vertices: " << parser.vertices()[1].z << '\n';
-
     // assert
     bool triangle_data = parser.smooth_triangles()[0].p1() == parser.vertices()[1] &&
                          parser.smooth_triangles()[0].p2() == parser.vertices()[2] &&
@@ -273,15 +266,5 @@ bool converting_an_obj_file_to_a_group() {
     const mn::Group &group1 = parser.group("FirstGroup");
     const mn::Group &group2 = parser.group("SecondGroup");
 
-//    std::cout << "group.objects[0]: " << (long long) group.objects()[0] << "\n";
-//    std::cout << "group.objects[1]: " << (long long) group.objects()[1] << "\n";
-//    std::cout << "FirstGroup:  " << (long long) &group1 << "\n";
-//    std::cout << "SecondGroup: " << (long long) &group2 << "\n";
-
     return group.objects()[1] == &group1 && group.objects()[0] == &group2;
 }
-//    std::cout << "Test triangle 0: " << (long long) (&(parser.triangles()[0])) << "\n";
-//    std::cout << "Test triangle 1: " << (long long) (&(parser.triangles()[1])) << "\n";
-//
-//    std::cout << "Test FirstGroup  0: " << (long long) group1.objects()[0] << "\n";
-//    std::cout << "Test SecondGroup 1: " << (long long) group2.objects()[0] << "\n";
