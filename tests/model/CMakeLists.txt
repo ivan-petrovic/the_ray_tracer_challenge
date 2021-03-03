@@ -38,6 +38,9 @@ target_link_libraries(RTC_Triangle PRIVATE RTC_rtc)
 add_executable(RTC_SmoothTriangle create_smooth_triangle.cpp)
 target_link_libraries(RTC_SmoothTriangle PRIVATE RTC_rtc)
 
+add_executable(RTC_CSG create_csg.cpp)
+target_link_libraries(RTC_CSG PRIVATE RTC_rtc)
+
 #=========================
 # Testing
 #=========================
@@ -54,3 +57,4 @@ add_test(NAME RTC.Object.Normals COMMAND RTC_ObjectNormals)
 add_test(NAME RTC.Group.Create COMMAND RTC_Group)
 add_test(NAME RTC.Triangle.Create COMMAND RTC_Triangle)
 add_test(NAME RTC.SmoothTriangle.Create COMMAND RTC_SmoothTriangle)
+add_test(NAME RTC.CSG.Create COMMAND RTC_CSG)

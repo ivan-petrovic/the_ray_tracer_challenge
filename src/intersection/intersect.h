@@ -18,6 +18,8 @@ namespace mn {
 
     void intersect(const Ray &ray, const World &world, Intersections &intersections);
 
+    bool intersection_allowed(int op, bool left_hit, bool in_left, bool in_right);
+
     Intersection find_hit(Intersections &intersections);
 
     Hit prepare_computations(const Intersection &intersection, const Ray &ray, const Intersections &intersections);

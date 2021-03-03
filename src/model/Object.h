@@ -47,6 +47,8 @@ namespace mn {
             return inverse(_transform) * point;
         }
 
+        virtual bool includes(const Object * obj) const { return this == obj; }
+
         [[nodiscard]] Point normal_to_world(Vector n) const {
             n = transpose(inverse(_transform)) * n;
             n.w = 0.0;

@@ -16,15 +16,18 @@ namespace mn {
     class Group : public Object {
     public:
         Group() : Object() {}
-        [[nodiscard]] const std::vector<Object*> &objects() const { return _objects; }
-        void add_child(Object* p_object) {
+
+        [[nodiscard]] const std::vector<Object *> &objects() const { return _objects; }
+
+        void add_child(Object *p_object) {
             _objects.push_back(p_object);
             p_object->set_parent(this);
         }
+
         bool empty() { return _objects.empty(); }
 
         void local_intersect(const Ray &object_ray, Intersections &intersections) const override {
-            for (const Object* object : _objects) {
+            for (const Object *object : _objects) {
                 intersect(object_ray, *object, intersections);
             };
 
@@ -37,8 +40,15 @@ namespace mn {
             return mn::make_vector(0.0, 0.0, 0.0);
         }
 
+        bool includes(const Object *obj) const override {
+            for (const Object *object : _objects) {
+                if (object->includes(obj)) return true;
+            }
+            return false;
+        }
+
     private:
-        std::vector<Object*> _objects;
+        std::vector<Object *> _objects;
     };
 
     inline std::unique_ptr<Object> make_group() {

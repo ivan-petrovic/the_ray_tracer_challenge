@@ -3,6 +3,7 @@
 //
 #include <algorithm>    // std::find
 #include "intersect.h"
+#include "../model/CSG.h"
 
 namespace mn {
 
@@ -34,6 +35,20 @@ namespace mn {
         }
         intersections.sort();
     }
+
+    bool intersection_allowed(int op, bool left_hit, bool in_left, bool in_right) {
+        if (op == mn::CSG::UNION) {
+            return (left_hit && !in_right) || (!left_hit && !in_left);
+        } else if (op == mn::CSG::INTERSECTION) {
+            return (left_hit && in_right) || (!left_hit && in_left);
+        } else if (op == mn::CSG::DIFFERENCE) {
+            return (left_hit && !in_right) || (!left_hit && in_left);
+        }
+
+        // default answer
+        return false;
+    }
+
 
     Hit prepare_computations(const Intersection &intersection, const Ray &ray, const Intersections &intersections) {
         Hit hit_data{};

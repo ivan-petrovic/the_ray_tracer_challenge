@@ -15,6 +15,7 @@ add_library(RTC_rtc
     model/Object.h model/Sphere.h model/Plane.h model/Cube.h
     model/Cylinder.h model/Cone.h model/Group.h
     model/Triangle.h model/SmoothTriangle.h
+    model/CSG.h
     intersection/Intersections.cpp intersection/Intersections.h
     intersection/intersect.cpp intersection/intersect.h
     light/PointLight.h
