@@ -34,6 +34,9 @@ namespace mn {
 
         [[nodiscard]] Vector e2() const { return _e2; }
 
+        // Fast, Minimum Storage Ray-Triangle Intersection
+        // Tomas Moller & Ben Trumbore
+        // https://www.tandfonline.com/doi/abs/10.1080/10867651.1997.10487468
         void local_intersect(const Ray &object_ray, Intersections &intersections) const override {
             Vector dir_cross_e2 = cross(object_ray.direction(), _e2);
             double det = dot(_e1, dir_cross_e2);

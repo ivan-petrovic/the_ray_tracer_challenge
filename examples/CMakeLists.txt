@@ -43,3 +43,6 @@ target_link_libraries(EXAMPLE_SmoothTriangles PRIVATE RTC_rtc)
 
 add_executable(EXAMPLE_CSG example15.cpp)
 target_link_libraries(EXAMPLE_CSG PRIVATE RTC_rtc)
+
+add_executable(EXAMPLE_COVER cover.cpp)
+target_link_libraries(EXAMPLE_COVER PRIVATE RTC_rtc)
